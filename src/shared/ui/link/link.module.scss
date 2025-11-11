@@ -1,0 +1,13 @@
+.link {
+  font-family: 'Moscow Sans';
+  font-weight: 400;
+  color: $black-color;
+  text-decoration: none;
+
+  &:hover {
+    color: $red-color;
+    text-decoration: underline;
+  }
+
+  transition: color 0.3s ease;
+}

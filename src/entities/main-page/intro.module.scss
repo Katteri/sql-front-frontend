@@ -1,0 +1,34 @@
+.introSection {
+  background-image: url('/images/main-page-background.png');
+  background-size: 100%;
+  background-position: right 13vw;
+  background-repeat: no-repeat;
+  background-attachment: local;
+  min-height: 100vh;
+  position: relative;
+}
+
+.menuBlock {
+  position: absolute;
+  top: 2vw;
+  right: 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2vw;
+}
+
+.title {
+  display: block;
+  margin: 4.5vw 0 0 3.5vw;
+}
+
+.subTitle { 
+  display: block;
+  font-size: 13.5vw;
+  margin: 1vw 0 0 1.7vw;
+}
+
+.textLink {
+  color: inherit;
+  text-decoration: none;
+}
