@@ -24,10 +24,14 @@ const eslintConfig = [
   ...compat.config({
     extends: ["next/core-web-vitals", "next/typescript", "prettier"],
     rules: {
+      curly: ["error", "all"],
       semi: ["error"],
       quotes: ["error", "double"],
       "prefer-arrow-callback": ["error"],
       "prefer-template": ["error"],
+      "no-unused-vars": "warn",
+      "eol-last": "error",
+      "sort-imports": ["error", { ignoreDeclarationSort: true }],
     },
   }),
 ];
