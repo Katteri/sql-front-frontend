@@ -17,4 +17,4 @@ export const MenuIcon = ({ color=BLACK_COLOR }: MenuProps) => {
       <div></div>
     </div>
   );
-}
+};

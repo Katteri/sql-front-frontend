@@ -1,4 +1,3 @@
-import { BLACK_COLOR } from "@/shared/ui/colors";
 import { Link } from "@/shared/ui/link/link";
 import { Title } from "@/shared/ui/title/title";
 
@@ -19,7 +18,7 @@ export const IntroSection = () => {
       </Title>
       <Title
         size="2.39vw"
-        color={BLACK_COLOR}
+        color="black"
         as="p"
         letterSpacing="0.1vw"
         margin="-1.5vw 0 0 11.3vw"

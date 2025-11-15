@@ -1,21 +1,21 @@
-import { BLACK_COLOR, WHITE_COLOR } from "../colors";
+import { colors } from "../colors";
 
 import styles from "./text.module.scss";
 
 type TextProps = {
   size: string,
-  color?: typeof WHITE_COLOR | typeof BLACK_COLOR,
+  color?: keyof typeof colors,
   lineHeight?: string,
   className?: string,
   children: React.ReactNode,
 }
 
-export const Text = ({ size, className, lineHeight="125%", color = BLACK_COLOR, children }: TextProps) => {
+export const Text = ({ size, className, lineHeight="125%", color="black", children }: TextProps) => {
  return (
   <p
     className={`${styles.text} ${className}`}
     style={{
-      color,
+      color: colors[color],
       lineHeight,
       fontSize: size,
     }}

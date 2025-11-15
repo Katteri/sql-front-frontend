@@ -1,5 +1,4 @@
 import { Text } from "../../../shared/ui/text/text";
-import { WHITE_COLOR } from "../../../shared/ui/colors";
 
 import styles from "./description-content.module.scss";
 
@@ -10,14 +9,14 @@ export const DescriptionContent = () => {
       <div className={styles.textArea}>
         <Text
           size="1.8vw"
-          color={WHITE_COLOR}
+          color="white"
           className={styles.textHeading}
         >
           Великая Отечественная война — не только испытание
         </Text>
         <Text
           size="1vw"
-          color={WHITE_COLOR}
+          color="white"
           className={styles.textBlock}
         >
           <span>но и величайшее наследие мужества, стратегии и силы разума.</span>

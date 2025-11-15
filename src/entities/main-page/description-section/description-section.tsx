@@ -1,5 +1,4 @@
 import { Title } from "@/shared/ui/title/title";
-import { WHITE_COLOR } from "@/shared/ui/colors";
 
 import styles from "./description-section.module.scss";
 import { DescriptionContent } from "./description-content";
@@ -10,11 +9,11 @@ export const DescriptionSection = () => {
       <DescriptionContent/>
       <Title
         size="5.5vw"
-        color={WHITE_COLOR}
+        color="white"
         as="p"
         letterSpacing="2vw"
       >
-        ........................................
+        .........................................
       </Title>
     </section>
   );
