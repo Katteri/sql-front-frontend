@@ -7,9 +7,9 @@ import styles from "./start-guide-section.module.scss";
 
 import { lightCodeMirrorTheme } from "@/shared/ui/codeMirrorThemes";
 
-export const StartGuideSection = () => {
+export const StartGuideSection = ({ id }: { id: string }) => {
   return (
-    <section>
+    <section id={id}>
       <div className={styles.startGuideSection}>
         <Title
           size="18.5vw"

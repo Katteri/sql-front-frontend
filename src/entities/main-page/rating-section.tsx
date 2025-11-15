@@ -2,9 +2,9 @@ import { Title } from "@/shared/ui/title/title";
 import { RatingTable } from "@/shared/ui/rating-table/rating-table";
 import styles from "./rating-section.module.scss"
 
-export const RatingSection = () => {
+export const RatingSection = ({ id }: { id: string }) => {
   return (
-    <section className={styles.ratingSection}>
+    <section id={id} className={styles.ratingSection}>
       <Title
         margin="5vw 0 3vw 0"
         as="h3"

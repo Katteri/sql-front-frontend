@@ -1,16 +1,16 @@
-import { BLACK_COLOR, RED_COLOR, WHITE_COLOR } from "../colors";
+import { colors } from "../colors";
 
-import styles from "./menu.module.scss";
+import styles from "./menu-icon.module.scss";
 
 type MenuProps = {
-  color?: typeof BLACK_COLOR | typeof RED_COLOR | typeof WHITE_COLOR,
+  color?: keyof typeof colors,
 };
 
-export const MenuIcon = ({ color=BLACK_COLOR }: MenuProps) => {
+export const MenuIcon = ({ color="black" }: MenuProps) => {
   return (
     <div
       className={styles.menu}
-      style={{color}}
+      style={{ color: colors[color] }}
     >
       <div></div>
       <div></div>
