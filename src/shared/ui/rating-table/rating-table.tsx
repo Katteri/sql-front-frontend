@@ -8,7 +8,7 @@ export const RatingTable = () => {
     <table className={styles.ratingTable}>
       <tbody>
         {data.map(({ name, score }, index) => (
-          <tr>
+          <tr key={index}>
             <td>{index+1}</td>
             <td>{name}</td>
             <td>{score}</td>

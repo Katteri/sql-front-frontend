@@ -12,7 +12,7 @@ export const useActiveSection = <T extends string>(ids: readonly T[]) => {
           if (entry.isIntersecting) {
             setActive(entry.target.id as T);
           }
-        })
+        });
       },
       {
         threshold: 0,

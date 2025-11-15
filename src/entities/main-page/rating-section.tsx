@@ -1,6 +1,6 @@
 import { Title } from "@/shared/ui/title/title";
 import { RatingTable } from "@/shared/ui/rating-table/rating-table";
-import styles from "./rating-section.module.scss"
+import styles from "./rating-section.module.scss";
 
 export const RatingSection = ({ id }: { id: string }) => {
   return (
