@@ -5,7 +5,7 @@ import { Text } from "@/shared/ui/text/text";
 
 import styles from "./start-guide-section.module.scss";
 
-import { lightCodeMirrorTheme } from "@/shared/ui/codeMirrorThemes";
+import { lightCodeMirrorTheme } from "@/shared/ui/code-mirror/code-mirror-theme-light";
 
 export const StartGuideSection = ({ id }: { id: string }) => {
   return (

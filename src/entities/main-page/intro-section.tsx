@@ -7,8 +7,8 @@ export const IntroSection = () => {
   return (
     <section className={styles.introSection}>
       <div className={styles.menuBlock}>
-        <Link href="/" size="1vw">Войти</Link> {/*TODO: replace with the right route*/}
-        <Link href="/" size="1vw">Зарегистрироваться</Link> {/*TODO: replace with the right route*/}
+        <Link href="/auth?type=login" size="1vw">войти</Link>
+        <Link href="/auth?type=register" size="1vw">зарегистрироваться</Link> {/*TODO: replace with the right route*/}
       </div>
       <Title
         size="15.8vw"
