@@ -8,7 +8,7 @@ export const IntroSection = () => {
     <section className={styles.introSection}>
       <div className={styles.menuBlock}>
         <Link href="/auth?type=login" size="1vw">войти</Link>
-        <Link href="/auth?type=register" size="1vw">зарегистрироваться</Link> {/*TODO: replace with the right route*/}
+        <Link href="/auth?type=register" size="1vw">зарегистрироваться</Link>
       </div>
       <Title
         size="15.8vw"
