@@ -1,12 +1,12 @@
-import { Link } from "../../link/link";
-import { Title } from "../../title/title";
+import { Link } from "../link/link";
+import { Title } from "../title/title";
+import { Drawer, type DrawerProps } from "./drawer";
+
 import styles from "./menu-drawer.module.scss";
 
-type MenuDrawerProps = {
-  isOpen: boolean,
-  currentPage: typeof menuCoonfig.authorized[number]["page"];
-  onClose: () => void,
-}
+type MenuDrawerProps = DrawerProps & {
+  currentPage: typeof menuCoonfig.authorized[number]["page"],
+};
 
 const menuCoonfig = {
   unauthorized: [
@@ -61,16 +61,10 @@ export const MenuDrawer = ({
 }: MenuDrawerProps) => {
   const config = menuCoonfig["authorized"];
   return (
-    <div
-      className={`${styles.menuDrawer} ${isOpen ? styles.open : ""}`}
+    <Drawer
+      isOpen={isOpen}
+      onClose={onClose}
     >
-      <button
-        className={styles.closeButton}
-        type="button"
-        onClick={onClose}
-      >
-        x
-      </button>
       <Title
         as="p"
         color="red"
@@ -83,6 +77,7 @@ export const MenuDrawer = ({
       >
         {config.map((link) => (
           <Link
+            key={link.page}
             href={link.href}
             size="1vw"
             onClick={onClose}
@@ -92,6 +87,6 @@ export const MenuDrawer = ({
           </Link>
         ))}
       </div>
-    </div>
+    </Drawer>
   );
 };

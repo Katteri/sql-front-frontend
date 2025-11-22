@@ -1,14 +1,17 @@
-.menuDrawer {
+.drawer {
+  --width: 25vw;
+  --padding: 2.3vw 1.5vw;
+
   position: fixed;
   top: 0;
   right: 0;
   z-index: 1100;
 
-  width: 25vw;
+  width: var(--width);
   height: 100vh;
   background-color: white;
 
-  padding: 2.3vw 1.5vw;
+  padding: var(--padding);
 
   opacity: 0;
   transform: translateX(100%);
@@ -17,18 +20,6 @@
   &.open {
     opacity: 1;
     transform: translateX(0);
-  }
-}
-
-.linksBlock{
-  display: flex;
-  flex-direction: column;
-  gap: 1vw;
-
-  margin-top: 3vw;
-
-  a {
-    width: fit-content;
   }
 }
 

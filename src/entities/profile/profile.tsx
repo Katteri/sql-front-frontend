@@ -1,7 +1,9 @@
 import { Button } from "@/shared/ui/button/button";
 import { Title } from "@/shared/ui/title/title";
-import { MenuDrawer } from "@/shared/ui/menu/drawers/menu-drawer";
-import { MenuIcon } from "@/shared/ui/menu/menu-icon";
+import { ProfileInfoDrawer } from "@/shared/ui/drawers/profile-info-drawer";
+import { MenuDrawer } from "@/shared/ui/drawers/menu-drawer";
+import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
+import { Overlay } from "@/shared/ui/drawers/overlay/overlay";
 
 import { useProfileData } from "./use-profile-data";
 import styles from "./profile.module.scss";
@@ -14,23 +16,9 @@ const titleFontSizeConfig: Record<number, string>= {
   28: "8vw",
 };
 
-const buttonsConfig = [
-  {
-    text: "данные профиля",
-    drawer: "",
-  },
-  {
-    text: "прогресс по задачам",
-    drawer: "",
-  },
-  {
-    text: "достижения",
-    drawer: "",
-  },
-]
-
 export const Profile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileInfoOpen, setIsProfileInfoOpen] = useState(false);
 
   const profileData = useProfileData();
 
@@ -48,20 +36,60 @@ export const Profile = () => {
   }, [profileData.login]);
 
   const toggleMenu = useCallback(() => {
-      setIsMenuOpen((prev) => !prev);
-    }, [setIsMenuOpen]);
-  
-  const closeMenu = useCallback(() => {
-    setIsMenuOpen(false);
+    setIsMenuOpen((prev) => !prev);
   }, [setIsMenuOpen]);
+
+  const toggleProfileInfo = useCallback(() => {
+    setIsProfileInfoOpen((prev) => !prev);
+  }, [setIsProfileInfoOpen]);
+
+  const OverlayHandler = useCallback(() => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+    if (isProfileInfoOpen) {
+      setIsProfileInfoOpen(false);
+    }
+  }, [isMenuOpen, isProfileInfoOpen]);
+
+  const isAnyDrawerOpen = isMenuOpen || isProfileInfoOpen;
+
+  const buttonsConfig = useMemo(() => [
+    {
+      text: "данные профиля",
+      onClick: toggleProfileInfo,
+    },
+    {
+      text: "прогресс по задачам",
+      onClick: () => {},
+    },
+    {
+      text: "достижения",
+      onClick: () => {},
+    },
+  ], [toggleProfileInfo]);
 
   return (
     <section
       className={styles.profile}
     >
-      {isMenuOpen && <div className={styles.overlay} onClick={closeMenu}></div>}
+      {isAnyDrawerOpen && <Overlay onClick={OverlayHandler}/>}
       <MenuIcon color="white" onClick={toggleMenu}/>
-      <MenuDrawer isOpen={isMenuOpen} onClose={closeMenu} currentPage="profile"/>
+      <MenuDrawer
+        isOpen={isMenuOpen}
+        onClose={toggleMenu}
+        currentPage="profile"
+      />
+      <ProfileInfoDrawer
+        isOpen={isProfileInfoOpen}
+        onClose={toggleProfileInfo}
+        profileData={{
+          login: profileData.login,
+          fullname: profileData.fullname,
+          group: profileData.group,
+          email: profileData.email,
+        }}
+      />
       <Title
         color="white"
         as="p"
@@ -90,6 +118,7 @@ export const Profile = () => {
             width="15vw"
             padding="0.7vw"
             textAlign="left"
+            onClick={button.onClick}
           >
             {button.text}
           </Button>

@@ -5,7 +5,7 @@ import { colors } from "@/shared/ui/colors";
 
 import { formFieldsLogin } from "./form-fields-login";
 import { formFieldsRegister } from "./form-fields-register";
-import { Text } from "../text/text";
+import { Error } from "../form/error/error";
 import { Button } from "../button/button";
 import styles from "./form-auth.module.scss";
 
@@ -76,13 +76,11 @@ export const Form = ({ type }: { type: "login" | "register" }) => {
             {...register(field.name, field.rules)}
           />
           {errors[field.name]?.message &&
-            <Text
-              size="0.7vw"
+            <Error
+              message={errors[field.name]?.message}
               color={formStyle.errorColor}
               className={styles.error}
-            >
-              {errors[field.name]?.message}
-            </Text>
+            />
           }
         </div>
       ))}

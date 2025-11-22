@@ -1,0 +1,25 @@
+.editableRow {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.input {
+  font-family: 'Moscow Sans';
+  font-weight: 400;
+  color: $black-color;
+  font-size: 1vw;
+  width: 80%;
+  text-align: right;
+
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.error {
+  position: absolute;
+  right: 0;
+  top: 1.3vw;
+}

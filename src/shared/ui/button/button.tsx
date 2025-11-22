@@ -1,8 +1,9 @@
+import { ButtonHTMLAttributes } from "react";
 import { colors } from "../colors";
 
 import styles from "./button.module.scss";
 
-type ButtonProps = {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   color: keyof typeof colors,
   hoverColor: keyof typeof colors,
   width: string,
@@ -19,7 +20,8 @@ export const Button = ({
   padding,
   textAlign = "center",
   type = "button",
-  children
+  children,
+  ...props
 }: ButtonProps) => {
   return (
     <button
@@ -32,6 +34,7 @@ export const Button = ({
         "--padding": padding,
         textAlign,
       } as React.CSSProperties}
+      {...props}
     >
       {children}
     </button>

@@ -1,0 +1,11 @@
+.linksBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+
+  margin-top: 3vw;
+
+  a {
+    width: fit-content;
+  }
+}
