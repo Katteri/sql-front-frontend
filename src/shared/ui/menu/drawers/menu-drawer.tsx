@@ -26,7 +26,7 @@ const menuCoonfig = {
     },
     {
       text: "Мой профиль",
-      href: "",
+      href: "/profile",
     },
     {
       text: "Квест",

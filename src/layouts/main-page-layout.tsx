@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { DescriptionSection } from "@/entities/main-page/description-section/description-section";
 import { IntroSection } from "@/entities/main-page/intro-section";
-import { RatingSection } from "@/entities/main-page/rating-section";
+import { RatingSection } from "@/entities/main-page/rating-section/rating-section";
 import { StartGuideSection } from "@/entities/main-page/start-guide-section";
 import { Layout } from "@/shared/ui/layout/layout";
 import { MenuIcon } from "@/shared/ui/menu/menu-icon";

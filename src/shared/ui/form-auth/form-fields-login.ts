@@ -6,7 +6,7 @@ export const formFieldsLogin = [
     rules: {
       required: "введите логин",
       pattern: {
-        value: /^[a-z][a-z0-9_-]{1,30}[a-z0-9]$/,
+        value: /^[a-z][a-z0-9_-]{1,28}[a-z0-9]$/,
         message: "неверный логин",
       },
     },

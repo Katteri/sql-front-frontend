@@ -7,6 +7,7 @@ type ButtonProps = {
   hoverColor: keyof typeof colors,
   width: string,
   padding: string,
+  textAlign?: "left" | "center" | "right", 
   type?: "submit" | "reset" | "button", 
   children: string,
 }
@@ -16,6 +17,7 @@ export const Button = ({
   hoverColor,
   width,
   padding,
+  textAlign = "center",
   type = "button",
   children
 }: ButtonProps) => {
@@ -28,6 +30,7 @@ export const Button = ({
         "--hover-color": colors[hoverColor],
         "--width": width,
         "--padding": padding,
+        textAlign,
       } as React.CSSProperties}
     >
       {children}

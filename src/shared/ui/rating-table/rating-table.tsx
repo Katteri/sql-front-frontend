@@ -1,9 +1,11 @@
-import { useRatingData } from "./rating-table-model";
 import styles from "./rating-table.module.scss";
 
-export const RatingTable = () => {
-  const data = useRatingData();
+type RatingTaleDataProps = {
+  name: string,
+  score: number,
+}[];
 
+export const RatingTable = ({ data }: { data: RatingTaleDataProps }) => {
   return (
     <table className={styles.ratingTable}>
       <tbody>

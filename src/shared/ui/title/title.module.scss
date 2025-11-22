@@ -2,4 +2,8 @@
   font-family: 'Buran USSR';
   font-weight: 550;
   user-select: none;
+
+  word-break: break-all;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
