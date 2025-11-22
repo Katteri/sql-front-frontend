@@ -1,10 +1,11 @@
 import { Button } from "@/shared/ui/button/button";
 import { Title } from "@/shared/ui/title/title";
+import { MenuDrawer } from "@/shared/ui/menu/drawers/menu-drawer";
 import { MenuIcon } from "@/shared/ui/menu/menu-icon";
 
 import { useProfileData } from "./use-profile-data";
 import styles from "./profile.module.scss";
-import { useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 const titleFontSizeConfig: Record<number, string>= {
   7: "15vw",
@@ -29,6 +30,8 @@ const buttonsConfig = [
 ]
 
 export const Profile = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const profileData = useProfileData();
 
   const titleFontSize = useMemo(() => {
@@ -44,12 +47,21 @@ export const Profile = () => {
     return titleFontSizeConfig[lengths[lengths.length - 1]];
   }, [profileData.login]);
 
+  const toggleMenu = useCallback(() => {
+      setIsMenuOpen((prev) => !prev);
+    }, [setIsMenuOpen]);
   
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, [setIsMenuOpen]);
+
   return (
     <section
       className={styles.profile}
     >
-      <MenuIcon color="white" onClick={() => {}}/> {/* TODO: add menu drawer on click */}
+      {isMenuOpen && <div className={styles.overlay} onClick={closeMenu}></div>}
+      <MenuIcon color="white" onClick={toggleMenu}/>
+      <MenuDrawer isOpen={isMenuOpen} onClose={closeMenu} currentPage="profile"/>
       <Title
         color="white"
         as="p"

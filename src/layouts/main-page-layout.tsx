@@ -52,7 +52,7 @@ export const MainPageLayout = () => {
   return (
     <Layout>
       {isMenuOpen && <div className={styles.overlay} onClick={closeMenu}></div>}
-      <MenuDrawer isOpen={isMenuOpen} onClose={closeMenu}/>
+      <MenuDrawer isOpen={isMenuOpen} onClose={closeMenu} currentPage="main" />
       <MenuIcon
         color={activeSection ? colorBySection[activeSection] : "white"}
         onClick={toggleMenu}

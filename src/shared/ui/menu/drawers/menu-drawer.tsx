@@ -4,6 +4,7 @@ import styles from "./menu-drawer.module.scss";
 
 type MenuDrawerProps = {
   isOpen: boolean,
+  currentPage: typeof menuCoonfig.authorized[number]["page"];
   onClose: () => void,
 }
 
@@ -21,34 +22,41 @@ const menuCoonfig = {
   // TODO: add real hrefs
   authorized: [
     {
+      page: "main",
       text: "Главная",
       href: "/",
     },
     {
+      page: "profile",
       text: "Мой профиль",
       href: "/profile",
     },
     {
+      page: "quest",
       text: "Квест",
       href: "",
     },
     {
+      page: "tasks",
       text: "Задачи",
       href: "",
     },
     {
+      page: "achievements",
       text: "Достижения",
       href: "",
     },
     {
+      page: "logout",
       text: "Выйти",
       href: "",
     },
   ],
-}
+} as const;
 
 export const MenuDrawer = ({
   isOpen,
+  currentPage,
   onClose,
 }: MenuDrawerProps) => {
   const config = menuCoonfig["authorized"];
@@ -78,6 +86,7 @@ export const MenuDrawer = ({
             href={link.href}
             size="1vw"
             onClick={onClose}
+            underline={currentPage === link.page}
           >
             {link.text}
           </Link>
