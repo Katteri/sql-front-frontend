@@ -6,11 +6,20 @@ export const profileData = {
   score: 110,
 };
 
-export const progressData = {
-  easySolved: 10,
-  mediumSolved: 5,
-  hardSolved: 2,
-  easy: 30,
-  medium: 30,
-  hard: 30,
-};
+export const progressData = [
+  {
+    title: "Миссия 1",
+    solved: 13,
+    total: 30,
+  },
+  {
+    title: "Миссия 2",
+    solved: 5,
+    total: 30,
+  },
+  {
+    title: "Миссия 3",
+    solved: 2,
+    total: 30,
+  },
+];

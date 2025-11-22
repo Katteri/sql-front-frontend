@@ -1,11 +1,13 @@
 import { Button } from "@/shared/ui/button/button";
 import { Title } from "@/shared/ui/title/title";
 import { ProfileInfoDrawer } from "@/shared/ui/drawers/profile-info-drawer";
+import { TaskProgressDrawer } from "@/shared/ui/drawers/profile-task-progress-drawer";
 import { MenuDrawer } from "@/shared/ui/drawers/menu-drawer";
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { Overlay } from "@/shared/ui/drawers/overlay/overlay";
 
 import { useProfileData } from "./use-profile-data";
+import { useTaskProgressData } from "./use-task-progress-data";
 import styles from "./profile.module.scss";
 import { useCallback, useMemo, useState } from "react";
 
@@ -19,8 +21,10 @@ const titleFontSizeConfig: Record<number, string>= {
 export const Profile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileInfoOpen, setIsProfileInfoOpen] = useState(false);
+  const [isTaskProgressOpen, setIsTaskProgressOpen] = useState(false);
 
   const profileData = useProfileData();
+  const taskProgressData = useTaskProgressData();
 
   const titleFontSize = useMemo(() => {
     const length = profileData.login.length;
@@ -43,6 +47,10 @@ export const Profile = () => {
     setIsProfileInfoOpen((prev) => !prev);
   }, [setIsProfileInfoOpen]);
 
+  const toggleTaskProgress = useCallback(() => {
+    setIsTaskProgressOpen((prev) => !prev);
+  }, [setIsTaskProgressOpen])
+
   const OverlayHandler = useCallback(() => {
     if (isMenuOpen) {
       setIsMenuOpen(false);
@@ -50,9 +58,12 @@ export const Profile = () => {
     if (isProfileInfoOpen) {
       setIsProfileInfoOpen(false);
     }
-  }, [isMenuOpen, isProfileInfoOpen]);
+    if (isTaskProgressOpen) {
+      setIsTaskProgressOpen(false);
+    }
+  }, [isMenuOpen, isProfileInfoOpen, isTaskProgressOpen]);
 
-  const isAnyDrawerOpen = isMenuOpen || isProfileInfoOpen;
+  const isAnyDrawerOpen = isMenuOpen || isProfileInfoOpen || isTaskProgressOpen;
 
   const buttonsConfig = useMemo(() => [
     {
@@ -61,7 +72,7 @@ export const Profile = () => {
     },
     {
       text: "прогресс по задачам",
-      onClick: () => {},
+      onClick: toggleTaskProgress,
     },
     {
       text: "достижения",
@@ -83,12 +94,17 @@ export const Profile = () => {
       <ProfileInfoDrawer
         isOpen={isProfileInfoOpen}
         onClose={toggleProfileInfo}
-        profileData={{
+        data={{
           login: profileData.login,
           fullname: profileData.fullname,
           group: profileData.group,
           email: profileData.email,
         }}
+      />
+      <TaskProgressDrawer
+        isOpen={isTaskProgressOpen}
+        onClose={toggleTaskProgress}
+        data={taskProgressData}
       />
       <Title
         color="white"

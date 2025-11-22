@@ -9,7 +9,7 @@ import { useCallback, useEffect } from "react";
 import { EditableField } from "../form/editable-field/editabale-field";
 
 type ProfileInfoDrawerProps = DrawerProps & {
-  profileData: {
+  data: {
     login: string,
     fullname: string,
     group: string,
@@ -63,7 +63,7 @@ const formConfig = [
 export const ProfileInfoDrawer = ({
   isOpen,
   onClose,
-  profileData: { login, fullname, group, email }
+  data: { login, fullname, group, email }
 }: ProfileInfoDrawerProps ) => {
   const { control, handleSubmit, reset, formState: { errors, isDirty, isValid }, getValues } = useForm<FormType>({
     mode: "onChange",
