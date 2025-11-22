@@ -77,6 +77,7 @@ export const MenuDrawer = ({
           <Link
             href={link.href}
             size="1vw"
+            onClick={onClose}
           >
             {link.text}
           </Link>
