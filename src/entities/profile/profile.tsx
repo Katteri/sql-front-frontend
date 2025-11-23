@@ -1,12 +1,12 @@
 import { Button } from "@/shared/ui/button/button";
 import { Title } from "@/shared/ui/title/title";
-import { ProfileAchievementsDrawer } from "@/shared/ui/drawers/profile-achievements-drawer";
-import { ProfileInfoDrawer } from "@/shared/ui/drawers/profile-info-drawer";
-import { TaskProgressDrawer } from "@/shared/ui/drawers/profile-task-progress-drawer";
-import { MenuDrawer } from "@/shared/ui/drawers/menu-drawer";
+import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
-import { Overlay } from "@/shared/ui/drawers/overlay/overlay";
+import { Overlay } from "@/shared/ui/drawer/overlay/overlay";
 
+import { ProfileAchievementsDrawer } from "./drawers/profile-achievements-drawer";
+import { ProfileInfoDrawer } from "./drawers/profile-info-drawer";
+import { TaskProgressDrawer } from "./drawers/profile-task-progress-drawer";
 import { useProfileAchievementsData } from "./use-profile-achievements-data";
 import { useProfileData } from "./use-profile-data";
 import { useTaskProgressData } from "./use-task-progress-data";

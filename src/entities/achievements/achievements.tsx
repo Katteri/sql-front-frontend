@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
-import { MenuDrawer } from "@/shared/ui/drawers/menu-drawer";
-import { Overlay } from "@/shared/ui/drawers/overlay/overlay";
+import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
+import { Overlay } from "@/shared/ui/drawer/overlay/overlay";
 import { Title } from "@/shared/ui/title/title";
 
 import { useAchievementsData } from "./use-achievements-data";

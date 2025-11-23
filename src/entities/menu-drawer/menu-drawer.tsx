@@ -1,6 +1,6 @@
-import { Link } from "../link/link";
-import { Title } from "../title/title";
-import { Drawer, type DrawerProps } from "./drawer";
+import { Link } from "../../shared/ui/link/link";
+import { Title } from "../../shared/ui/title/title";
+import { Drawer, type DrawerProps } from "../../shared/ui/drawer/drawer";
 
 import styles from "./menu-drawer.module.scss";
 

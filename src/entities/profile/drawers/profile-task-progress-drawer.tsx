@@ -1,7 +1,7 @@
-import { Title } from "../title/title";
-import { Text } from "../text/text";
-import { ProgressBar } from "../progress-bar/progress-bar";
-import { Drawer, type DrawerProps } from "./drawer";
+import { Title } from "@/shared/ui/title/title";
+import { Text } from "@/shared/ui/text/text";
+import { ProgressBar } from "@/shared/ui/progress-bar/progress-bar";
+import { Drawer, type DrawerProps } from "@/shared/ui/drawer/drawer";
 
 import styles from "./profile-task-progress-drawer.module.scss";
 

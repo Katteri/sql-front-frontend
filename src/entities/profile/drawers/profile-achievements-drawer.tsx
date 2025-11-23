@@ -1,6 +1,6 @@
-import { Achievement } from "../achievement/achievement";
-import { Title } from "../title/title";
-import { Drawer, type DrawerProps } from "./drawer";
+import { Achievement } from "@/shared/ui/achievement/achievement";
+import { Title } from "@/shared/ui/title/title";
+import { Drawer, type DrawerProps } from "@/shared/ui/drawer/drawer";
 
 import styles from "./profile-achievements-drawer.module.scss";
 

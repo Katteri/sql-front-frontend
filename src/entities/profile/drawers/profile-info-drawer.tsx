@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 
-import { Button } from "../button/button";
-import { Title } from "../title/title";
-import { Drawer, type DrawerProps } from "./drawer";
+import { Button } from "@/shared/ui/button/button";
+import { Title } from "@/shared/ui/title/title";
+import { Drawer, type DrawerProps } from "@/shared/ui/drawer/drawer";
+import { EditableField } from "@/shared/ui/form/editable-field/editabale-field";
 
 import styles from "./profile-info-drawer.module.scss";
 import { useCallback, useEffect } from "react";
-import { EditableField } from "../form/editable-field/editabale-field";
 
 type ProfileInfoDrawerProps = DrawerProps & {
   data: {

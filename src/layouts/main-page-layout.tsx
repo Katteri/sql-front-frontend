@@ -8,8 +8,8 @@ import { Layout } from "@/shared/ui/layout/layout";
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { useActiveSection } from "./use-active-section";
 import { colors } from "@/shared/ui/colors";
-import { MenuDrawer } from "@/shared/ui/drawers/menu-drawer";
-import { Overlay } from "@/shared/ui/drawers/overlay/overlay";
+import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
+import { Overlay } from "@/shared/ui/drawer/overlay/overlay";
 
 const sectionIds = {
   description: "description",
