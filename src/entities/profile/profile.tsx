@@ -1,11 +1,13 @@
 import { Button } from "@/shared/ui/button/button";
 import { Title } from "@/shared/ui/title/title";
+import { ProfileAchievementsDrawer } from "@/shared/ui/drawers/profile-achievements-drawer";
 import { ProfileInfoDrawer } from "@/shared/ui/drawers/profile-info-drawer";
 import { TaskProgressDrawer } from "@/shared/ui/drawers/profile-task-progress-drawer";
 import { MenuDrawer } from "@/shared/ui/drawers/menu-drawer";
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { Overlay } from "@/shared/ui/drawers/overlay/overlay";
 
+import { useProfileAchievementsData } from "./use-profile-achievements-data";
 import { useProfileData } from "./use-profile-data";
 import { useTaskProgressData } from "./use-task-progress-data";
 import styles from "./profile.module.scss";
@@ -22,9 +24,11 @@ export const Profile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileInfoOpen, setIsProfileInfoOpen] = useState(false);
   const [isTaskProgressOpen, setIsTaskProgressOpen] = useState(false);
+  const [isAchievementsOpen, setIsAchievementsOpen] = useState(false);
 
   const profileData = useProfileData();
   const taskProgressData = useTaskProgressData();
+  const achievementsData = useProfileAchievementsData();
 
   const titleFontSize = useMemo(() => {
     const length = profileData.login.length;
@@ -51,6 +55,10 @@ export const Profile = () => {
     setIsTaskProgressOpen((prev) => !prev);
   }, [setIsTaskProgressOpen])
 
+  const toggleAchievements = useCallback(() => {
+    setIsAchievementsOpen((prev) => !prev);
+  }, [setIsAchievementsOpen]);
+
   const OverlayHandler = useCallback(() => {
     if (isMenuOpen) {
       setIsMenuOpen(false);
@@ -61,9 +69,12 @@ export const Profile = () => {
     if (isTaskProgressOpen) {
       setIsTaskProgressOpen(false);
     }
-  }, [isMenuOpen, isProfileInfoOpen, isTaskProgressOpen]);
+    if (isAchievementsOpen) {
+      setIsAchievementsOpen(false);
+    }
+  }, [isMenuOpen, isProfileInfoOpen, isTaskProgressOpen, isAchievementsOpen]);
 
-  const isAnyDrawerOpen = isMenuOpen || isProfileInfoOpen || isTaskProgressOpen;
+  const isAnyDrawerOpen = isMenuOpen || isProfileInfoOpen || isTaskProgressOpen || isAchievementsOpen;
 
   const buttonsConfig = useMemo(() => [
     {
@@ -76,7 +87,7 @@ export const Profile = () => {
     },
     {
       text: "достижения",
-      onClick: () => {},
+      onClick: toggleAchievements,
     },
   ], [toggleProfileInfo]);
 
@@ -105,6 +116,11 @@ export const Profile = () => {
         isOpen={isTaskProgressOpen}
         onClose={toggleTaskProgress}
         data={taskProgressData}
+      />
+      <ProfileAchievementsDrawer
+        isOpen={isAchievementsOpen}
+        onClose={toggleAchievements}
+        data={achievementsData}
       />
       <Title
         color="white"
