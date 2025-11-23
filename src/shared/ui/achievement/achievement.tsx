@@ -9,7 +9,7 @@ type AchievementProps = {
   category: string,
   historicalInfo: string,
   description: string,
-  achieved?: boolean,
+  isAchieved?: boolean,
 };
 
 export const Achievement = ({
@@ -18,7 +18,7 @@ export const Achievement = ({
   category,
   historicalInfo,
   description,
-  achieved = false,
+  isAchieved = false,
 }: AchievementProps) => {
   return (
     <div className={styles.achievement}>
@@ -30,6 +30,7 @@ export const Achievement = ({
           <Text>{description}</Text>
         </div>
       </div>
+      {isAchieved && <Text size="2vw">✓</Text>}
     </div>
   );
 };

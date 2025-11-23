@@ -44,7 +44,7 @@ const menuCoonfig = {
     {
       page: "achievements",
       text: "Достижения",
-      href: "",
+      href: "/achievements",
     },
     {
       page: "logout",
