@@ -39,7 +39,7 @@ const menuCoonfig = {
     {
       page: "tasks",
       text: "Задачи",
-      href: "",
+      href: "/tasks",
     },
     {
       page: "achievements",

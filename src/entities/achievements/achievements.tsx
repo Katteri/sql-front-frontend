@@ -40,7 +40,7 @@ export const Achievements = () => {
               size="2vw"
               color="black"
             >
-              {category}
+              {category.toLowerCase()}
             </Title>
           </div>
           <div className={styles.achievementsBlock}>
