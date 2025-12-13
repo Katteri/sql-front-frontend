@@ -4,7 +4,7 @@ import { HighlightStyle, syntaxHighlighting } from "@codemirror/language";
 import { tags as t } from "@lezer/highlight";
 
 
-import { WHITE_COLOR, BLACK_COLOR, RED_COLOR, RED_DARK, GRAY_DARK, RED_LIGHT, GRAY_MORE_LIGHT, GRAY_MID, BLACK_SOFT } from "../colors";
+import { BLACK_COLOR, BLACK_SOFT, GRAY_DARK, GRAY_MID, GRAY_MORE_LIGHT, RED_COLOR, RED_DARK, RED_LIGHT, WHITE_COLOR } from "../colors";
 
 const customLightTheme = EditorView.theme({
   "&": {

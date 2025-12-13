@@ -40,7 +40,7 @@ const formStyleConfig = {
       hoverColor: "grayMid" as keyof typeof colors,
     }
   }
-}
+};
 
 export const Form = ({ type }: { type: "login" | "register" }) => {
   const formStyle = formStyleConfig[type];
@@ -51,7 +51,7 @@ export const Form = ({ type }: { type: "login" | "register" }) => {
 
   const onSubmit = useCallback(() => {
     // TODO: add submit action
-  }, [type]);
+  }, []);
 
   return (
     <form

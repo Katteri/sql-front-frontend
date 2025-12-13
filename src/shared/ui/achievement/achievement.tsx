@@ -6,7 +6,6 @@ import styles from "./achievement.module.scss";
 type AchievementProps = {
   name: string,
   slug: string,
-  category: string,
   historicalInfo: string,
   description: string,
   isAchieved?: boolean,
@@ -15,7 +14,6 @@ type AchievementProps = {
 export const Achievement = ({
   name,
   slug,
-  category,
   historicalInfo,
   description,
   isAchieved = false,

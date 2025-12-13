@@ -17,18 +17,22 @@ import styles from "./tasks.module.scss";
 const images = [
   {
     src: "/images/tasks/image-1.png",
+    alt: "tasks background image 1",
     gridArea: "",
   },
   {
     src: "/images/tasks/image-2.png",
+    alt: "tasks background image 2",
     gridArea: "",
   },
   {
     src: "/images/tasks/image-3.png",
+    alt: "tasks background image 3",
     gridArea: "",
   },
   {
     src: "/images/tasks/image-4.png",
+    alt: "tasks background image 4",
     gridArea: "",
   },
 ];
@@ -47,7 +51,7 @@ const selectConfig = [
 ];
 
 export const Tasks = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const tasksData = useTasksData();
 
   const toggleMenu = useCallback(() => {
@@ -78,23 +82,47 @@ export const Tasks = () => {
           </div>
         ))}
       </div>
-      <div className={styles.tasksSection}>
-        {tasksData.map(({ missionId, tasks }) => (
-          <div>
-            <Title
-              as="p"
-              color="black"
-              size="2vw"
-            >
-              миссия <span style={{ fontSize: "1.73vw" }}>{missionId}</span>
-            </Title>
-            <div className={styles.tasksBlock}>
-              {tasks.map((task, index) => (
-                <Link href="/" isVisited={task.isSolved}>{index+1}. {task.title}</Link>
-              ))}
+      <div className={styles.content}>
+        <div className={styles.tasksSection}>
+          {tasksData.length > 0 ? tasksData.map(({ missionId, tasks }) => (
+            <div key={`mission-${missionId}`}> 
+              <Title
+                as="p"
+                color="black"
+                size="2vw"
+              >
+                миссия <span style={{ fontSize: "1.73vw" }}>{missionId}</span>
+              </Title>
+              <div className={styles.tasksBlock}>
+                {tasks.map((task, index) => (
+                  <Link
+                    href="/"
+                    isVisited={task.isSolved}
+                    key={`task-${index+1}`}
+                  >
+                    {index+1}. {task.title}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          )) : <Title
+                as="p"
+                color="black"
+                size="2vw"
+              >
+                нет задач
+              </Title>}
+        </div>
+        <div className={styles.images}>
+          {images.map(({src, alt}, index) => (
+            <img
+              key={src}
+              src={src}
+              alt={alt}
+              className={styles[`image${index+1}`]}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

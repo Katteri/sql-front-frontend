@@ -50,7 +50,7 @@ export const ProfileAchievementsDrawer = ({
             </div>
             <div className={styles.achievementsBlock}>
               {achievements.map((item) => (
-                <Achievement {...item} />
+                <Achievement {...item} key={item.name}/>
               ))}
             </div>
           </div>

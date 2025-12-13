@@ -1,8 +1,8 @@
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
 
 import { tasksData as data } from "./mock";
 import { TASK_DIFFICULTY_QUERY_PARAM, TASK_STATUS_QUERY_PARAM } from "./const";
-import { useCallback } from 'react';
+import { useCallback } from "react";
 
 type TaskType = {
   missionId: number,

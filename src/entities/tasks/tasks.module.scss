@@ -8,22 +8,6 @@
   align-items: center;
 }
 
-.tasksSection {
-  align-self: self-start;
-  padding-left: 7vw;
-}
-
-.tasksBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5vw;
-  margin: 1vw 0 3vw;
-
-  & a {
-    width: fit-content;
-  }
-}
-
 .selectBlock {
   width: 75.5vw;
   display: flex;
@@ -38,4 +22,63 @@
     align-items: baseline;
     gap: 3vw;
   }
+}
+
+.content {
+  display: grid;
+  width: 80%;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 4vw;
+  align-items: start;
+  margin-left: -3.7vw;
+}
+
+.tasksSection {
+  grid-column: 1 / 2;
+  // padding-left: 7vw;
+}
+
+.tasksBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vw;
+  margin: 1vw 0 3vw;
+  width: fit-content;
+
+  & a {
+    width: fit-content;
+  }
+}
+
+.images {
+  grid-column: 2 / 3;
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  grid-auto-rows: 2.5vw;
+  position: relative;
+  margin-bottom: 5vw;
+
+  img {
+    object-fit: cover;
+  }
+}
+
+.image1 {
+  grid-column: 4 / 10;
+  grid-row: 1 / 11;
+}
+
+.image2 {
+  grid-column: 1 / 6;
+  grid-row: 7 / 18;
+}
+
+.image4 {
+  grid-column: 7 / 12;
+  grid-row: 13 / 24;
+}
+
+.image3 {
+  grid-column: 3 / 9;
+  grid-row: 17 / 26;
 }

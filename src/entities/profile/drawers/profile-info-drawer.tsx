@@ -65,19 +65,19 @@ export const ProfileInfoDrawer = ({
   onClose,
   data: { login, fullname, group, email }
 }: ProfileInfoDrawerProps ) => {
-  const { control, handleSubmit, reset, formState: { errors, isDirty, isValid }, getValues } = useForm<FormType>({
+  const { control, handleSubmit, reset, formState: { errors, isDirty, isValid } } = useForm<FormType>({
     mode: "onChange",
     defaultValues: { fullname, group, email },
   });
 
   useEffect(() => {
-    reset({ fullname, group, email })
+    reset({ fullname, group, email });
   }, [fullname, group, email, reset, isOpen]);
 
   const onSubmit = useCallback(() => {
     // TODO: save data
   }, []);
-  console.log(isValid, isDirty, getValues());
+
   return (
     <Drawer
       isOpen={isOpen}

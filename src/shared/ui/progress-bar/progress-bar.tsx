@@ -11,7 +11,7 @@ export const ProgressBar = ({
   solved,
   total,
 }: ProgressBarType) => {
-  const [percentage, setPercentage] = useState('');
+  const [percentage, setPercentage] = useState("");
 
   useEffect(() => {
     const newPercentage = `${(solved * 100)/total}%`;

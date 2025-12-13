@@ -3,7 +3,7 @@ import { Extension } from "@codemirror/state";
 import { HighlightStyle, syntaxHighlighting } from "@codemirror/language";
 import { tags as t } from "@lezer/highlight";
 
-import { WHITE_COLOR, BLACK_COLOR, RED_COLOR, RED_DARK, GRAY_DARK, RED_LIGHT, GRAY_LIGHT, WHITE_DIM } from "../colors";
+import { BLACK_COLOR, GRAY_DARK, GRAY_LIGHT, RED_COLOR, RED_DARK, RED_LIGHT, WHITE_COLOR, WHITE_DIM } from "../colors";
 
 const customDarkTheme = EditorView.theme({
   "&": {

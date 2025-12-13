@@ -53,7 +53,7 @@ export const Profile = () => {
 
   const toggleTaskProgress = useCallback(() => {
     setIsTaskProgressOpen((prev) => !prev);
-  }, [setIsTaskProgressOpen])
+  }, [setIsTaskProgressOpen]);
 
   const toggleAchievements = useCallback(() => {
     setIsAchievementsOpen((prev) => !prev);
@@ -89,7 +89,7 @@ export const Profile = () => {
       text: "достижения",
       onClick: toggleAchievements,
     },
-  ], [toggleProfileInfo]);
+  ], [toggleProfileInfo, toggleTaskProgress, toggleAchievements]);
 
   return (
     <section
@@ -151,6 +151,7 @@ export const Profile = () => {
             padding="0.7vw"
             textAlign="left"
             onClick={button.onClick}
+            key={button.text}
           >
             {button.text}
           </Button>
