@@ -37,7 +37,7 @@ const menuCoonfig = {
       href: "",
     },
     {
-      page: "tasks",
+      page: "missions",
       text: "Задачи",
       href: "/missions",
     },

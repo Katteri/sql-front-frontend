@@ -62,7 +62,7 @@ export const Missions = () => {
     <section className={styles.missions}>
       {isMenuOpen && <Overlay onClick={toggleMenu} />}
       <MenuIcon color="red" onClick={toggleMenu} />
-      <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="tasks"/>
+      <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="missions"/>
       <Title
         as="h1"
         size="12vw"
@@ -96,7 +96,7 @@ export const Missions = () => {
               <div className={styles.tasksBlock}>
                 {tasks.map((task, index) => (
                   <Link
-                    href="/"
+                    href={`/missions/${missionId}/task/${task.taskId}`}
                     isVisited={task.isSolved}
                     key={`task-${index+1}`}
                   >
