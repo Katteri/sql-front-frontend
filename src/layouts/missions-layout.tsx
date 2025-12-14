@@ -1,4 +1,4 @@
-import { Missions } from "@/entities/tasks/missions";
+import { Missions } from "@/entities/missions/missions";
 import { Layout } from "@/shared/ui/layout/layout";
 
 export const MissionsLayout = () => {
