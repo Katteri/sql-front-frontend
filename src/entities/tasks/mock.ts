@@ -1,4 +1,4 @@
-export const tasksData = [
+export const missionsData = [
   // mission 1
   {
     missionId: 1,

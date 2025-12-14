@@ -8,10 +8,10 @@ import { Link } from "@/shared/ui/link/link";
 import { Select } from "@/shared/ui/select/select";
 
 import { MenuDrawer } from "../menu-drawer/menu-drawer";
-import { useTasksData } from "./use-tasks-data";
+import { useMissionsData } from "./use-missions-data";
 import { TASK_DIFFICULTY_QUERY_PARAM, TASK_STATUS_QUERY_PARAM, taskDifficultyOptions, taskStatusOptions } from "./const";
 
-import styles from "./tasks.module.scss";
+import styles from "./missions.module.scss";
 
 //TODO: add images on page
 const images = [
@@ -50,16 +50,16 @@ const selectConfig = [
   },
 ];
 
-export const Tasks = () => {
+export const Missions = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const tasksData = useTasksData();
+  const missionsData = useMissionsData();
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, [setIsMenuOpen]);
 
   return (
-    <section className={styles.tasks}>
+    <section className={styles.missions}>
       {isMenuOpen && <Overlay onClick={toggleMenu} />}
       <MenuIcon color="red" onClick={toggleMenu} />
       <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="tasks"/>
@@ -84,7 +84,7 @@ export const Tasks = () => {
       </div>
       <div className={styles.content}>
         <div className={styles.tasksSection}>
-          {tasksData.length > 0 ? tasksData.map(({ missionId, tasks }) => (
+          {missionsData.length > 0 ? missionsData.map(({ missionId, tasks }) => (
             <div key={`mission-${missionId}`}> 
               <Title
                 as="p"

@@ -1,6 +1,6 @@
 import { useSearchParams } from "next/navigation";
 
-import { tasksData as data } from "./mock";
+import { missionsData as data } from "./mock";
 import { TASK_DIFFICULTY_QUERY_PARAM, TASK_STATUS_QUERY_PARAM } from "./const";
 import { useCallback } from "react";
 
@@ -11,7 +11,7 @@ type TaskType = {
   isSolved: boolean,
 };
 
-export const useTasksData = () => {
+export const useMissionsData = () => {
   const searchParams = useSearchParams();
   const taskDifficulty = searchParams.get(TASK_DIFFICULTY_QUERY_PARAM);
   const taskStatus = searchParams.get(TASK_STATUS_QUERY_PARAM);
