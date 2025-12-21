@@ -7,13 +7,13 @@ import { Button } from "@/shared/ui/button/button";
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
 import { Overlay } from "@/shared/ui/drawer/overlay/overlay";
-import { Table } from "@/shared/ui/table/table";
 import { Title } from "@/shared/ui/title/title";
 import { Text } from "@/shared/ui/text/text";
 
 import { darkCodeMirrorTheme } from "@/shared/ui/code-mirror/code-mirror-theme-dark";
 import { lightCodeMirrorTheme } from "@/shared/ui/code-mirror/code-mirror-theme-light";
 
+import { Result } from "./result";
 import { useTaskData } from "./use-task-data";
 import styles from "./task.module.scss";
 import { resultData } from "./mock";
@@ -119,8 +119,7 @@ export const Task = () => {
           выполнить
         </Button>
       </div>
-      
-      <Table data={resultData} height="23vw"/>
+      <Result data={resultData}/>
     </section>
   );
 };
