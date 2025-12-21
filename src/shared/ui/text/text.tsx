@@ -7,10 +7,11 @@ type TextProps = {
   color?: keyof typeof colors,
   lineHeight?: string,
   className?: string,
+  margin?: string,
   children: React.ReactNode,
 }
 
-export const Text = ({ className, size="1vw", lineHeight="125%", color="black", children }: TextProps) => {
+export const Text = ({ className, margin="0", size="1vw", lineHeight="125%", color="black", children }: TextProps) => {
  return (
   <p
     className={`${styles.text} ${className}`}
@@ -18,6 +19,7 @@ export const Text = ({ className, size="1vw", lineHeight="125%", color="black", 
       color: colors[color],
       lineHeight,
       fontSize: size,
+      margin,
     }}
   >
     {children}

@@ -33,7 +33,10 @@ export const Result = ({
     const resultData = { columns: data.columns, data: data.data };
 
     return (
-      <Table data={resultData} height="23vw"/>
+      <>
+        <Table data={resultData} height="23vw"/>
+        <Text margin="0.5vw 0 0">Всего строк: {data.row_count}</Text>
+      </>
     );
   }
 
