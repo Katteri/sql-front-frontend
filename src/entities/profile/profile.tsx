@@ -2,7 +2,6 @@ import { Button } from "@/shared/ui/button/button";
 import { Title } from "@/shared/ui/title/title";
 import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
-import { Overlay } from "@/shared/ui/drawer/overlay/overlay";
 
 import { ProfileAchievementsDrawer } from "./drawers/profile-achievements-drawer";
 import { ProfileInfoDrawer } from "./drawers/profile-info-drawer";
@@ -59,23 +58,6 @@ export const Profile = () => {
     setIsAchievementsOpen((prev) => !prev);
   }, [setIsAchievementsOpen]);
 
-  const OverlayHandler = useCallback(() => {
-    if (isMenuOpen) {
-      setIsMenuOpen(false);
-    }
-    if (isProfileInfoOpen) {
-      setIsProfileInfoOpen(false);
-    }
-    if (isTaskProgressOpen) {
-      setIsTaskProgressOpen(false);
-    }
-    if (isAchievementsOpen) {
-      setIsAchievementsOpen(false);
-    }
-  }, [isMenuOpen, isProfileInfoOpen, isTaskProgressOpen, isAchievementsOpen]);
-
-  const isAnyDrawerOpen = isMenuOpen || isProfileInfoOpen || isTaskProgressOpen || isAchievementsOpen;
-
   const buttonsConfig = useMemo(() => [
     {
       text: "данные профиля",
@@ -95,7 +77,6 @@ export const Profile = () => {
     <section
       className={styles.profile}
     >
-      {isAnyDrawerOpen && <Overlay onClick={OverlayHandler}/>}
       <MenuIcon color="white" onClick={toggleMenu}/>
       <MenuDrawer
         isOpen={isMenuOpen}

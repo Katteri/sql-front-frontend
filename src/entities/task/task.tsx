@@ -6,7 +6,6 @@ import { sql } from "@codemirror/lang-sql";
 import { Button } from "@/shared/ui/button/button";
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
-import { Overlay } from "@/shared/ui/drawer/overlay/overlay";
 import { Title } from "@/shared/ui/title/title";
 import { Text } from "@/shared/ui/text/text";
 
@@ -32,7 +31,6 @@ export const Task = () => {
 
   return (
     <section className={styles.task}>
-      {isMenuOpen && <Overlay onClick={toggleMenu}/>}
       <MenuIcon color="red" onClick={toggleMenu}/>
       <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="missions"/>
       <div className={styles.spaceBetween}>

@@ -2,7 +2,6 @@ import { useCallback, useState } from "react";
 
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
-import { Overlay } from "@/shared/ui/drawer/overlay/overlay";
 import { Title } from "@/shared/ui/title/title";
 
 import { useAchievementsData } from "./use-achievements-data";
@@ -21,7 +20,6 @@ export const Achievements = () => {
     
   return (
     <section className={styles.achievements}>
-      {isMenuOpen && <Overlay onClick={toggleMenu}/>}
       <MenuIcon color="red" onClick={toggleMenu}/>
       <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="achievements"/>
       <Title

@@ -2,7 +2,6 @@ import { useCallback, useState } from "react";
 import Image from "next/image";
 
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
-import { Overlay } from "@/shared/ui/drawer/overlay/overlay";
 import { Title } from "@/shared/ui/title/title";
 import { Text } from "@/shared/ui/text/text";
 import { Link } from "@/shared/ui/link/link";
@@ -60,7 +59,6 @@ export const Missions = () => {
 
   return (
     <section className={styles.missions}>
-      {isMenuOpen && <Overlay onClick={toggleMenu} />}
       <MenuIcon color="red" onClick={toggleMenu} />
       <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="missions"/>
       <Title

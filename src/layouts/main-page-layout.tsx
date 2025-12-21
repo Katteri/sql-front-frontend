@@ -9,7 +9,6 @@ import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { useActiveSection } from "./use-active-section";
 import { colors } from "@/shared/ui/colors";
 import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
-import { Overlay } from "@/shared/ui/drawer/overlay/overlay";
 
 const sectionIds = {
   description: "description",
@@ -46,7 +45,6 @@ export const MainPageLayout = () => {
   
   return (
     <Layout>
-      {isMenuOpen && <Overlay onClick={toggleMenu}/>}
       <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="main" />
       <MenuIcon
         color={activeSection ? colorBySection[activeSection] : "white"}

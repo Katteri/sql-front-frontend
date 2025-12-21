@@ -1,4 +1,5 @@
 import styles from "./drawer.module.scss";
+import { Overlay } from "./overlay/overlay";
 
 export type DrawerProps = {
   isOpen: boolean,
@@ -16,21 +17,24 @@ export const Drawer = ({
   children,
 }: DrawerProps) => {
   return (
-    <div
-      className={`${styles.drawer} ${isOpen ? styles.open : ""}`}
-      style={{
-        "--width": width,
-        "--padding": padding,
-      } as React.CSSProperties}
-    >
-      <button
-        className={styles.closeButton}
-        type="button"
-        onClick={onClose}
+    <>
+      {isOpen && <Overlay onClick={onClose}/>}
+      <div
+        className={`${styles.drawer} ${isOpen ? styles.open : ""}`}
+        style={{
+          "--width": width,
+          "--padding": padding,
+        } as React.CSSProperties}
       >
-        x
-      </button>
-      {children}
-    </div>
+        <button
+          className={styles.closeButton}
+          type="button"
+          onClick={onClose}
+        >
+          x
+        </button>
+        {children}
+      </div>
+    </>
   );
 };
