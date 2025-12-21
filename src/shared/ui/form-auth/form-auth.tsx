@@ -10,7 +10,7 @@ import { Button } from "../button/button";
 import styles from "./form-auth.module.scss";
 
 type FormType = {
-  [K in (typeof formFieldsLogin | typeof formFieldsRegister)[number]["name"]]: string;
+  [_ in (typeof formFieldsLogin | typeof formFieldsRegister)[number]["name"]]: string;
 };
 
 const formStyleConfig = {

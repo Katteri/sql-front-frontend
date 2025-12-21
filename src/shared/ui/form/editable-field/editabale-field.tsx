@@ -1,27 +1,27 @@
-import { Controller } from "react-hook-form";
+import { Control, Controller, FieldValues, Path, PathValue, RegisterOptions } from "react-hook-form";
 
 import { Text } from "../../text/text";
 import { Error } from "../error/error";
 
 import styles from "./editabale-field.module.scss";
 
-type EditableFieldProps = {
+type EditableFieldProps<T extends FieldValues> = {
   label: string,
-  name: string,
-  control: any,
+  name: Path<T>,
+  control: Control<T>,
   type?: string,
-  rules?: object,
+  rules?: RegisterOptions<T>,
   errorMessage?: string,
 };
 
-export const EditableField = ({
+export const EditableField = <T extends FieldValues>({
   label,
   name,
   control,
   type,
   rules,
   errorMessage,
-}: EditableFieldProps ) => {
+}: EditableFieldProps<T> ) => {
   return (
     <div
       className={styles.editableRow}
@@ -31,7 +31,7 @@ export const EditableField = ({
         name={name}
         control={control}
         rules={rules}
-        defaultValue=""
+        defaultValue={"" as PathValue<T, typeof name>}
         render={({field}) => (
           <>
             <input

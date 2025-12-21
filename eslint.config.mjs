@@ -29,7 +29,12 @@ const eslintConfig = [
       quotes: ["error", "double"],
       "prefer-arrow-callback": ["error"],
       "prefer-template": ["error"],
-      "no-unused-vars": "warn",
+      "no-unused-vars": ["warn",
+        {
+          "varsIgnorePattern": "^_",
+          "argsIgnorePattern": "^_"
+        }
+      ],
       "eol-last": "error",
       "sort-imports": ["error", { ignoreDeclarationSort: true }],
     },

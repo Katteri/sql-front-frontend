@@ -8,7 +8,7 @@ type SelectProps = {
     label: string,
     value: string | number,
   }[],
-  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void,
+  onChange?: (_: React.ChangeEvent<HTMLSelectElement>) => void,
   defaultValue?: string,
 };
 

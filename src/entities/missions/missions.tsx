@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import Image from "next/image";
 
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { Overlay } from "@/shared/ui/drawer/overlay/overlay";
@@ -13,7 +14,6 @@ import { TASK_DIFFICULTY_QUERY_PARAM, TASK_STATUS_QUERY_PARAM, taskDifficultyOpt
 
 import styles from "./missions.module.scss";
 
-//TODO: add images on page
 const images = [
   {
     src: "/images/tasks/image-1.png",
@@ -115,12 +115,18 @@ export const Missions = () => {
         </div>
         <div className={styles.images}>
           {images.map(({src, alt}, index) => (
-            <img
+            <div
               key={src}
-              src={src}
-              alt={alt}
-              className={styles[`image${index+1}`]}
-            />
+              className={styles[`image${index + 1}`]}
+            >
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                sizes="100%"
+                className={styles.image}
+              />
+            </div>
           ))}
         </div>
       </div>

@@ -10,7 +10,6 @@ import { Overlay } from "@/shared/ui/drawer/overlay/overlay";
 import { Title } from "@/shared/ui/title/title";
 import { Text } from "@/shared/ui/text/text";
 
-import { darkCodeMirrorTheme } from "@/shared/ui/code-mirror/code-mirror-theme-dark";
 import { lightCodeMirrorTheme } from "@/shared/ui/code-mirror/code-mirror-theme-light";
 
 import { Result } from "./result";
