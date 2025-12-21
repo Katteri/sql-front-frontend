@@ -8,4 +8,4 @@ export const useTaskData = () => {
   const { missionId, taskId } = router.query;
 
   return { ...data, missionId, taskId };
-}
+};

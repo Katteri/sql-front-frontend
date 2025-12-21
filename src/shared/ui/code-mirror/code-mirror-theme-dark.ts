@@ -22,7 +22,7 @@ const customDarkTheme = EditorView.theme({
     backgroundColor: RED_DARK,
   },
   ".cm-activeLine": { 
-    backgroundColor: GRAY_DARK,
+    backgroundColor: "transparent",
   },
   ".cm-selectionMatch": { 
     backgroundColor: `${RED_DARK}80`,

@@ -22,8 +22,8 @@ const customLightTheme = EditorView.theme({
   "&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection": {
     backgroundColor: `${RED_LIGHT}40`,
   },
-  ".cm-activeLine": { 
-    backgroundColor: GRAY_MORE_LIGHT,
+  ".cm-activeLine": {
+    backgroundColor: "transparent",
   },
   ".cm-selectionMatch": { 
     backgroundColor: `${RED_LIGHT}30`,
