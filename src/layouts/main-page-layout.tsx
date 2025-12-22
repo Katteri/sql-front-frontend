@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { DescriptionSection } from "@/entities/main-page/description-section/description-section";
 import { IntroSection } from "@/entities/main-page/intro-section";
@@ -24,18 +24,6 @@ const colorBySection: Record<keyof typeof sectionIds, keyof typeof colors> = {
 
 export const MainPageLayout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMenuOpen]);
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);

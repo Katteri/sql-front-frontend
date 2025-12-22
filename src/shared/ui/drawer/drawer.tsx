@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styles from "./drawer.module.scss";
 import { Overlay } from "./overlay/overlay";
 
@@ -16,6 +17,18 @@ export const Drawer = ({
   padding="2.3vw 1.5vw",
   children,
 }: DrawerProps) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <>
       {isOpen && <Overlay onClick={onClose}/>}
