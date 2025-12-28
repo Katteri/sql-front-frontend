@@ -1,5 +1,6 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
+import cn from "classnames";
 
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { Title } from "@/shared/ui/title/title";
@@ -50,9 +51,54 @@ const selectConfig = [
 ];
 
 export const Missions = () => {
+  const tasksRef = useRef<HTMLDivElement | null>(null);
+  const imagesRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [maxImagesHeight, setMaxImagesHeight] = useState<number>(0);
+  const [visibleImagesCount, setVisibleImagesCount] = useState<number>(0);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const missionsData = useMissionsData();
 
+  useEffect(() => {
+    if (!tasksRef.current) {
+      return;
+    }
+
+    const observer = new ResizeObserver(([entry]) => {
+      setMaxImagesHeight(entry.contentRect.height);
+    });
+
+    observer.observe(tasksRef.current);
+
+    return () => observer.disconnect();
+  }, [missionsData, setMaxImagesHeight]);
+
+  useLayoutEffect(() => {
+    if (!maxImagesHeight) {
+      return;
+    }
+
+    let sum: number = 0;
+    let count: number = 0;
+
+    for (let index = 0; index < imagesRefs.current.length; index += 1) {
+      const element = imagesRefs.current[index];
+      if (!element) {
+        continue;
+      }
+
+      const rect = element.getBoundingClientRect();
+      console.log(rect.height);
+      if (sum + rect.height <= maxImagesHeight) {
+        sum += rect.height;
+        count += 1;
+      } else {
+        break;
+      }
+    }
+
+    setVisibleImagesCount(count);
+  }, [maxImagesHeight]);
+  console.log(maxImagesHeight, visibleImagesCount);
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, [setIsMenuOpen]);
@@ -81,7 +127,7 @@ export const Missions = () => {
         ))}
       </div>
       <div className={styles.content}>
-        <div className={styles.tasksSection}>
+        <div className={styles.tasksSection} ref={tasksRef}>
           {missionsData.length > 0 ? missionsData.map(({ missionId, tasks }) => (
             <div key={`mission-${missionId}`}> 
               <Title
@@ -111,11 +157,14 @@ export const Missions = () => {
                 нет задач
               </Title>}
         </div>
-        <div className={styles.images}>
+        <div className={styles.images} style={{ maxHeight: maxImagesHeight }}>
           {images.map(({src, alt}, index) => (
             <div
               key={src}
-              className={styles[`image${index + 1}`]}
+              ref={(el) => {
+                imagesRefs.current[index] = el;
+              }}
+              className={cn(styles[`image${index + 1}`], { [styles.hidden]: index >= visibleImagesCount })}
             >
               <Image
                 src={src}
