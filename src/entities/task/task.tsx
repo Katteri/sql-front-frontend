@@ -11,6 +11,7 @@ import { Text } from "@/shared/ui/text/text";
 
 import { lightCodeMirrorTheme } from "@/shared/ui/code-mirror/code-mirror-theme-light";
 
+import { TaskDatabaseInfoDrawer } from "./drawers/task-database-info-drawer";
 import { TaskCluesDrawer } from "./drawers/task-clues-drawer";
 import { Result } from "./result";
 import { useTaskData } from "./use-task-data";
@@ -20,12 +21,17 @@ import { resultData } from "./mock";
 export const Task = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTaskCluesOpen, setIsTaskCluesOpen] = useState(false);
+  const [isDatabaseInfoOpen, setIsDatabaseInfoOpen] = useState(false);
   const [value, setValue] = useState("");
   const data = useTaskData();
   
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, [setIsMenuOpen]);
+
+  const toggleDatabaseInfo = useCallback(() => {
+    setIsDatabaseInfoOpen((prev) => !prev);
+  }, [setIsDatabaseInfoOpen]);
 
   const toggleTaskClues = useCallback(() => {
     setIsTaskCluesOpen((prev) => !prev);
@@ -39,6 +45,7 @@ export const Task = () => {
     <section className={styles.task}>
       <MenuIcon color="red" onClick={toggleMenu}/>
       <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="missions"/>
+      <TaskDatabaseInfoDrawer isOpen={isDatabaseInfoOpen} onClose={toggleDatabaseInfo} />
       <TaskCluesDrawer isOpen={isTaskCluesOpen} hasClue={data.hasClue} hasExpectedResult={data.hasExpectedResult} onClose={toggleTaskClues} />
       <div className={styles.spaceBetween}>
         <Text>
@@ -92,6 +99,7 @@ export const Task = () => {
             hoverColor="red"
             width="2.5vw"
             padding="0.5vw"
+            onClick={toggleDatabaseInfo}
           >
             i
           </Button>

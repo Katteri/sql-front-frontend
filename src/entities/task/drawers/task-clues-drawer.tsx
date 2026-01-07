@@ -6,6 +6,7 @@ import { Title } from "@/shared/ui/title/title";
 
 import { clueData, expectedResultData } from "./mock";
 import styles from "./task-clues-drawer.module.scss";
+import { useCallback, useState } from "react";
 
 type TaskCluesDrawerProps = DrawerProps & {
   hasClue: boolean,
@@ -19,13 +20,25 @@ export const TaskCluesDrawer = ({
   hasExpectedResult,
 }: TaskCluesDrawerProps) => {
   // TODO: add fetching clues data
+  const [showClue, setShowClue] = useState<boolean>(hasClue);
+  const [showExpectedResult, setShowExpectedResult] = useState<boolean>(hasExpectedResult);
+
+  const clueButtonHandler = useCallback(() => {
+    setShowClue(true);
+    // TODO: send data to backend
+  }, []);
+
+  const expectedResultButtonHandler = useCallback(() => {
+    setShowExpectedResult(true);
+    // TODO: send data to backend
+  }, []);
 
   return (
     <Drawer
       isOpen={isOpen}
       onClose={onClose}
       width="60vw"
-      padding="5vw 2vw 0 4vw"
+      padding="4vw 2vw 0 4vw"
     >
       <Title
         as="p"
@@ -35,13 +48,14 @@ export const TaskCluesDrawer = ({
         подсказка
       </Title>
       <div className={styles.block}>
-        {hasClue 
+        {showClue 
           ? <Text>{clueData.clue}</Text>
           : <Button
               color="black"
               hoverColor="red"
               width="8vw"
               padding="0.5vw"
+              onClick={clueButtonHandler}
             >
               показать
             </Button>
@@ -56,7 +70,7 @@ export const TaskCluesDrawer = ({
         ожидаемый результат
       </Title>
       <div className={styles.block}>
-        {hasExpectedResult 
+        {showExpectedResult 
           ? <>
               <Table data={expectedResultData} height="15vw"/>
               <Text margin="0.5vw 0 0">Всего строк: {expectedResultData.row_count}</Text>
@@ -64,8 +78,9 @@ export const TaskCluesDrawer = ({
           : <Button
               color="black"
               hoverColor="red"
-              width="7vw"
+              width="8vw"
               padding="0.5vw"
+              onClick={expectedResultButtonHandler}
             >
               показать
             </Button>

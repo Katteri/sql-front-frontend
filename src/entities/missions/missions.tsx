@@ -87,7 +87,6 @@ export const Missions = () => {
       }
 
       const rect = element.getBoundingClientRect();
-      console.log(rect.height);
       if (sum + rect.height <= maxImagesHeight) {
         sum += rect.height;
         count += 1;
@@ -98,7 +97,6 @@ export const Missions = () => {
 
     setVisibleImagesCount(count);
   }, [maxImagesHeight]);
-  console.log(maxImagesHeight, visibleImagesCount);
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, [setIsMenuOpen]);

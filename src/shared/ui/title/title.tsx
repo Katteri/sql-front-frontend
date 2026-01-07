@@ -2,7 +2,7 @@ import { colors } from "../colors";
 import styles from "./title.module.scss";
 
 type TitleProps = {
-  size: string,
+  size?: string,
   color?: keyof typeof colors,
   as?: "h1" | "h2" | "h3" | "p",
   letterSpacing?: string,
@@ -13,7 +13,7 @@ type TitleProps = {
 }
 
 export const Title = ({
-  size,
+  size="1vw",
   color="red",
   as="h1",
   letterSpacing="0",
