@@ -3,3 +3,9 @@
   font-weight: 200;
   user-select: none;
 }
+
+.textColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+}

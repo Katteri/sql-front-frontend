@@ -41,7 +41,7 @@ export const EditableField = <T extends FieldValues>({
               className={styles.input}
               autoComplete="off"
             />
-            {errorMessage && <Error message={errorMessage} className={styles.error}/>}
+            {errorMessage && <Error message={errorMessage} right="0" top="1.3vw"/>}
           </>
         )}
       />

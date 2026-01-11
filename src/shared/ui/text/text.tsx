@@ -1,25 +1,61 @@
+import cn from "classnames";
+
 import { colors } from "../colors";
 
 import styles from "./text.module.scss";
 
 type TextProps = {
   size?: string,
+  variant?: "default" | "column",
   color?: keyof typeof colors,
   lineHeight?: string,
-  className?: string,
+  textIndent?: string,
+  alignSelf?: string,
   margin?: string,
+  padding?: string,
+  width?: string,
+  position?: React.CSSProperties["position"];
+  right?: string;
+  top?: string;
+  gridColumn?: string;
+  gridRow?: string;
   children: React.ReactNode,
 }
 
-export const Text = ({ className, margin="0", size="1vw", lineHeight="125%", color="black", children }: TextProps) => {
+export const Text = ({
+  variant="default",
+  margin="0",
+  padding="0",
+  size="1vw",
+  lineHeight="125%",
+  textIndent="0",
+  alignSelf="start",
+  color="black",
+  width="auto",
+  position="static",
+  right="auto",
+  top="auto",
+  gridColumn,
+  gridRow,
+  children,
+}: TextProps) => {
  return (
   <p
-    className={`${styles.text} ${className}`}
+    className={cn(styles.text, { [styles.textColumn]: variant === "column" })}
     style={{
       color: colors[color],
       lineHeight,
+      textIndent,
+      alignSelf,
       fontSize: size,
       margin,
+      padding,
+      width,
+      position,
+      right,
+      top,
+      gridColumn,
+      gridRow,
     }}
   >
     {children}

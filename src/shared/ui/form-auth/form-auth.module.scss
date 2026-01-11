@@ -44,11 +44,5 @@
         border-bottom: 0.1vw solid var(--underline-focus-color);
       }
     }
-
-    .error {
-      position: absolute;
-      grid-column: 2;
-      grid-row: 2;
-    }
   }
 }

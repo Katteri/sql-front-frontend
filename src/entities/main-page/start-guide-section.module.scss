@@ -3,37 +3,14 @@
   min-height: 100vh;
 }
 
-.textDescription {
-  width: 51vw;
-  margin: 8vw 0 0 2vw;
+.listElement {
+  display: list-item;
+  list-style-type: disc;
+  list-style-position: outside;
 }
 
-.textCluesTitle {
-  margin: 8vw 0 0 30vw;
-}
-
-.textClues {
-  margin: 3vw 0 0 30vw;
-  display: flex;
-  flex-direction: column;
-  line-height: 2vw;
-
-  span {
-    display: list-item;
-    list-style-type: disc;
-    list-style-position: outside;
-  }
-}
-
-.textScoreTitle {
-  padding: 10vw 0 0 2vw
-}
-
-.textScore {
-  display: flex;
-  flex-direction: column;
-  line-height: 2vw;
-  margin: 3vw 0 0 2vw;
+.displayBlock {
+  display: block;
 }
 
 .codeBlock {

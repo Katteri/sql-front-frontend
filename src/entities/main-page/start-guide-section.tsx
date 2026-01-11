@@ -22,41 +22,44 @@ export const StartGuideSection = ({ id }: { id: string }) => {
         <Text
           size="1.5vw"
           color="white"
-          className={styles.textDescription}
+          width="51vw"
+          margin="8vw 0 0 2vw"
         >
           Тебе предстоит пройти три миссии, каждая из которых отличается уровнем сложности. Чем больше задач ты решишь, тем больше баллов и достижений получишь — а значит, поднимешься выше в рейтинге
         </Text>
         <Text
           size="2vw"
           color="white"
-          className={styles.textCluesTitle}
+          margin="8vw 0 0 30vw"
         >
           Во время решения ты можешь воспользоваться подсказками:
         </Text>
         <Text
           size="1.5vw"
           color="white"
-          className={styles.textClues}
+          margin="3vw 0 0 30vw"
+          lineHeight="2vw"
         >
-          <span>Первая подсказка — от 10 до 50 баллов (в зависимости от сложности задачи)</span>
-          <span>Просмотр ожидаемого результата — от 20 до 100 баллов</span>
+          <span className={styles.listElement}>Первая подсказка — от 10 до 50 баллов (в зависимости от сложности задачи)</span>
+          <span className={styles.listElement}>Просмотр ожидаемого результата — от 20 до 100 баллов</span>
         </Text>
       </div>
       <div className={styles.startGuideSection}>
         <Text
           size="3vw"
           color="white"
-          className={styles.textScoreTitle}
+          padding="10vw 0 0 2vw"
         >
           Будь внимателен!
         </Text>
         <Text
           size="1.5vw"
           color="white"
-          className={styles.textScore}
+          lineHeight="2vw"
+          margin="3vw 0 0 2vw"
         >
-          <span>За правильное решение задачи ты получаешь от 100 до 500 баллов, в зависимости от миссии</span>
-          <span>За неправильное решение — теряешь от 10 до 50 баллов</span>
+          <span className={styles.displayBlock}>За правильное решение задачи ты получаешь от 100 до 500 баллов, в зависимости от миссии</span>
+          <span className={styles.displayBlock}>За неправильное решение — теряешь от 10 до 50 баллов</span>
         </Text>
         <div className={styles.codeBlock}>
           <CodeMirror

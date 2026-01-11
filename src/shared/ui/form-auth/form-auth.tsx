@@ -79,7 +79,8 @@ export const Form = ({ type }: { type: "login" | "register" }) => {
             <Error
               message={errors[field.name]?.message}
               color={formStyle.errorColor}
-              className={styles.error}
+              gridColumn="2"
+              gridRow="2"
             />
           }
         </div>

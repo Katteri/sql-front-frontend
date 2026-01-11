@@ -10,19 +10,22 @@ export const DescriptionContent = () => {
         <Text
           size="1.8vw"
           color="white"
-          className={styles.textHeading}
+          textIndent="7.3vw"
         >
           Великая Отечественная война — не только испытание
         </Text>
         <Text
-          size="1vw"
           color="white"
-          className={styles.textBlock}
+          variant="column"
+          lineHeight="1.5vw"
+          width="45%"
+          margin="-1.8vw 0 0"
+          alignSelf="end"
         >
           <span>но и величайшее наследие мужества, стратегии и силы разума.</span>
           <span>Сегодня мы приглашаем тебя продолжить ту борьбу — не с оружием, а с данными.</span>
           <span>В роли фронтового аналитика ты узнаешь, как знания и логика могут стать мощным оружием в любые времена.</span>
-        </Text>     
+        </Text>
       </div>
       <div className={styles.image} />
     </div>
