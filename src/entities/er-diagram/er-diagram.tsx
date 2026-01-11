@@ -13,7 +13,6 @@ export const ERDiagram = () => {
       nodes={databaseNodes}
       edges={databaseEdges}
       nodeTypes={nodeTypes}
-      // onNodeClick={(_, node) => { console.log(node.id); }} //TODO: onClick show description of the columns
       proOptions={{ hideAttribution: true }}
       fitView
       fitViewOptions={{ padding: 0.4 }}

@@ -3,18 +3,21 @@ import { Text } from "@/shared/ui/text/text";
 import cn from "classnames";
 
 import styles from "./database-schema.module.scss";
+import { useState } from "react";
 
 export type DatabaseSchemaNodeType = {
   data: {
     label: string;
     description: string;
-    columns: { title: string; type: string }[];
+    columns: { title: string; type: string, description: string }[];
   };
 };
 
 export const DatabaseSchema = ({ data }: DatabaseSchemaNodeType) => {
+  const [showDescription, setShowDescription] = useState(false);
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={() => setShowDescription((v) => !v)}>
       <div className={styles.innerContent}>
         <Text size="1.2vw">{data.label}</Text>
         <Text color="grayMid" size="1vw">{data.description}</Text>
@@ -30,7 +33,11 @@ export const DatabaseSchema = ({ data }: DatabaseSchemaNodeType) => {
               />
 
               <Text>{entry.title}&nbsp;&nbsp;</Text>
-              <Text color="grayMid">{entry.type}</Text>
+              
+              {showDescription
+                ? <Text color="grayMid">{entry.description}</Text>
+                : <Text color="grayMid">{entry.type}</Text>
+              }
 
               <Handle
                 type="source"
