@@ -18,22 +18,18 @@ const images = [
   {
     src: "/images/tasks/image-1.png",
     alt: "tasks background image 1",
-    gridArea: "",
   },
   {
     src: "/images/tasks/image-2.png",
     alt: "tasks background image 2",
-    gridArea: "",
   },
   {
     src: "/images/tasks/image-3.png",
     alt: "tasks background image 3",
-    gridArea: "",
   },
   {
     src: "/images/tasks/image-4.png",
     alt: "tasks background image 4",
-    gridArea: "",
   },
 ];
 
