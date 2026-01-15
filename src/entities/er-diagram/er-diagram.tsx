@@ -18,7 +18,7 @@ export const ERDiagram = () => {
       fitViewOptions={{ padding: 0.4 }}
     >
       <Background variant={BackgroundVariant.Dots}/>
-      <Controls />
+      <Controls showInteractive={false} />
     </ReactFlow>
   );
 };
