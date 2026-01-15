@@ -117,19 +117,19 @@ export const Task = () => {
 
       <div className={`${styles.spaceBetween} ${styles.resultHeader}`}>
         <Title
-          color="black"
+          color={data.isSolved ? "black" : "red"}
           as="p"
           size="3vw"
         >
           результат
         </Title>
         <Button
-          color="black"
-          hoverColor="red"
+          color={data.isSolved ? "black" : "red"}
+          hoverColor={data.isSolved ? "red" : "black"}
           width="10vw"
           padding=".5vw 2vw"
         >
-          выполнить
+          отправить
         </Button>
       </div>
       <Result data={resultData}/>
