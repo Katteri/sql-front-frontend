@@ -33,10 +33,10 @@ export const Quest = () => {
         фронт
       </Title>
       <Title
-        size="17vw"
+        size="20vw"
         position="absolute"
-        top="9.8vw"
-        left="36.3vw"
+        top="5.8vw"
+        left="36.1vw"
       >
         квест
       </Title>
