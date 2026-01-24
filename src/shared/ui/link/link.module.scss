@@ -1,5 +1,5 @@
 .link {
-  font-family: 'Moscow Sans';
+  font-family: var(--fontVariant, 'Moscow Sans');
   font-weight: 400;
   color: var(--link-color, $black-color);
   user-select: none;

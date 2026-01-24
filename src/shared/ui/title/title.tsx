@@ -9,6 +9,9 @@ type TitleProps = {
   margin?: string,
   padding?: string,
   width?: string,
+  position?: React.CSSProperties["position"],
+  left?: string,
+  top?: string,
   children: React.ReactNode,
 }
 
@@ -20,6 +23,9 @@ export const Title = ({
   margin="0",
   padding="0",
   width="auto",
+  position="static",
+  left="auto",
+  top="auto",
   children,
 }: TitleProps) => {
   const Tag = as;
@@ -32,6 +38,9 @@ export const Title = ({
         margin,
         padding,
         width,
+        position,
+        left,
+        top,
         fontSize: size,
       }}
     >
