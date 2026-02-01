@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { DescriptionSection } from "@/entities/main-page/description-section/description-section";
 import { IntroSection } from "@/entities/main-page/intro-section";
@@ -9,6 +9,7 @@ import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { useActiveSection } from "./use-active-section";
 import { colors } from "@/shared/ui/colors";
 import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
+import { useAppSelector } from "@/shared/hooks/redux";
 
 const sectionIds = {
   description: "description",
@@ -24,16 +25,30 @@ const colorBySection: Record<keyof typeof sectionIds, keyof typeof colors> = {
 
 export const MainPageLayout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
+  const { token } = useAppSelector((state) => state.auth);
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, [setIsMenuOpen]);
+
+  useEffect(() => {
+    if (token) {
+      setIsAuth(true);
+    }
+    setIsAuth(false);
+  }, [token, setIsAuth]);
   
   const activeSection = useActiveSection(Object.values(sectionIds));
   
   return (
     <Layout>
-      <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="main" />
+      <MenuDrawer
+        isOpen={isMenuOpen}
+        onClose={toggleMenu}
+        currentPage="main"
+        isAuth={isAuth}
+      />
       <MenuIcon
         color={activeSection ? colorBySection[activeSection] : "white"}
         onClick={toggleMenu}

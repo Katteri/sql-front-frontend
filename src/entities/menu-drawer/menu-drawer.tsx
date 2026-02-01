@@ -5,16 +5,19 @@ import { Drawer, type DrawerProps } from "../../shared/ui/drawer/drawer";
 import styles from "./menu-drawer.module.scss";
 
 type MenuDrawerProps = DrawerProps & {
-  currentPage: typeof menuCoonfig.authorized[number]["page"],
+  currentPage: typeof menuCoonfig.authorized[number]["page"];
+  isAuth?: boolean;
 };
 
 const menuCoonfig = {
   unauthorized: [
     {
+      page: "login",
       text: "Войти",
       href: "auth?type=login",
     },
     {
+      page: "register",
       text: "Зарегистрироваться",
       href: "auth?type=register",
     },
@@ -55,11 +58,13 @@ const menuCoonfig = {
 } as const;
 
 export const MenuDrawer = ({
+  isAuth = true,
   isOpen,
   currentPage,
   onClose,
 }: MenuDrawerProps) => {
-  const config = menuCoonfig["authorized"];
+  const config = menuCoonfig[isAuth? "authorized" : "unauthorized"];
+
   return (
     <Drawer
       isOpen={isOpen}

@@ -1,7 +1,7 @@
 import { useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
-import { AuthType } from "@/shared/types";
+import { AuthType } from "@/shared/types/auth-data-types";
 import { colors } from "@/shared/ui/colors";
 import { Form } from "@/shared/ui/form-auth/form-auth";
 import { Title } from "@/shared/ui/title/title";
@@ -9,13 +9,23 @@ import { Link } from "@/shared/ui/link/link";
 
 import styles from "./auth.module.scss";
 
+const authConfig = {
+  login: {
+    color: "red",
+    linkColor: colors.black,
+    colorLinkHover: colors.red,
+  },
+  register: {
+    color: "white",
+    linkColor: colors.white,
+    colorLinkHover: colors.grayMid,
+  },
+} as const;
+
 export const Auth = () => {
   const params = useSearchParams();
   const authType = (params.get("type") as AuthType) || "login";
-
-  const color = authType === "login" ? "red" : "white";
-  const linkColor = authType === "login" ? colors.black : colors.white;
-  const colorLinkHover = authType === "login" ? colors.red : colors.grayMid;
+  const config = authConfig[authType];
 
   const makeAuth = useCallback((type: AuthType) => {
     const existingParams = params.toString();
@@ -28,8 +38,8 @@ export const Auth = () => {
     <section
       className={styles[authType]}
       style={{
-        "--link-color": linkColor,
-        "--link-hover-color": colorLinkHover,
+        "--link-color": config.linkColor,
+        "--link-hover-color": config.colorLinkHover,
       } as React.CSSProperties}
     >
       <div className={styles.menu}>
@@ -42,7 +52,7 @@ export const Auth = () => {
         as="p"
         size="30vw"
         padding="3vw 0 0 5vw"
-        color={color}
+        color={config.color}
       >
         SQL
       </Title>
@@ -50,7 +60,7 @@ export const Auth = () => {
         as="p"
         size="18vw"
         margin="-2.4vw 0 0 2.4vw"
-        color={color}
+        color={config.color}
       >
         фронт
       </Title>

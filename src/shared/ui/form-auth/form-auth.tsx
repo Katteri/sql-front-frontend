@@ -1,7 +1,11 @@
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 
+import { AuthType } from "@/shared/types/auth-data-types";
 import { colors } from "@/shared/ui/colors";
+import { useAppDispatch } from "@/shared/hooks/redux";
+import { registerUser } from "@/store/reducers/register-action";
+import { loginUser } from "@/store/reducers/login-action";
 
 import { formFieldsLogin } from "./form-fields-login";
 import { formFieldsRegister } from "./form-fields-register";
@@ -13,7 +17,7 @@ type FormType = {
   [_ in (typeof formFieldsLogin | typeof formFieldsRegister)[number]["name"]]: string;
 };
 
-const formStyleConfig = {
+const formConfig = {
   login: {
     formFields: formFieldsLogin,
     textColor: colors.black,
@@ -38,34 +42,39 @@ const formStyleConfig = {
       padding: "0.4vw",
       color: "white" as keyof typeof colors,
       hoverColor: "grayMid" as keyof typeof colors,
-    }
+    },
   }
 };
 
-export const Form = ({ type }: { type: "login" | "register" }) => {
-  const formStyle = formStyleConfig[type];
+export const Form = ({ type }: { type: AuthType }) => {
+  const dispatch = useAppDispatch();
+  const config = formConfig[type];
 
-  const { register, handleSubmit, formState: { errors, isValid, isDirty } } = useForm<FormType>({
+  const { register, handleSubmit, formState: { errors, isValid, isDirty }, getValues } = useForm<FormType>({
     mode: "onChange",
   });
 
   const onSubmit = useCallback(() => {
-    // TODO: add submit action
-  }, []);
+    if (type === "login") {
+      dispatch(loginUser(getValues()));
+    } else {
+      dispatch(registerUser(getValues()));
+    }
+  }, [dispatch, getValues, type]);
 
   return (
     <form
       className={styles.form}
       onSubmit={handleSubmit(onSubmit)}
     >
-      {formStyle.formFields.map((field) => (
+      {config.formFields.map((field) => (
         <div
           className={styles.inputWrapper}
           key={field.name}
           style={{
-            "--text-color": formStyle.textColor,
-            "--underline-color": formStyle.textColor,
-            "--underline-focus-color": formStyle.underlineFocusColor,
+            "--text-color": config.textColor,
+            "--underline-color": config.textColor,
+            "--underline-focus-color": config.underlineFocusColor,
           } as React.CSSProperties}
         >
           <label htmlFor={field.name}>{field.label}</label>
@@ -78,7 +87,7 @@ export const Form = ({ type }: { type: "login" | "register" }) => {
           {errors[field.name]?.message &&
             <Error
               message={errors[field.name]?.message}
-              color={formStyle.errorColor}
+              color={config.errorColor}
               gridColumn="2"
               gridRow="2"
             />
@@ -87,13 +96,13 @@ export const Form = ({ type }: { type: "login" | "register" }) => {
       ))}
       {(isValid && isDirty) && (
         <Button
-          color={formStyle.submitButton.color}
-          hoverColor={formStyle.submitButton.hoverColor}
-          width={formStyle.submitButton.width}
-          padding={formStyle.submitButton.padding}
+          color={config.submitButton.color}
+          hoverColor={config.submitButton.hoverColor}
+          width={config.submitButton.width}
+          padding={config.submitButton.padding}
           type="submit"
         >
-          {formStyle.submitButton.text}
+          {config.submitButton.text}
         </Button>
       )}
     </form>
