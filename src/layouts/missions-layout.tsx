@@ -1,10 +1,10 @@
 import { Missions } from "@/entities/missions/missions";
-import { Layout } from "@/shared/ui/layout/layout";
+import { ProtectedLayout } from "@/shared/ui/layout/protected-layout";
 
 export const MissionsLayout = () => {
   return (
-    <Layout>
+    <ProtectedLayout>
       <Missions />
-    </Layout>
+    </ProtectedLayout>
   );
 };

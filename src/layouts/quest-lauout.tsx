@@ -1,10 +1,10 @@
 import { Quest } from "@/entities/quest/quest";
-import { Layout } from "@/shared/ui/layout/layout";
+import { ProtectedLayout } from "@/shared/ui/layout/protected-layout";
 
 export const QuestLayout = () => {
   return (
-    <Layout>
+    <ProtectedLayout>
       <Quest />
-    </Layout>
+    </ProtectedLayout>
   );
 };

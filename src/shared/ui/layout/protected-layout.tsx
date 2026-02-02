@@ -11,7 +11,7 @@ export const ProtectedLayout = ({ children }: LayoutProps) => {
 
   useEffect(() => {
     if (!token) {
-      replace("/");
+      replace("/auth");
     }
   }, [token, replace]);
   

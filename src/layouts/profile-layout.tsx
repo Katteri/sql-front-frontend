@@ -1,10 +1,10 @@
 import { Profile } from "@/entities/profile/profile";
-import { Layout } from "@/shared/ui/layout/layout";
+import { ProtectedLayout } from "@/shared/ui/layout/protected-layout";
 
 export const ProfileLayout = () => {
   return (
-    <Layout>
+    <ProtectedLayout>
       <Profile />
-    </Layout>
+    </ProtectedLayout>
   );
 };

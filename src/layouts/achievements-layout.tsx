@@ -1,10 +1,10 @@
 import { Achievements } from "@/entities/achievements/achievements";
-import { Layout } from "@/shared/ui/layout/layout";
+import { ProtectedLayout } from "@/shared/ui/layout/protected-layout";
 
 export const AchievementsLayout = () => {
   return (
-    <Layout>
+    <ProtectedLayout>
       <Achievements />
-    </Layout>
+    </ProtectedLayout>
   );
 };
