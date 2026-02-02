@@ -12,8 +12,13 @@
 │   ├── pages                   (next.js routes)
 │   ├── layouts                 (page layout components)
 │   ├── entities                (business entities and logic)
+│   ├── store                   (state manager)
 │   ├── shared                  (shared code and components)
-│   |   └── ui                  (reusable ui components)
+│   |   ├── config              (application configuration)            
+│   |   ├── hooks               (custom react hooks)
+│   |   ├── types               (shared types)             
+│   |   ├── ui                  (reusable ui components)
+│   |   └── strings.ts          (text constants)
 │   |
 |   └── styles
 │       ├── _variables.scss     (sass variables)
@@ -22,4 +27,11 @@
 │
 ├── .env                        (enviroment variables)
 └── README.md                   (project overview and documentation)
+```
+
+
+## .env
+
+```
+NEXT_PUBLIC_BACKEND_URL = "put your backend url here"
 ```
