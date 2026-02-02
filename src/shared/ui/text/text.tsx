@@ -3,10 +3,12 @@ import cn from "classnames";
 import { colors } from "../colors";
 
 import styles from "./text.module.scss";
+import { Property } from "csstype";
 
 type TextProps = {
   size?: string,
   variant?: "default" | "column",
+  align?: Property.TextAlign;
   color?: keyof typeof colors,
   lineHeight?: string,
   textIndent?: string,
@@ -24,6 +26,7 @@ type TextProps = {
 
 export const Text = ({
   variant="default",
+  align="left",
   margin="0",
   padding="0",
   size="1vw",
@@ -44,6 +47,7 @@ export const Text = ({
     className={cn(styles.text, { [styles.textColumn]: variant === "column" })}
     style={{
       color: colors[color],
+      textAlign: align,
       lineHeight,
       textIndent,
       alignSelf,
