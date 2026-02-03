@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { loginUser } from "./login-action";
-import { registerUser } from "./register-action";
+import { loginUser } from "./actions/login-action";
+import { registerUser } from "./actions/register-action";
 import { LoginResponseType } from "@/shared/types/auth-data-types";
 
 type AuthState = {
@@ -19,8 +19,7 @@ const initialState: AuthState = {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       // registerUser

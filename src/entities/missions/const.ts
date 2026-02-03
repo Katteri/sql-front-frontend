@@ -8,15 +8,15 @@ export const taskDifficultyOptions = [
   },
   {
     label: "легкая",
-    value: 1,
+    value: 0,
   },
   {
     label: "средная",
-    value: 2,
+    value: 1,
   },
   {
     label: "сложная",
-    value: 3,
+    value: 2,
   },
 ];
 

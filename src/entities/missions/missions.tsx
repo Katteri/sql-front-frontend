@@ -93,6 +93,7 @@ export const Missions = () => {
 
     setVisibleImagesCount(count);
   }, [maxImagesHeight]);
+  
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, [setIsMenuOpen]);
