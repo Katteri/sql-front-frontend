@@ -2,11 +2,13 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authReducer from "./reducers/auth-slice";
 import missionsSlice from "./reducers/missions-slice";
 import achievementsSlice from "./reducers/achievements-slice";
+import questSlice from "./reducers/quest-slice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   missions: missionsSlice,
   achievements: achievementsSlice,
+  quest: questSlice,
 });
 
 export const setupStore = () => {

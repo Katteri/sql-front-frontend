@@ -1,55 +1,38 @@
-import { useCallback, useState } from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-import { Link } from "@/shared/ui/link/link";
-import { Title } from "@/shared/ui/title/title";
-import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
+import { questSlice } from "@/store/reducers/quest-slice";
+import { useAppDispatch } from "@/shared/hooks/redux";
 
-import { MenuDrawer } from "../menu-drawer/menu-drawer";
-import styles from "./quest.module.scss";
+import { QuestEngine } from "./quest-engine";
+
+const normalizeQuestIdType = (questId: string | string[] | undefined) => {
+  if (!questId) {
+    return null;
+  }
+  if (Array.isArray(questId)) {
+    return null;
+  }
+  return questId;
+};
 
 export const Quest = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+  const { questId: questIdFromUrl } = router.query;
 
-  const toggleMenu = useCallback(() => {
-    setIsMenuOpen((prev) => !prev);
-  }, [setIsMenuOpen]);
+  const dispatch = useAppDispatch();
+  const { startQuest } = questSlice.actions;
+
+  useEffect(() => {
+    const questId = normalizeQuestIdType(questIdFromUrl);
+    if (!questId) {
+      return;
+    }
+
+    dispatch(startQuest({ questId }));
+  }, [questIdFromUrl, dispatch, startQuest]);
 
   return (
-    <section className={styles.startQuest}>
-      <MenuIcon onClick={toggleMenu}/>
-      <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="quest"/>
-      <Title
-        as="h2"
-        size="29vw"
-        margin="6vw 0 0 5vw"
-      >
-        SQL
-      </Title>
-      <Title
-        as="p"
-        size="17.5vw"
-        margin="-2.2vw 0 0 2.4vw"
-      >
-        фронт
-      </Title>
-      <Title
-        size="20vw"
-        position="absolute"
-        top="5.8vw"
-        left="36.1vw"
-      >
-        квест
-      </Title>
-      <Link
-        href=""
-        fontVariant="capital"
-        size="6.7vw"
-        position="absolute"
-        top="24.2vw"
-        left="39vw"
-      >
-        начать
-      </Link>
-    </section>
+    <QuestEngine />
   );
 };
