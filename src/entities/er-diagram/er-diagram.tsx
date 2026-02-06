@@ -1,13 +1,16 @@
 import { Background, BackgroundVariant, Controls, ReactFlow } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import { databaseEdges, databaseNodes } from "./const";
+
+import { ERDiagramType } from "@/shared/types/er-diagram-types";
 
 import { DatabaseSchema } from "./database-schema";
 
 const nodeTypes = { databaseSchema: DatabaseSchema };
 
-export const ERDiagram = () => {
-
+export const ERDiagram = ({
+  databaseNodes,
+  databaseEdges,
+}: ERDiagramType) => {
   return (
     <ReactFlow
       nodes={databaseNodes}

@@ -11,11 +11,12 @@ import { Text } from "@/shared/ui/text/text";
 
 import { lightCodeMirrorTheme } from "@/shared/ui/code-mirror/code-mirror-theme-light";
 
-import { TaskDatabaseInfoDrawer } from "./drawers/task-database-info-drawer";
+import { DatabaseInfoDrawer } from "../database-info-drawer.tsx/database-info-drawer";
 import { TaskCluesDrawer } from "./drawers/task-clues-drawer";
 import { Result } from "./result";
 import { useTaskData } from "./use-task-data";
 import styles from "./task.module.scss";
+import { databaseEdges, databaseNodes } from "./const";
 import { resultData } from "./mock";
 
 export const Task = () => {
@@ -45,7 +46,7 @@ export const Task = () => {
     <section className={styles.task}>
       <MenuIcon color="red" onClick={toggleMenu}/>
       <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="missions"/>
-      <TaskDatabaseInfoDrawer isOpen={isDatabaseInfoOpen} onClose={toggleDatabaseInfo} />
+      <DatabaseInfoDrawer isOpen={isDatabaseInfoOpen} onClose={toggleDatabaseInfo} databaseEdges={databaseEdges} databaseNodes={databaseNodes} />
       <TaskCluesDrawer isOpen={isTaskCluesOpen} hasClue={data.hasClue} hasExpectedResult={data.hasExpectedResult} onClose={toggleTaskClues} />
       <div className={styles.spaceBetween}>
         <Text>

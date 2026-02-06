@@ -2,12 +2,14 @@ import { Drawer, DrawerProps } from "@/shared/ui/drawer/drawer";
 import { Title } from "@/shared/ui/title/title";
 import { ERDiagram } from "@/entities/er-diagram/er-diagram";
 
-export const TaskDatabaseInfoDrawer = ({
+import { ERDiagramType } from "@/shared/types/er-diagram-types";
+
+export const DatabaseInfoDrawer = ({
   isOpen,
   onClose,
-}: DrawerProps) => {
-  // TODO: add fetching db data
-
+  databaseEdges,
+  databaseNodes,
+}:  DrawerProps & ERDiagramType) => {
   return (
     <Drawer
       isOpen={isOpen}
@@ -23,7 +25,10 @@ export const TaskDatabaseInfoDrawer = ({
       >
         схема базы данных
       </Title>
-      <ERDiagram />
+      <ERDiagram
+        databaseNodes={databaseNodes}
+        databaseEdges={databaseEdges}
+      />
     </Drawer>
   );
 };

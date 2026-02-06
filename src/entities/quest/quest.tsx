@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { questSlice } from "@/store/reducers/quest-slice";
 import { useAppDispatch } from "@/shared/hooks/redux";
 
-import { QuestEngine } from "./quest-engine";
+import { Scene } from "../quest-scene/scene";
 
 const normalizeQuestIdType = (questId: string | string[] | undefined) => {
   if (!questId) {
@@ -33,6 +33,6 @@ export const Quest = () => {
   }, [questIdFromUrl, dispatch, startQuest]);
 
   return (
-    <QuestEngine />
+    <Scene />
   );
 };

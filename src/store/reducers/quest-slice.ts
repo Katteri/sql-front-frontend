@@ -18,7 +18,7 @@ export const questSlice = createSlice({
   reducers: {
     startQuest: (state, action: PayloadAction<{ questId: string }>) => {
       state.questId = action.payload.questId;
-      state.currentSceneId = "";
+      state.currentSceneId = "start";
     },
     goToScene: (state, action) => {
       state.currentSceneId = action.payload.sceneId;
