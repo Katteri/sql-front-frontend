@@ -1,19 +1,14 @@
 import { Table } from "@/shared/ui/table/table";
 import { Text } from "@/shared/ui/text/text";
-
-type ExtractedTableData = {
-  columns: string[],
-  data: (number | string)[][],
-  row_count: number,
-}
+import { ResultQueryDataType } from "@/shared/types/task-type";
 
 type ErrorRunngingQuery = {
   detail: string,
-}
+};
 
 const isExtractedTableData = (
-  data: ExtractedTableData | ErrorRunngingQuery
-): data is ExtractedTableData => {
+  data: ResultQueryDataType | ErrorRunngingQuery
+): data is ResultQueryDataType => {
   return (
     typeof data === "object" &&
     data !== null &&
@@ -24,10 +19,10 @@ const isExtractedTableData = (
   );
 };
 
-export const Result = ({
+export const ResultTable = ({
   data,
 }: {
-  data: ExtractedTableData | ErrorRunngingQuery,
+  data: ResultQueryDataType | ErrorRunngingQuery,
 }) => {
   if (isExtractedTableData(data)) {
     const resultData = { columns: data.columns, data: data.data };

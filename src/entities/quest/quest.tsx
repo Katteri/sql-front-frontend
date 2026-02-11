@@ -6,7 +6,7 @@ import { useAppDispatch } from "@/shared/hooks/redux";
 
 import { Scene } from "../quest-scene/scene";
 
-const normalizeQuestIdType = (questId: string | string[] | undefined) => {
+const normalizeQuestIdType = (questId?: string | string[]) => {
   if (!questId) {
     return null;
   }

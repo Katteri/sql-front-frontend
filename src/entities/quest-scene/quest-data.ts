@@ -2,7 +2,7 @@ import type { Edge, Node } from "@xyflow/react";
 
 export type QuestNodesType = {
   id: string;
-  line: string;
+  line: string; //TODO: is that nessesary?
   legend: string;
   task: string;
   clue?: string;

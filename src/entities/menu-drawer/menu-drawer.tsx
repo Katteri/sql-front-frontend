@@ -37,7 +37,7 @@ const menuCoonfig = {
     {
       page: "quest",
       text: "Квест",
-      href: "/quest",
+      href: "/quest", //TODO: if quest has already started lead to current pause 
     },
     {
       page: "missions",

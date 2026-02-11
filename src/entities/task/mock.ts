@@ -2,8 +2,8 @@ export const taskData = {
   title: "География сражений",
   description: "Определите все боевые операции, проведенные в Сталинграде. Результаты помогут оценить стратегическую значимость этого региона",
   isSolved: false,
-  hasClue: false,
-  hasExpectedResult: false,
+  isUserHasClue: false,
+  isUserHasExpectedResult: false,
   totalScore: 233,
 };
 

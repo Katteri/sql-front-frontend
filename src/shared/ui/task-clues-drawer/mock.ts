@@ -1,8 +1,10 @@
+import { ResultQueryDataType } from "@/shared/types/task-type";
+
 export const clueData = {
   clue: "Фильтрация по локации в таблице `battles` с использованием точного значения",
 };
 
-export const expectedResultData = {
+export const expectedResultData: ResultQueryDataType = {
   "columns": [
       "id",
       "full_name",

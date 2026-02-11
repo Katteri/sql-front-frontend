@@ -1,8 +1,8 @@
 import { Drawer, DrawerProps } from "@/shared/ui/drawer/drawer";
 import { Title } from "@/shared/ui/title/title";
-import { ERDiagram } from "@/entities/er-diagram/er-diagram";
-
 import { ERDiagramType } from "@/shared/types/er-diagram-types";
+
+import { ERDiagram } from "./er-diagram";
 
 export const DatabaseInfoDrawer = ({
   isOpen,

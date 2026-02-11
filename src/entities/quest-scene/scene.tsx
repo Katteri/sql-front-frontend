@@ -1,36 +1,44 @@
 import { useCallback, useState } from "react";
 
-import { DatabaseInfoDrawer } from "@/entities/database-info-drawer.tsx/database-info-drawer";
-import { Button } from "@/shared/ui/button/button";
-import { Title } from "@/shared/ui/title/title";
+import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
+import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
+
 import { useSceneData } from "./use-scene-data";
+import { LegendBlock } from "./legend-block";
+import { TaskBlock } from "../../shared/ui/task-block/task-block";
 import styles from "./scene.module.scss";
 
 export const Scene = () => {
   const { sceneData, databaseSchema } = useSceneData();
-  const [isDatabaseInfoOpen, setIsDatabaseInfoOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [state, setState] = useState<"legend" | "task">("legend");
+  
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen((prev) => !prev);
+  }, [setIsMenuOpen]);
 
-  const toggleDatabaseInfo = useCallback(() => {
-    setIsDatabaseInfoOpen((prev) => !prev);
-  }, [setIsDatabaseInfoOpen]);
+  const onLegendEnds = useCallback(() => {
+    setState("task");
+  }, [setState]);
 
   return (
     <section className={styles.section}>
-      <DatabaseInfoDrawer
-        isOpen={isDatabaseInfoOpen}
-        onClose={toggleDatabaseInfo}
-        databaseNodes={databaseSchema?.databaseNodes}
-        databaseEdges={databaseSchema?.databaseEdges}
-      />
-      <Button
-        color="black"
-        hoverColor="red"
-        width="2.5vw"
-        padding="0.5vw"
-        onClick={toggleDatabaseInfo}
-      >
-        i
-      </Button>
+      <MenuIcon color="red" onClick={toggleMenu}/>
+      <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="quest" />
+      
+      {/* TODO: put background image here */}
+      { //TODO: add screen when sceneData is undefined
+        state === "legend" && sceneData?.legend
+          ? <LegendBlock text={sceneData.legend} onEnds={onLegendEnds} />
+          : sceneData
+            &&  <TaskBlock
+                  type="quest"
+                  task={sceneData.task}
+                  questClue={sceneData.clue}
+                  databaseNodes={databaseSchema?.databaseNodes}
+                  databaseEdges={databaseSchema?.databaseEdges}
+                />
+      }
     </section>
   );
 };

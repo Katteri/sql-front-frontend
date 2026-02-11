@@ -9,19 +9,23 @@ import styles from "./task-clues-drawer.module.scss";
 import { useCallback, useState } from "react";
 
 type TaskCluesDrawerProps = DrawerProps & {
-  hasClue: boolean,
-  hasExpectedResult: boolean,
+  type: "quest" | "task",
+  isQuestHasClue?: boolean
+  isUserHasClue: boolean,
+  isUserHasExpectedResult: boolean,
 };
 
 export const TaskCluesDrawer = ({
   isOpen,
   onClose,
-  hasClue,
-  hasExpectedResult,
+  type,
+  isQuestHasClue,
+  isUserHasClue,
+  isUserHasExpectedResult,
 }: TaskCluesDrawerProps) => {
   // TODO: add fetching clues data
-  const [showClue, setShowClue] = useState<boolean>(hasClue);
-  const [showExpectedResult, setShowExpectedResult] = useState<boolean>(hasExpectedResult);
+  const [showClue, setShowClue] = useState<boolean>(isQuestHasClue ? isUserHasClue || isQuestHasClue : isUserHasClue);
+  const [showExpectedResult, setShowExpectedResult] = useState<boolean>(isUserHasExpectedResult);
 
   const clueButtonHandler = useCallback(() => {
     setShowClue(true);
@@ -62,31 +66,35 @@ export const TaskCluesDrawer = ({
         }
       </div>
       
-      <Title
-        as="p"
-        size="5vw"
-        color="black"
-      >
-        ожидаемый результат
-      </Title>
-      <div className={styles.block}>
-        {showExpectedResult 
-          ? <>
-              <Table data={expectedResultData} height="15vw"/>
-              <Text margin="0.5vw 0 0">Всего строк: {expectedResultData.row_count}</Text>
-            </>
-          : <Button
+      {type === "task"
+        ? <>
+            <Title
+              as="p"
+              size="5vw"
               color="black"
-              hoverColor="red"
-              width="8vw"
-              padding="0.5vw"
-              onClick={expectedResultButtonHandler}
             >
-              показать
-            </Button>
-        }
-      </div>
-      
+              ожидаемый результат
+            </Title>
+            <div className={styles.block}>
+              {showExpectedResult
+                ? <>
+                    <Table data={expectedResultData} height="15vw"/>
+                    <Text margin="0.5vw 0 0">Всего строк: {expectedResultData.row_count}</Text>
+                  </>
+                : <Button
+                    color="black"
+                    hoverColor="red"
+                    width="8vw"
+                    padding="0.5vw"
+                    onClick={expectedResultButtonHandler}
+                  >
+                    показать
+                  </Button>
+              }
+            </div>
+          </>
+        : null
+      }
     </Drawer>
   );
 };
