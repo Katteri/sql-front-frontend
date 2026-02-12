@@ -127,7 +127,6 @@ export const Profile = () => {
         {buttonsConfig.map((button) => (
           <Button
             color="white"
-            hoverColor="grayMid"
             width="15vw"
             padding="0.7vw"
             textAlign="left"

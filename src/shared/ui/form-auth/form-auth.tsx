@@ -28,7 +28,6 @@ const formConfig = {
       width: "8vw",
       padding: "0.3vw",
       color: "black" as keyof typeof colors,
-      hoverColor: "red" as keyof typeof colors,
     },
   },
   register: {
@@ -41,7 +40,6 @@ const formConfig = {
       width: "16vw",
       padding: "0.4vw",
       color: "white" as keyof typeof colors,
-      hoverColor: "grayMid" as keyof typeof colors,
     },
   }
 };
@@ -97,7 +95,6 @@ export const Form = ({ type }: { type: AuthType }) => {
       {(isValid && isDirty) && (
         <Button
           color={config.submitButton.color}
-          hoverColor={config.submitButton.hoverColor}
           width={config.submitButton.width}
           padding={config.submitButton.padding}
           type="submit"

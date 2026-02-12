@@ -107,7 +107,6 @@ export const ProfileInfoDrawer = ({
         {(isValid && isDirty) && (
           <Button
             color="black"
-            hoverColor="red"
             width="10vw"
             padding="0.3vw"
             type="submit"

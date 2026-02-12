@@ -94,7 +94,6 @@ export const TaskBlock = ({
           <div className={`${styles.spaceBetween} ${styles.buttonsLeftWidth}`}>
             <Button
               color="black"
-              hoverColor="red"
               width="10vw"
               padding=".5vw 2vw"
             >
@@ -102,7 +101,6 @@ export const TaskBlock = ({
             </Button>
             <Button
               color="black"
-              hoverColor="red"
               width="2.5vw"
               padding="0.5vw"
               onClick={toggleDatabaseInfo}
@@ -113,7 +111,6 @@ export const TaskBlock = ({
           {questClue
             ? <Button
                 color="black"
-                hoverColor="red"
                 width="10vw"
                 padding=".5vw 2vw"
                 onClick={toggleTaskClues} 
@@ -133,7 +130,6 @@ export const TaskBlock = ({
           </Title>
           <Button
             color={isSolved ? "black" : "red"}
-            hoverColor={isSolved ? "red" : "black"}
             width="10vw"
             padding=".5vw 2vw"
           >

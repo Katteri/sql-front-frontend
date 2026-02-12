@@ -5,17 +5,22 @@ import styles from "./button.module.scss";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   color: keyof typeof colors,
-  hoverColor: keyof typeof colors,
   width: string,
   padding: string,
   textAlign?: "left" | "center" | "right", 
   type?: "submit" | "reset" | "button", 
   children: string,
-}
+};
+
+const buttonHoverColorMap = {
+  white: colors.grayMid,
+  red: colors.black,
+  black: colors.red,
+  grayMid: colors.black,
+};
 
 export const Button = ({
   color,
-  hoverColor,
   width,
   padding,
   textAlign = "center",
@@ -29,7 +34,7 @@ export const Button = ({
       className={styles.button}
       style={{
         "--color": colors[color],
-        "--hover-color": colors[hoverColor],
+        "--hover-color": buttonHoverColorMap[color],
         "--width": width,
         "--padding": padding,
         textAlign,
