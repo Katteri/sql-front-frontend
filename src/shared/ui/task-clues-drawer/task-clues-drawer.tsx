@@ -9,23 +9,21 @@ import styles from "./task-clues-drawer.module.scss";
 import { useCallback, useState } from "react";
 
 type TaskCluesDrawerProps = DrawerProps & {
-  type: "quest" | "task",
-  isQuestHasClue?: boolean
-  isUserHasClue: boolean,
-  isUserHasExpectedResult: boolean,
+  type: "quest" | "task";
+  isUserHasClue: boolean;
+  isUserHasExpectedResult?: boolean;
 };
 
 export const TaskCluesDrawer = ({
   isOpen,
   onClose,
   type,
-  isQuestHasClue,
   isUserHasClue,
   isUserHasExpectedResult,
 }: TaskCluesDrawerProps) => {
   // TODO: add fetching clues data
-  const [showClue, setShowClue] = useState<boolean>(isQuestHasClue ? isUserHasClue || isQuestHasClue : isUserHasClue);
-  const [showExpectedResult, setShowExpectedResult] = useState<boolean>(isUserHasExpectedResult);
+  const [showClue, setShowClue] = useState<boolean>(isUserHasClue);
+  const [showExpectedResult, setShowExpectedResult] = useState<boolean>(isUserHasExpectedResult ? isUserHasExpectedResult : false);
 
   const clueButtonHandler = useCallback(() => {
     setShowClue(true);
@@ -56,7 +54,6 @@ export const TaskCluesDrawer = ({
           ? <Text>{clueData.clue}</Text>
           : <Button
               color="black"
-              hoverColor="red"
               width="8vw"
               padding="0.5vw"
               onClick={clueButtonHandler}
@@ -83,7 +80,6 @@ export const TaskCluesDrawer = ({
                   </>
                 : <Button
                     color="black"
-                    hoverColor="red"
                     width="8vw"
                     padding="0.5vw"
                     onClick={expectedResultButtonHandler}

@@ -1,6 +1,6 @@
 import { PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-import { ExpectedResultType, TaskClueDtoType, TaskDataDtoType, TaskDataPayloadType } from "@/shared/types/task-type";
+import { ClueDtoType, ExpectedResultType, TaskDataDtoType, TaskDataPayloadType } from "@/shared/types/task-type";
 
 import { StateType } from "../store";
 import { getTaskClueData, getTaskData, getTaskExpectedResultData } from "./actions/tasks-actions";
@@ -21,7 +21,7 @@ type TaskType = {
     taskId: number | null;
     missionId: number | null;
   } | null;
-  clue?: TaskClueDtoType,
+  clue?: ClueDtoType,
   expectedResult?: ExpectedResultType,
 };
 
@@ -81,7 +81,7 @@ export const tasksSlice = createSlice({
       .addCase(getTaskClueData.pending.type, (state) => {
         state.isLoading = true;
       })
-      .addCase(getTaskClueData.fulfilled.type, (state, action: PayloadAction<TaskDataPayloadType & { clue: TaskClueDtoType }>) => {
+      .addCase(getTaskClueData.fulfilled.type, (state, action: PayloadAction<TaskDataPayloadType & { clue: ClueDtoType }>) => {
         state.isLoading = false;
         state.error = null;
 

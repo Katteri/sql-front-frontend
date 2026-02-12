@@ -27,10 +27,15 @@ export type TaskDataDtoType = {
   },
 };
 
-export type TaskClueDtoType = {
+export type ClueDtoType = {
   points_spent: number;
   total_score: number;
   clue: string;
+};
+
+export type TaskClueData = {
+  isUserHasClue: boolean;
+  isUserHasExpectedResult: boolean;
 };
 
 export type ExpectedResultType = {

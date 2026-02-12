@@ -1,5 +1,7 @@
 import type { Edge, Node } from "@xyflow/react";
 
+import { QuestIdType } from "@/shared/types/quest-types";
+
 export type QuestNodesType = {
   id: string;
   line: string; //TODO: is that nessesary?
@@ -14,7 +16,8 @@ export type DatabaseQuestSchemasType = {
   databaseEdges?: Edge[];
 }[];
 
-export const questNodes: QuestNodesType = [
+
+const hopeQuestNodes: QuestNodesType = [
   {
     id: "start",
     line: "1",
@@ -50,7 +53,7 @@ export const questNodes: QuestNodesType = [
   }
 ];
 
-export const databaseQuestSchemas: DatabaseQuestSchemasType = [
+const databaseHopeQuestSchemas: DatabaseQuestSchemasType = [
   {
     id: "start",
     databaseNodes: [
@@ -217,4 +220,18 @@ export const databaseQuestSchemas: DatabaseQuestSchemasType = [
     ],
   },
 
+];
+
+type QuestsType = {
+  id: QuestIdType,
+  questNodes: QuestNodesType,
+  databaseQuestSchemas: DatabaseQuestSchemasType,
+}[];
+
+export const quests: QuestsType = [
+  {
+    id: "hope",
+    questNodes: hopeQuestNodes,
+    databaseQuestSchemas: databaseHopeQuestSchemas,
+  }
 ];

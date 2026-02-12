@@ -7,6 +7,8 @@ import { TaskCluesDrawer } from "@/shared/ui/task-clues-drawer/task-clues-drawer
 import { Button } from "@/shared/ui/button/button";
 import { Text } from "@/shared/ui/text/text";
 import { ERDiagramType } from "@/shared/types/er-diagram-types";
+import { TaskClueData } from "@/shared/types/task-type";
+import { QuestClueData } from "@/shared/types/quest-types";
 import { lightCodeMirrorTheme } from "@/shared/ui/code-mirror/code-mirror-theme-light";
 
 import styles from "./task-block.module.scss";
@@ -15,22 +17,25 @@ import { resultData } from "../../../entities/task/mock";
 import { Title } from "@/shared/ui/title/title";
 import { DatabaseInfoDrawer } from "../database-info-drawer/database-info-drawer";
 
-type TaskBlockType = ERDiagramType & {
-  type: "quest" | "task";
-  questClue?: string; 
-  isSolved?: boolean,
-  task: string;
-  isUserHasClue?: boolean;
-  isUserHasExpectedResult?: boolean;
-};
+type TaskBlockType = 
+  (ERDiagramType & {
+    type: "task",
+    isSolved?: boolean,
+    task: string;
+    clueData: TaskClueData;
+  }) |
+  (ERDiagramType & {
+    type: "quest",
+    isSolved?: boolean,
+    task: string;
+    clueData: QuestClueData;
+  });
 
 export const TaskBlock = ({
   type,
-  questClue,
   isSolved,
   task,
-  isUserHasClue,
-  isUserHasExpectedResult,
+  clueData,
   databaseNodes,
   databaseEdges,
 }: TaskBlockType) => {
@@ -50,6 +55,8 @@ export const TaskBlock = ({
     setValue(val);
   }, []);
 
+  const isClueExist = type === "task" || (type === "quest" && clueData?.isQuestHasClue);
+
   return (
     <>
       <DatabaseInfoDrawer
@@ -58,13 +65,12 @@ export const TaskBlock = ({
         databaseNodes={databaseNodes}
         databaseEdges={databaseEdges}
       />
-      {questClue && isUserHasClue !== undefined && isUserHasExpectedResult !== undefined
+      {isClueExist
         ? <TaskCluesDrawer
             isOpen={isTaskCluesOpen}
             type={type}
-            isQuestHasClue={!questClue}
-            isUserHasClue={isUserHasClue}
-            isUserHasExpectedResult={isUserHasExpectedResult}
+            isUserHasClue={clueData.isUserHasClue}
+            isUserHasExpectedResult={type === "task" ? clueData.isUserHasExpectedResult : undefined}
             onClose={toggleTaskClues}
           />
         : null
@@ -108,14 +114,14 @@ export const TaskBlock = ({
               i
             </Button>
           </div>
-          {questClue
+          {isClueExist
             ? <Button
                 color="black"
                 width="10vw"
                 padding=".5vw 2vw"
                 onClick={toggleTaskClues} 
               >
-                подсказка
+                подсказк{type === "task" ? "и" : "а"}
               </Button>
             : null}
         </div>

@@ -43,8 +43,10 @@ export const Task = () => {
         type="task"
         isSolved={data.isSolved}
         task={data.description}
-        isUserHasClue={data.isUserHasClue}
-        isUserHasExpectedResult={data.isUserHasExpectedResult}
+        clueData={{
+          isUserHasClue: data.isUserHasClue,
+          isUserHasExpectedResult: data.isUserHasExpectedResult,
+        }}
         databaseNodes={databaseNodes}
         databaseEdges={databaseEdges}
       />

@@ -2,7 +2,7 @@ import { isAxiosError } from "axios";
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { TaskClueDtoType, TaskDataDtoType, TaskDataPayloadType } from "@/shared/types/task-type";
+import { ClueDtoType, TaskDataDtoType, TaskDataPayloadType } from "@/shared/types/task-type";
 import api from "@/shared/config/axios";
 import strings from "@/shared/strings";
 
@@ -28,7 +28,7 @@ export const getTaskClueData = createAsyncThunk(
   "tasks/clue/get",
   async (payload: TaskDataPayloadType, { rejectWithValue }) => {
     try {
-      const response = await api.get<TaskClueDtoType>(strings.api.clue(payload));
+      const response = await api.get<ClueDtoType>(strings.api.clue(payload));
 
       return { clue: response.data, ...payload};
       

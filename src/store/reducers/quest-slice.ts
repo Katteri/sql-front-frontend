@@ -1,28 +1,36 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-type QuestState = {
-  questId: string | null;
+import { SceneProgressType } from "@/shared/types/quest-types";
+import { ClueDtoType } from "@/shared/types/task-type";
+
+type QuestState = { //TODO: add questSceneData
   currentSceneId: string | null;
-  choices: string[]; //TODO: is that necessary?
+  sceneProgress: SceneProgressType;
+  isUserHasClue: boolean;
+  clue?: ClueDtoType;
 };
 
 const initialState: QuestState = {
-  questId: null,
   currentSceneId: null,
-  choices: [],
+  sceneProgress: "legend",
+  isUserHasClue: false,
 };
 
 export const questSlice = createSlice({
   name: "quest",
   initialState,
   reducers: {
-    startQuest: (state, action: PayloadAction<{ questId: string }>) => {
-      state.questId = action.payload.questId;
+    startQuest: (state) => {
       state.currentSceneId = "start";
+      state.sceneProgress = "legend";
     },
-    goToScene: (state, action) => {
+    goToScene: (state, action: PayloadAction<{ sceneId: string }>) => {
       state.currentSceneId = action.payload.sceneId;
-    }
+      state.sceneProgress = "legend";
+    },
+    goToTask: (state) => {
+      state.sceneProgress = "task";
+    },
   },
   //TODO: add extraReducers for sending sql queries to backend
 });
