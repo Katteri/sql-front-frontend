@@ -1,26 +1,20 @@
+import { AchievementType } from "@/shared/types/achievements-types";
+
 import { Text } from "../text/text";
 import { AchievementIcon } from "./achievement-icon/achievement-icon";
-
 import styles from "./achievement.module.scss";
 
-type AchievementProps = {
-  name: string,
-  slug: string,
-  historicalInfo: string,
-  description: string,
-  isAchieved?: boolean,
-};
-
 export const Achievement = ({
+  id,
   name,
-  slug,
   historicalInfo,
   description,
   isAchieved = false,
-}: AchievementProps) => {
+}: AchievementType) => {
   return (
     <div className={styles.achievement}>
-      <AchievementIcon slug={slug} />
+      <AchievementIcon id={id} />
+
       <div className={styles.textBlock}>
         <Text>{name}</Text>
         <Text>{historicalInfo}</Text>
@@ -28,6 +22,7 @@ export const Achievement = ({
           <Text>{description}</Text>
         </div>
       </div>
+      
       {isAchieved && <Text size="2vw">✓</Text>}
     </div>
   );

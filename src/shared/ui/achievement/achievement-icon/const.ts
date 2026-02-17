@@ -1,5 +1,12 @@
-export const achievementIcons: Record<string, string> = {
-  "1-1": "🎖",
-  "1-2": "📜",
-  "2-1": "🏙",
+export const achievementIcons: Record<string, string> = { //TODO: change smiles to custom png icons 
+  1: "🎖",
+  2: "📜",
+  3: "🗺",
+  4: "🏅",
+  5: "🔍",
+  6: "🧩",
+  7: "🏙",
+  8: "🏆",
+  9: "🚩",
+  10: "📈",
 };

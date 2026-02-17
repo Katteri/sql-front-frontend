@@ -3,13 +3,15 @@ import { achievementIcons } from "./const";
 import styles from "./achievement-icon.module.scss";
 
 type AchievementIconProps = {
-  slug: string,
+  id: number,
 };
 
 export const AchievementIcon = ({
-  slug,
+  id,
 }: AchievementIconProps) => {
   return (
-    <div className={styles.icon}>{achievementIcons[slug]}</div>
+    <div className={styles.icon}>
+      {achievementIcons[id]}
+    </div>
   );
 };

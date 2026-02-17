@@ -15,3 +15,11 @@ export type AchievementsType = Record<CategoryType, AchievementTypeDto[]>;
 export type AchievementsTypeDto = {
   categories: AchievementsType;
 };
+
+export type AchievementType = {
+  id: number;
+  name: string;
+  historicalInfo: string;
+  description: string;
+  isAchieved: boolean;
+};
