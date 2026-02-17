@@ -2,11 +2,10 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import Head from "next/head";
 
-import { setupStore } from "@/store/store";
+import { store } from "@/store/store";
+
 import "@/styles/_reset.scss";
 import "@/styles/global.scss";
-
-const store = setupStore();
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

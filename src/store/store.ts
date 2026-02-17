@@ -13,13 +13,10 @@ const rootReducer = combineReducers({
   quest: questSlice,
 });
 
-export const setupStore = () => {
-  return configureStore({
+export const store = configureStore({
     reducer: rootReducer,
-  });
-};
-
+});
 
 export type StateType = ReturnType<typeof rootReducer>;
-export type StoreType = ReturnType<typeof setupStore>;
-export type DispatchType = StoreType["dispatch"];
+export type StoreType = ReturnType<typeof store.getState>;
+export type DispatchType = typeof store.dispatch;

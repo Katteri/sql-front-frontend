@@ -35,6 +35,7 @@ export const MainPageLayout = () => {
   useEffect(() => {
     if (token) {
       setIsAuth(true);
+      return;
     }
     setIsAuth(false);
   }, [token, setIsAuth]);

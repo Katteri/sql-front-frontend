@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { loginUser } from "./actions/login-action";
 import { registerUser } from "./actions/register-action";
 import { LoginResponseType } from "@/shared/types/auth-data-types";
+import { tokenService } from "@/shared/config/token-service";
 
 type AuthState = {
   token: string | null;
@@ -11,7 +12,7 @@ type AuthState = {
 };
 
 const initialState: AuthState = {
-  token: null,
+  token: tokenService.get(),
   isLoading: false,
   error: null,
 };
@@ -19,7 +20,11 @@ const initialState: AuthState = {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.token = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // registerUser
