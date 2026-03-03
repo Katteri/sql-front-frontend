@@ -26,6 +26,9 @@ export const Error = ({
       top={top}
       gridColumn={gridColumn}
       gridRow={gridRow}
+      align="right"
+      alignSelf="right"
+      position="absolute"
     >
       {message}
     </Text>

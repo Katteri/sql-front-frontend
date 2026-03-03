@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { ClueDtoType, TaskDataDtoType, TaskDataPayloadType } from "@/shared/types/task-type";
 import api from "@/shared/config/axios";
-import strings from "@/shared/strings";
+import strings from "@/shared/consts/strings";
 
 export const getTaskData = createAsyncThunk(
   "tasks/get",

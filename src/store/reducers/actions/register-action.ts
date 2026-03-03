@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { DataRegisterType } from "@/shared/types/auth-data-types";
 import api from "@/shared/config/axios";
-import strings from "@/shared/strings";
+import strings from "@/shared/consts/strings";
 
 export const registerUser = createAsyncThunk(
   "user/register",

@@ -121,7 +121,7 @@ export const TaskBlock = ({
                 padding=".5vw 2vw"
                 onClick={toggleTaskClues} 
               >
-                подсказк{type === "task" ? "и" : "а"}
+                {`подсказк${type === "task" ? "и" : "а"}`}
               </Button>
             : null}
         </div>

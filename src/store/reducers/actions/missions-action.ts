@@ -4,13 +4,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { MissionsTypeDto } from "@/shared/types/missions-types";
 import api from "@/shared/config/axios";
-import strings from "@/shared/strings";
+import strings from "@/shared/consts/strings";
 
 export const getMissions = createAsyncThunk(
   "missions/get",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await api.get<MissionsTypeDto>(strings.api.misisons);
+      const response = await api.get<MissionsTypeDto>(strings.api.missions);
 
       return response.data;
       

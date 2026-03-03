@@ -3,12 +3,11 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { loginUser } from "./actions/login-action";
 import { registerUser } from "./actions/register-action";
 import { LoginResponseType } from "@/shared/types/auth-data-types";
+import { DefaultStateType } from "@/shared/types/state-manager-types";
 import { tokenService } from "@/shared/config/token-service";
 
-type AuthState = {
+type AuthState = DefaultStateType & {
   token: string | null;
-  isLoading: boolean;
-  error: string | null;
 };
 
 const initialState: AuthState = {

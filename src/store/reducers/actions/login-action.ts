@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { DataLoginType, LoginResponseType } from "@/shared/types/auth-data-types";
 import api from "@/shared/config/axios";
-import strings from "@/shared/strings";
+import strings from "@/shared/consts/strings";
 
 import { tokenService } from "@/shared/config/token-service";
 

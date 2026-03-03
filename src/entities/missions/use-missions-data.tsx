@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from "@/shared/hooks/redux";
 import { getMissions } from "@/store/reducers/actions/missions-action";
 import { MissionsType } from "@/shared/types/missions-types";
 
-import { missionsData } from "./mock";
 import { TASK_DIFFICULTY_QUERY_PARAM, TASK_STATUS_QUERY_PARAM } from "./const";
 import { useEffect, useMemo } from "react";
 
@@ -16,7 +15,7 @@ type TaskType = {
 };
 
 const normalizeMissionsData = (data: MissionsType): TaskType[] => {
-  return Object.entries(data).flatMap(([missionId, tasks]) => 
+  return Object.entries(data).flatMap(([missionId, tasks]) =>
     tasks.map((task) => ({
       missionId: Number(missionId),
       taskId: task.task_id,
@@ -37,6 +36,7 @@ const matchedDifficulty = (taskDifficulty: string | null, missionId: number) => 
 
   return true;
 };
+
 const matchedStatus = (taskStatus: string | null, isSolved: boolean) => {
   if (taskStatus) {
     if (taskStatus === "solved") {

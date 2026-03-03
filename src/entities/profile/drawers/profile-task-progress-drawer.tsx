@@ -2,15 +2,12 @@ import { Title } from "@/shared/ui/title/title";
 import { Text } from "@/shared/ui/text/text";
 import { ProgressBar } from "@/shared/ui/progress-bar/progress-bar";
 import { Drawer, type DrawerProps } from "@/shared/ui/drawer/drawer";
+import { TaskDataType } from "@/shared/types/profile-types";
 
 import styles from "./profile-task-progress-drawer.module.scss";
 
 type TaskProgressDrawerProps = DrawerProps & {
-  data: {
-    title: string,
-    solved: number,
-    total: number,
-  }[]
+  data: TaskDataType | null;
 };
 
 export const TaskProgressDrawer = ({
@@ -33,15 +30,27 @@ export const TaskProgressDrawer = ({
         прогресс по задачам
       </Title>
       <div className={styles.progressBlock} >
-        {data.map(({ title, solved, total }) => (
-          <div className={styles.row} key={title}>
-            <Text>
-              {title}
-            </Text>
-            <ProgressBar solved={solved} total={total} />
-            <Text>{solved}/{total}</Text>
-          </div>
-        ))}
+        {!data ? (
+          <Text>что-то пошло не так ;/</Text>
+        ) : (
+          <>
+            <div className={styles.row}>
+              <Text>миссия 0</Text>
+              <ProgressBar solved={data.easySolved} total={data.easyTasksTotal} />
+              <Text>{data.easySolved}/{data.easyTasksTotal}</Text>
+            </div>
+            <div className={styles.row}>
+              <Text>миссия 1</Text>
+              <ProgressBar solved={data.mediumSolved} total={data.mediumTasksTotal} />
+              <Text>{data.mediumSolved}/{data.mediumTasksTotal}</Text>
+            </div>
+            <div className={styles.row}>
+              <Text>миссия 2</Text>
+              <ProgressBar solved={data.hardSolved} total={data.hardTasksTotal} />
+              <Text>{data.hardSolved}/{data.hardTasksTotal}</Text>
+            </div>
+          </>
+        )}
       </div>
     </Drawer>
   );

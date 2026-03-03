@@ -1,26 +1,30 @@
-import { profileAchievementsData as data } from "./mock";
-
-type AchievementType = {
-  name: string,
-  slug: string,
-  category: string,
-  historicalInfo: string,
-  description: string,
-}
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/redux";
+import type { CategoryType } from "@/shared/types/achievements-types";
+import { useEffect } from "react";
+import { getProfileAchievements } from "@/store/reducers/actions/profile-action";
 
 export const useProfileAchievementsData = () => {
-  const map = new Map<string, AchievementType[]>();
+  const dispatch = useAppDispatch();
+  const { achievements } = useAppSelector((state) => state.profile);
 
-  data.forEach((item) => {
-    if (!map.has(item.category)) {
-      map.set(item.category, []);
-    }
-    map.get(item.category)?.push(item);
-  });
+   useEffect(() => {
+    dispatch(getProfileAchievements());
+  }, [dispatch]);
 
-  
-  return Array.from(map.entries()).map(([category, achievements]) => ({
-    category,
-    achievements,
-  }));
+  if (!achievements.data) {
+    return {
+      data: null,
+      isLoading: achievements.isLoading,
+      error: achievements.error,
+    };
+  }
+
+  return {
+    data: Object.entries(achievements.data).map(
+      ([category, achievementsList]) => ({
+        category: category as CategoryType,
+        achievements: achievementsList,
+      })
+    ),
+  };
 };

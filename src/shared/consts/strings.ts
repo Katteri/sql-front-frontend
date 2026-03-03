@@ -4,8 +4,12 @@ const strings = {
   api: {
     register: "/auth/register",
     login: "/auth/login",
-    misisons: "/missions",
+    missions: "/missions",
     achievements: "/achievements",
+    profile: "/profile/me",
+    profileTaskTotal: "/missions/get_info",
+    profileTaskProgress: "/profile/tasks_progress",
+    profileAchievements: "/profile/achievements",
     task: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/`,
     clue: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/clue`,
     expectedResult: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/expected_result`,

@@ -2,11 +2,10 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { getMissions } from "./actions/missions-action";
 import { MissionsType, MissionsTypeDto } from "@/shared/types/missions-types";
+import { DefaultStateType } from "@/shared/types/state-manager-types";
 
-type MissionsState = {
+type MissionsState = DefaultStateType & {
   missions: MissionsType | null;
-  isLoading: boolean;
-  error: string | null;
 };
 
 const initialState: MissionsState = {

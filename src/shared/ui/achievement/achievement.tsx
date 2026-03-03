@@ -1,29 +1,29 @@
-import { AchievementType } from "@/shared/types/achievements-types";
+import { AchievementTypeDto } from "@/shared/types/achievements-types";
 
 import { Text } from "../text/text";
 import { AchievementIcon } from "./achievement-icon/achievement-icon";
 import styles from "./achievement.module.scss";
 
 export const Achievement = ({
-  id,
+  achievement_id,
   name,
-  historicalInfo,
   description,
-  isAchieved = false,
-}: AchievementType) => {
+  historical_info,
+  is_earned,
+}: AchievementTypeDto) => {
   return (
     <div className={styles.achievement}>
-      <AchievementIcon id={id} />
+      <AchievementIcon id={achievement_id} />
 
       <div className={styles.textBlock}>
         <Text>{name}</Text>
-        <Text>{historicalInfo}</Text>
+        <Text>{historical_info}</Text>
         <div className={styles.description}>
           <Text>{description}</Text>
         </div>
       </div>
       
-      {isAchieved && <Text size="2vw">✓</Text>}
+      {is_earned && <Text size="2vw">✓</Text>}
     </div>
   );
 };

@@ -4,12 +4,12 @@ import { colors } from "../colors";
 import styles from "./button.module.scss";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  color: keyof typeof colors,
-  width: string,
-  padding: string,
-  textAlign?: "left" | "center" | "right", 
-  type?: "submit" | "reset" | "button", 
-  children: string,
+  color: keyof typeof colors;
+  width: string;
+  padding: string;
+  textAlign?: "left" | "center" | "right";
+  type?: "submit" | "reset" | "button";
+  children: React.ReactNode;
 };
 
 const buttonHoverColorMap = {

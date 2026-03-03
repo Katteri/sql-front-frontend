@@ -10,10 +10,10 @@ import { useCallback, useEffect } from "react";
 
 type ProfileInfoDrawerProps = DrawerProps & {
   data: {
-    login: string,
-    fullname: string,
-    group: string,
-    email: string,
+    login?: string;
+    fullname?: string;
+    group?: string;
+    email?: string;
   },
 };
 

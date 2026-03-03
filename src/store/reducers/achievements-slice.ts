@@ -2,11 +2,10 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { getAchievements } from "./actions/achievements-action";
 import { AchievementsType, AchievementsTypeDto } from"@/shared/types/achievements-types";
+import { DefaultStateType } from "@/shared/types/state-manager-types";
 
-type AchievementsState = {
+type AchievementsState = DefaultStateType & {
   achievements: AchievementsType | null;
-  isLoading: boolean;
-  error: string | null;
 };
 
 const initialState: AchievementsState = {

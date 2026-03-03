@@ -33,7 +33,7 @@ export const EditableField = <T extends FieldValues>({
         rules={rules}
         defaultValue={"" as PathValue<T, typeof name>}
         render={({field}) => (
-          <>
+          <div className={styles.inputContainer}>
             <input
               {...field}
               type={type}
@@ -42,7 +42,7 @@ export const EditableField = <T extends FieldValues>({
               autoComplete="off"
             />
             {errorMessage && <Error message={errorMessage} right="0" top="1.3vw"/>}
-          </>
+          </div>
         )}
       />
     </div>

@@ -25,11 +25,15 @@ export const Profile = () => {
   const [isTaskProgressOpen, setIsTaskProgressOpen] = useState(false);
   const [isAchievementsOpen, setIsAchievementsOpen] = useState(false);
 
-  const profileData = useProfileData();
-  const taskProgressData = useTaskProgressData();
-  const achievementsData = useProfileAchievementsData();
+  const { data: profileData } = useProfileData();
+  const { data: taskProgressData } = useTaskProgressData();
+  const { data: achievementsData } = useProfileAchievementsData();
 
   const titleFontSize = useMemo(() => {
+    if (!profileData) { //TODO: ?????
+      return titleFontSizeConfig[7];
+    }
+
     const length = profileData.login.length;
     const lengths = Object.keys(titleFontSizeConfig).map(Number);
 
@@ -40,7 +44,7 @@ export const Profile = () => {
     }
 
     return titleFontSizeConfig[lengths[lengths.length - 1]];
-  }, [profileData.login]);
+  }, [profileData]);
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
@@ -87,10 +91,10 @@ export const Profile = () => {
         isOpen={isProfileInfoOpen}
         onClose={toggleProfileInfo}
         data={{
-          login: profileData.login,
-          fullname: profileData.fullname,
-          group: profileData.group,
-          email: profileData.email,
+          login: profileData?.login,
+          fullname: profileData?.fullname,
+          group: profileData?.group,
+          email: profileData?.email,
         }}
       />
       <TaskProgressDrawer
@@ -109,7 +113,7 @@ export const Profile = () => {
         size={titleFontSize}
         margin="0 0 0 0.7vw"
       >
-        {profileData.login}
+        {profileData?.login}
       </Title>
       <Title
         color="white"
@@ -119,7 +123,7 @@ export const Profile = () => {
         letterSpacing="0.1vw"
       >
         <span>баллы: </span>
-        <span style={{fontSize: "2.6vw"}}>{profileData.score}</span>
+        <span style={{fontSize: "2.6vw"}}>{profileData?.totalScore}</span>
       </Title>
       <div
         className={styles.buttonsBlock}
