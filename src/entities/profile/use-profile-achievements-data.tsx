@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/redux";
-import type { CategoryType } from "@/shared/types/achievements-types";
 import { useEffect } from "react";
 import { getProfileAchievements } from "@/store/reducers/actions/profile-action";
+import { normalizeAchievementsData } from "@/shared/utils/normalize-achievements-data";
 
 export const useProfileAchievementsData = () => {
   const dispatch = useAppDispatch();
@@ -20,11 +20,6 @@ export const useProfileAchievementsData = () => {
   }
 
   return {
-    data: Object.entries(achievements.data).map(
-      ([category, achievementsList]) => ({
-        category: category as CategoryType,
-        achievements: achievementsList,
-      })
-    ),
+    data: normalizeAchievementsData(achievements.data),
   };
 };

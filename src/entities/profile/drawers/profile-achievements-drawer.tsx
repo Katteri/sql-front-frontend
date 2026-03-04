@@ -2,14 +2,14 @@ import { Achievement } from "@/shared/ui/achievement/achievement";
 import { Title } from "@/shared/ui/title/title";
 import { Text } from "@/shared/ui/text/text";
 import { Drawer, type DrawerProps } from "@/shared/ui/drawer/drawer";
-import { AchievementTypeDto, CategoryType } from "@/shared/types/achievements-types";
+import { AchievementType, CategoryType } from "@/shared/types/achievements-types";
 
 import styles from "./profile-achievements-drawer.module.scss";
 
 type ProfileAchievementsDrawerProps = DrawerProps & {
   data: {
     category: CategoryType,
-    achievements: AchievementTypeDto[],
+    achievements: AchievementType[],
   }[] | null,
 };
 
@@ -18,7 +18,6 @@ export const ProfileAchievementsDrawer = ({
   onClose,
   data,
 }: ProfileAchievementsDrawerProps) => {
-  console.log(data);
   return (
     <Drawer
       isOpen={isOpen}
@@ -54,7 +53,7 @@ export const ProfileAchievementsDrawer = ({
                 ) : (
                   <div className={styles.achievementsBlock}>
                     {achievements.map((item) => (
-                      <Achievement {...item} key={item.achievement_id}/>
+                      <Achievement {...item} key={item.id}/>
                     ))}
                   </div>
                 )}
