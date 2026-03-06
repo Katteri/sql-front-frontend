@@ -3,13 +3,17 @@ import { useEffect } from "react";
 import { getProfileAchievements } from "@/store/reducers/actions/profile-action";
 import { normalizeAchievementsData } from "@/shared/utils/normalize-achievements-data";
 
-export const useProfileAchievementsData = () => {
+export const useProfileAchievementsData = (enabled: boolean) => {
   const dispatch = useAppDispatch();
   const { achievements } = useAppSelector((state) => state.profile);
 
    useEffect(() => {
+    if (!enabled || achievements.data) {
+      return;
+    }
+
     dispatch(getProfileAchievements());
-  }, [dispatch]);
+  }, [dispatch, achievements.data, enabled]);
 
   if (!achievements.data) {
     return {

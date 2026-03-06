@@ -2,19 +2,16 @@ import { Title } from "@/shared/ui/title/title";
 import { Text } from "@/shared/ui/text/text";
 import { ProgressBar } from "@/shared/ui/progress-bar/progress-bar";
 import { Drawer, type DrawerProps } from "@/shared/ui/drawer/drawer";
-import { TaskDataType } from "@/shared/types/profile-types";
 
 import styles from "./profile-task-progress-drawer.module.scss";
-
-type TaskProgressDrawerProps = DrawerProps & {
-  data: TaskDataType | null;
-};
+import { useTaskProgressData } from "../use-task-progress-data";
 
 export const TaskProgressDrawer = ({
   isOpen,
   onClose,
-  data,
-}: TaskProgressDrawerProps) => {
+}: DrawerProps) => {
+  const { data } = useTaskProgressData(isOpen);
+
   return (
     <Drawer
       isOpen={isOpen}

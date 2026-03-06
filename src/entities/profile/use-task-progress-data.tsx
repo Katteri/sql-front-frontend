@@ -3,13 +3,17 @@ import { useEffect } from "react";
 
 import { getProfileTaskProgress } from "@/store/reducers/actions/profile-action";
 
-export const useTaskProgressData = () => {
+export const useTaskProgressData = (enabled: boolean) => {
   const dispatch = useAppDispatch();
   const { tasks } = useAppSelector((state) => state.profile);
 
   useEffect(() => {
+    if (!enabled || tasks.data) {
+      return;
+    }
+
     dispatch(getProfileTaskProgress());
-  }, [dispatch]);
+  }, [dispatch, tasks.data, enabled]);
 
   return tasks;
 };

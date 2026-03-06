@@ -6,9 +6,7 @@ import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { ProfileAchievementsDrawer } from "./drawers/profile-achievements-drawer";
 import { ProfileInfoDrawer } from "./drawers/profile-info-drawer";
 import { TaskProgressDrawer } from "./drawers/profile-task-progress-drawer";
-import { useProfileAchievementsData } from "./use-profile-achievements-data";
 import { useProfileData } from "./use-profile-data";
-import { useTaskProgressData } from "./use-task-progress-data";
 import styles from "./profile.module.scss";
 import { useCallback, useMemo, useState } from "react";
 
@@ -26,8 +24,6 @@ export const Profile = () => {
   const [isAchievementsOpen, setIsAchievementsOpen] = useState(false);
 
   const { data: profileData } = useProfileData();
-  const { data: taskProgressData } = useTaskProgressData();
-  const { data: achievementsData } = useProfileAchievementsData();
 
   const titleFontSize = useMemo(() => {
     if (!profileData) { //TODO: ?????
@@ -100,12 +96,10 @@ export const Profile = () => {
       <TaskProgressDrawer
         isOpen={isTaskProgressOpen}
         onClose={toggleTaskProgress}
-        data={taskProgressData}
       />
       <ProfileAchievementsDrawer
         isOpen={isAchievementsOpen}
         onClose={toggleAchievements}
-        data={achievementsData}
       />
       <Title
         color="white"

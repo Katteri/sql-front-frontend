@@ -2,22 +2,16 @@ import { Achievement } from "@/shared/ui/achievement/achievement";
 import { Title } from "@/shared/ui/title/title";
 import { Text } from "@/shared/ui/text/text";
 import { Drawer, type DrawerProps } from "@/shared/ui/drawer/drawer";
-import { AchievementType, CategoryType } from "@/shared/types/achievements-types";
 
 import styles from "./profile-achievements-drawer.module.scss";
-
-type ProfileAchievementsDrawerProps = DrawerProps & {
-  data: {
-    category: CategoryType,
-    achievements: AchievementType[],
-  }[] | null,
-};
+import { useProfileAchievementsData } from "../use-profile-achievements-data";
 
 export const ProfileAchievementsDrawer = ({
   isOpen,
   onClose,
-  data,
-}: ProfileAchievementsDrawerProps) => {
+}: DrawerProps) => {
+  const { data } = useProfileAchievementsData(isOpen);
+
   return (
     <Drawer
       isOpen={isOpen}
