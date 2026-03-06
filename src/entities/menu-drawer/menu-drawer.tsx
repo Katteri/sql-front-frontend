@@ -1,11 +1,10 @@
 import { Link } from "../../shared/ui/link/link";
-import { Title } from "../../shared/ui/title/title";
 import { Drawer, type DrawerProps } from "../../shared/ui/drawer/drawer";
 
 import styles from "./menu-drawer.module.scss";
 
 type MenuDrawerProps = DrawerProps & {
-  currentPage: typeof menuCoonfig.authorized[number]["page"];
+  currentPage: "main" | typeof menuCoonfig.authorized[number]["page"];
   isAuth?: boolean;
 };
 
@@ -22,13 +21,7 @@ const menuCoonfig = {
       href: "auth?type=register",
     },
   ],
-  // TODO: add real hrefs
   authorized: [
-    {
-      page: "main",
-      text: "Главная",
-      href: "/",
-    },
     {
       page: "profile",
       text: "Мой профиль",
@@ -70,13 +63,16 @@ export const MenuDrawer = ({
       isOpen={isOpen}
       onClose={onClose}
     >
-      <Title
-        as="p"
-        color="red"
+      <Link
+        href="/"
         size="4vw"
+        onClick={onClose}
+        underline={currentPage === "main"}
+        fontVariant="capital"
+        color="red"
       >
         SQL фронт
-      </Title>
+      </Link>
       <div
         className={styles.linksBlock}
       >

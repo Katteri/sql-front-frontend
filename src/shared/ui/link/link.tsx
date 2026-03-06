@@ -12,6 +12,7 @@ type LinkProps = NextLinkProps & {
   position?: React.CSSProperties["position"],
   left?: string,
   top?: string,
+  color?: "red" | "black",
   children: React.ReactNode,
 }
 
@@ -24,6 +25,7 @@ export const Link = ({
   position="static",
   left="auto",
   top="auto",
+  color="black",
   ...nextLinkProps
 }: LinkProps) => {
   const style: React.CSSProperties = {
@@ -43,6 +45,8 @@ export const Link = ({
       style={{
         ...style,
         "--fontVariant": fontVariant === "capital" ? "Buran USSR" : "Moscow Sans",
+        "--link-color": colors[color],
+        "--link-hover-color": color === "black" ? colors.red : colors.black,
         position,
         left,
         top,
