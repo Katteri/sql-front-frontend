@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 import { AuthType } from "@/shared/types/auth-data-types";
 import { colors } from "@/shared/ui/colors";
@@ -47,18 +48,26 @@ const formConfig = {
 export const Form = ({ type }: { type: AuthType }) => {
   const dispatch = useAppDispatch();
   const config = formConfig[type];
+  const router = useRouter();
 
-  const { register, handleSubmit, formState: { errors, isValid, isDirty }, getValues } = useForm<FormType>({
+  const { register, handleSubmit, formState: { errors, isValid, isDirty } } = useForm<FormType>({
     mode: "onChange",
   });
 
-  const onSubmit = useCallback(() => {
-    if (type === "login") {
-      dispatch(loginUser(getValues()));
-    } else {
-      dispatch(registerUser(getValues()));
+  const onSubmit = useCallback(async (data: FormType) => {
+    try {
+      if (type === "login") {
+        await dispatch(loginUser(data)).unwrap();
+        router.push("/profile");
+      } else {
+        await dispatch(registerUser(data)).unwrap();
+        router.push("auth?type=login");
+      }
+    } catch (error) { //TODO: handle error correctly
+      console.log("AUTH ERROR:", error);
     }
-  }, [dispatch, getValues, type]);
+    
+  }, [dispatch, type, router]);
 
   return (
     <form
