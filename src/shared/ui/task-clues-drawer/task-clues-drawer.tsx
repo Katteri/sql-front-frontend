@@ -1,17 +1,22 @@
+import { useCallback, useState } from "react";
+
 import { Button } from "@/shared/ui/button/button";
 import { Drawer, DrawerProps } from "@/shared/ui/drawer/drawer";
 import { Table } from "@/shared/ui/table/table";
 import { Text } from "@/shared/ui/text/text";
 import { Title } from "@/shared/ui/title/title";
 
-import { clueData, expectedResultData } from "./mock";
 import styles from "./task-clues-drawer.module.scss";
-import { useCallback, useState } from "react";
+import { ResultQueryDataType } from "@/shared/types/task-type";
 
 type TaskCluesDrawerProps = DrawerProps & {
   type: "quest" | "task";
   isUserHasClue: boolean;
   isUserHasExpectedResult?: boolean;
+  getClue: () => void;
+  getExpectedResult?: () => void;
+  clue?: string;
+  expectedResult?: ResultQueryDataType;
 };
 
 export const TaskCluesDrawer = ({
@@ -20,20 +25,30 @@ export const TaskCluesDrawer = ({
   type,
   isUserHasClue,
   isUserHasExpectedResult,
+  getClue,
+  getExpectedResult,
+  clue,
+  expectedResult,
 }: TaskCluesDrawerProps) => {
-  // TODO: add fetching clues data
   const [showClue, setShowClue] = useState<boolean>(isUserHasClue);
   const [showExpectedResult, setShowExpectedResult] = useState<boolean>(isUserHasExpectedResult ? isUserHasExpectedResult : false);
 
-  const clueButtonHandler = useCallback(() => {
-    setShowClue(true);
-    // TODO: send data to backend
-  }, []);
+  const clueButtonHandler = useCallback(async() => {
+    getClue();
+    if (clue) {
+      setShowClue(true);
+    }
+  }, [getClue, clue]);
 
   const expectedResultButtonHandler = useCallback(() => {
-    setShowExpectedResult(true);
-    // TODO: send data to backend
-  }, []);
+    if (!getExpectedResult) {
+      return;
+    }
+    getExpectedResult();
+    if (expectedResult) {
+      setShowExpectedResult(true);
+    }
+  }, [getExpectedResult, expectedResult]);
 
   return (
     <Drawer
@@ -51,7 +66,7 @@ export const TaskCluesDrawer = ({
       </Title>
       <div className={styles.block}>
         {showClue 
-          ? <Text>{clueData.clue}</Text>
+          ? <Text>{clue}</Text>
           : <Button
               color="black"
               width="8vw"
@@ -73,10 +88,10 @@ export const TaskCluesDrawer = ({
               ожидаемый результат
             </Title>
             <div className={styles.block}>
-              {showExpectedResult
+              {showExpectedResult && expectedResult
                 ? <>
-                    <Table data={expectedResultData} height="15vw"/>
-                    <Text margin="0.5vw 0 0">Всего строк: {expectedResultData.row_count}</Text>
+                    <Table data={expectedResult} height="15vw"/>
+                    <Text margin="0.5vw 0 0">Всего строк: {expectedResult.row_count}</Text>
                   </>
                 : <Button
                     color="black"

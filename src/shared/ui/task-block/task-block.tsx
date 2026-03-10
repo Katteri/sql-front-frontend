@@ -23,6 +23,7 @@ type DefaultTaskBlock = {
   value: string;
   queryRunHandle: () => void;
   resultData: string | ResultQueryDataType | null;
+  getClue: () => void;
 };
 
 type TaskBlockType =
@@ -46,6 +47,7 @@ export const TaskBlock = ({
   value,
   queryRunHandle,
   resultData,
+  getClue,
 }: TaskBlockType) => {
   const [isDatabaseInfoOpen, setIsDatabaseInfoOpen] = useState(false);
   const [isTaskCluesOpen, setIsTaskCluesOpen] = useState(false);
@@ -73,7 +75,11 @@ export const TaskBlock = ({
             isOpen={isTaskCluesOpen}
             type={type}
             isUserHasClue={clueData.isUserHasClue}
+            getClue={getClue}
+            clue={clueData.clue}
             isUserHasExpectedResult={type === "task" ? clueData.isUserHasExpectedResult : undefined}
+            getExpectedResult={type === "task" ? clueData.getExpectedResult : undefined}
+            expectedResult={type === "task" ? clueData.expectedResult : undefined}
             onClose={toggleTaskClues}
           />
         : null

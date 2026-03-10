@@ -123,9 +123,16 @@ export const tasksSlice = createSlice({
           }
         });
       })
-      .addCase(getTaskClueData.rejected.type, (state, action: PayloadAction<string>) => {
+      .addCase(getTaskClueData.rejected.type, (state, action: PayloadAction<string | ErrorRunngingQuery>) => {
         state.isLoading = false;
-        state.error = action.payload;
+
+        const response = action.payload;
+
+        if (typeof response !== "string" && "detail" in response) {
+          state.error = response.detail;
+        } else {
+          state.error = typeof action.payload === "string" ? action.payload : "Unknown error";
+        }
       })
 
       //getTaskExpectedResultData
@@ -143,9 +150,16 @@ export const tasksSlice = createSlice({
           }
         });
       })
-      .addCase(getTaskExpectedResultData.rejected.type, (state, action: PayloadAction<string>) => {
+      .addCase(getTaskExpectedResultData.rejected.type, (state, action: PayloadAction<string | ErrorRunngingQuery>) => {
         state.isLoading = false;
-        state.error = action.payload;
+        
+        const response = action.payload;
+
+        if (typeof response !== "string" && "detail" in response) {
+          state.error = response.detail;
+        } else {
+          state.error = typeof action.payload === "string" ? action.payload : "Unknown error";
+        }
       })
 
       //runTaskQuery

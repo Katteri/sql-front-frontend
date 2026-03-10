@@ -11,6 +11,7 @@ export const useTaskData = () => {
   const router = useRouter();
   const { missionId, taskId } = router.query;
   const task = useAppSelector((state) => tasksSelectors.selectById(state, `${missionId}.${taskId}`));
+  const { error } = useAppSelector((state) => state.task);
   const { user } = useAppSelector(state => state.profile);
 
   useEffect(() => {
@@ -30,5 +31,6 @@ export const useTaskData = () => {
     totalScore: user.data?.totalScore, 
     missionId: String(missionId),
     taskId: String(taskId),
+    error,
   };
 };

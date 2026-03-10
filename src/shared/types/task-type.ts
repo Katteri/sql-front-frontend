@@ -43,13 +43,16 @@ export type ClueDtoType = {
   clue: string;
 };
 
-export type TaskClueData = {
-  isUserHasClue: boolean;
-  isUserHasExpectedResult: boolean;
-};
-
 export type ExpectedResultType = {
   points_spent: number;
   total_score: number;
   expected_result: ResultQueryDataType,
+};
+
+export type TaskClueData = {
+  clue?: string;
+  expectedResult?: ResultQueryDataType,
+  isUserHasClue: boolean;
+  isUserHasExpectedResult: boolean;
+  getExpectedResult: () => void;
 };

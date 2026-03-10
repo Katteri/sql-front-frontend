@@ -46,10 +46,10 @@ export const runTaskQuery = createAsyncThunk(
 );
 
 export const getTaskClueData = createAsyncThunk(
-  "task/clue/get",
+  "task/clue",
   async (payload: TaskDataPayloadType, { rejectWithValue }) => {
     try {
-      const response = await api.get<ClueDtoType>(strings.api.clue(payload));
+      const response = await api.post<ClueDtoType>(strings.api.clue(payload));
 
       return { clue: response.data, ...payload};
       
@@ -64,10 +64,10 @@ export const getTaskClueData = createAsyncThunk(
 );
 
 export const getTaskExpectedResultData = createAsyncThunk(
-  "task/expectedResult/get",
+  "task/expectedResult",
   async (payload: TaskDataPayloadType, { rejectWithValue }) => {
     try {
-      const response = await api.get(strings.api.expectedResult(payload));
+      const response = await api.post(strings.api.expectedResult(payload));
 
       return { expectedResult: response.data, ...payload};
       

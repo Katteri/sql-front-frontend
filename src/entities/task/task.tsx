@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { toast } from "react-hot-toast";
 
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/redux";
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
@@ -6,7 +7,7 @@ import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
 import { Title } from "@/shared/ui/title/title";
 import { Text } from "@/shared/ui/text/text";
 import { TaskBlock } from "@/shared/ui/task-block/task-block";
-import { runTaskQuery } from "@/store/reducers/actions/task-actions";
+import { getTaskClueData, getTaskExpectedResultData, runTaskQuery } from "@/store/reducers/actions/task-actions";
 
 import { useTaskData } from "./use-task-data";
 import styles from "./task.module.scss";
@@ -42,8 +43,28 @@ export const Task = () => {
       taskId: data.taskId,
       missionId: data.missionId,
       payload: { sql_query: clearValue },
-    }));
+    }))
+      .unwrap()
+      .catch((error) => toast(<Text>{error.detail ? error.detail : error.message}</Text>));
   }, [dispatch, data.missionId, data.taskId, value]);
+
+  const getClue = useCallback(() => {
+    dispatch(getTaskClueData({
+      taskId: data.taskId,
+      missionId: data.missionId, 
+    }))
+      .unwrap()
+      .catch((error) => toast(<Text>{error.detail ? error.detail : error.message}</Text>));
+  }, [dispatch, data.taskId, data.missionId]);
+
+  const getExpectedResult = useCallback(() => {
+    dispatch(getTaskExpectedResultData({
+      taskId: data.taskId,
+      missionId: data.missionId, 
+    }))
+      .unwrap()
+      .catch((error) => toast(<Text>{error.detail ? error.detail : error.message}</Text>));
+  }, [dispatch, data.taskId, data.missionId]);
 
   return (
     <section className={styles.task}>
@@ -66,13 +87,16 @@ export const Task = () => {
       >
         {data.title}
       </Title>
-      <TaskBlock 
+      <TaskBlock
         type="task"
         isSolved={data.isSolved}
         task={data.description}
         clueData={{
+          clue: data.clue?.clue,
+          expectedResult: data.expectedResult?.expected_result,
           isUserHasClue: data.isUserHasClue,
           isUserHasExpectedResult: data.isUserHasExpectedResult,
+          getExpectedResult: getExpectedResult,
         }}
         databaseNodes={databaseNodes}
         databaseEdges={databaseEdges}
@@ -80,6 +104,7 @@ export const Task = () => {
         value={value}
         queryRunHandle={queryRunHandle}
         resultData={error ? error : queryRun.result ? queryRun.result : queryRun.queryError}
+        getClue={getClue}
       />
     </section>
   );
