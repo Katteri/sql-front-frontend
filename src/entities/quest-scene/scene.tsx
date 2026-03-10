@@ -11,6 +11,7 @@ import { TaskBlock } from "../../shared/ui/task-block/task-block";
 import styles from "./scene.module.scss";
 
 export const Scene = () => {
+  const [value, setValue] = useState("");
   const data = useSceneData();
   
   const dispatch = useAppDispatch();
@@ -26,6 +27,10 @@ export const Scene = () => {
   const onLegendEnds = useCallback(() => {
     dispatch(goToTask());
   }, [dispatch, goToTask]);
+
+  const onChange = useCallback((val: string) => {
+    setValue(val);
+  }, [setValue]);
 
   if (!data) {
     return null;
@@ -51,6 +56,8 @@ export const Scene = () => {
                   }}
                   databaseNodes={databaseSchema?.databaseNodes}
                   databaseEdges={databaseSchema?.databaseEdges}
+                  onChange={onChange}
+                  value={value}
                 />
       }
     </section>

@@ -1,9 +1,27 @@
-import { PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { EntityState, PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-import { ClueDtoType, ExpectedResultType, TaskDataDtoType, TaskDataPayloadType } from "@/shared/types/task-type";
+import { ClueDtoType, ErrorRunngingQuery, ExpectedResultType, QueryRunResponseType, ResultQueryDataType, TaskDataDtoType, TaskDataPayloadType } from "@/shared/types/task-type";
+import { AchievementType } from "@/shared/types/achievements-types";
+import { DefaultStateType } from "@/shared/types/state-manager-types";
 
 import { StateType } from "../store";
-import { getTaskClueData, getTaskData, getTaskExpectedResultData } from "./actions/tasks-actions";
+import { getTaskClueData, getTaskData, getTaskExpectedResultData, runTaskQuery } from "./actions/task-actions";
+
+type TaskQueryRunType = DefaultStateType & {
+  query: string | null;
+  result: ResultQueryDataType | null;
+  queryError: string | null;
+};
+
+type SubmissionResultType = {
+  isCorrect: boolean;
+  message: string;
+  wasSolvedBefore: boolean;
+  pointsEarned: number;
+  pointsPenalty: number;
+  currentPoints: number;
+  awardedAchievements: Omit<AchievementType, "isAchieved">;
+};
 
 type TaskType = {
   taskId: number;
@@ -23,19 +41,31 @@ type TaskType = {
   } | null;
   clue?: ClueDtoType,
   expectedResult?: ExpectedResultType,
+  submission: SubmissionResultType | null;
 };
+
+type TasksStateType = DefaultStateType &
+  EntityState<TaskType, string> &
+  { queryRun: TaskQueryRunType };
 
 const tasksAdapter = createEntityAdapter<TaskType, string>({
   selectId: (task) => `${task.missionId}.${task.taskId}`,
 });
 
-const initialState = tasksAdapter.getInitialState({
+const initialState: TasksStateType = tasksAdapter.getInitialState({
+  queryRun: {
+    query: null,
+    result: null,
+    queryError: null,
+    isLoading: false,
+    error: null,
+  },
   isLoading: false,
-  error: null as string | null,
+  error: null,
 });
 
 export const tasksSelectors = tasksAdapter.getSelectors<StateType>(
-  (state) => state.tasks,
+  (state) => state.task,
 );
 
 export const tasksSlice = createSlice({
@@ -68,6 +98,7 @@ export const tasksSlice = createSlice({
             taskId: action.payload.next.task_id,
             missionId: action.payload.next.mission_id,
           },
+          submission: null,
         };
 
         tasksAdapter.upsertOne(state, task);
@@ -115,6 +146,35 @@ export const tasksSlice = createSlice({
       .addCase(getTaskExpectedResultData.rejected.type, (state, action: PayloadAction<string>) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+
+      //runTaskQuery
+      .addCase(runTaskQuery.pending.type, (state) => {
+        state.queryRun.isLoading = true;
+      })
+      .addCase(runTaskQuery.fulfilled.type, (state, action: PayloadAction<QueryRunResponseType>) => {
+        state.queryRun.isLoading = false;
+        state.queryRun.error = null;
+
+        state.queryRun = {
+          isLoading: false,
+          error: null,
+          query: action.payload.payload.sql_query,
+          result: action.payload.response,
+          queryError: null,
+        };
+      })
+      .addCase(runTaskQuery.rejected.type, (state, action: PayloadAction<string | ErrorRunngingQuery>) => {
+        state.queryRun.isLoading = false;
+        state.queryRun.result = null;
+
+        const response = action.payload;
+        if (typeof response !== "string" && "detail" in response) {
+          state.queryRun.queryError = JSON.stringify(response.detail);
+          state.queryRun.error = null;
+        } else {
+          state.error = typeof action.payload === "string" ? action.payload : "Unknown error";
+        }
       });
   },
 });

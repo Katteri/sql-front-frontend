@@ -1,22 +1,49 @@
 import { useCallback, useState } from "react";
 
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/redux";
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
 import { Title } from "@/shared/ui/title/title";
 import { Text } from "@/shared/ui/text/text";
+import { TaskBlock } from "@/shared/ui/task-block/task-block";
+import { runTaskQuery } from "@/store/reducers/actions/task-actions";
 
 import { useTaskData } from "./use-task-data";
 import styles from "./task.module.scss";
 import { databaseEdges, databaseNodes } from "./const";
-import { TaskBlock } from "@/shared/ui/task-block/task-block";
+import strings from "@/shared/consts/strings";
 
 export const Task = () => {
+  const dispatch = useAppDispatch();
+  const { queryRun } = useAppSelector((state) => state.task);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [value, setValue] = useState("");
+  const [error, setError] = useState("");
   const data = useTaskData();
   
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, [setIsMenuOpen]);
+
+  const onChange = useCallback((val: string) => {
+    setValue(val);
+  }, [setValue]);
+
+  const queryRunHandle = useCallback(() => {
+    setError("");
+    const clearValue = value.replace(/--.*$/gmi, "").replace(/\n/gmi, " ");
+
+    if (!clearValue.toLocaleLowerCase().includes("select")) { //TODO: add node-sql-parser to check is 
+      setError(strings.incorrectQuery);
+      return;
+    }
+
+    dispatch(runTaskQuery({
+      taskId: data.taskId,
+      missionId: data.missionId,
+      payload: { sql_query: clearValue },
+    }));
+  }, [dispatch, data.missionId, data.taskId, value]);
 
   return (
     <section className={styles.task}>
@@ -49,6 +76,10 @@ export const Task = () => {
         }}
         databaseNodes={databaseNodes}
         databaseEdges={databaseEdges}
+        onChange={onChange}
+        value={value}
+        queryRunHandle={queryRunHandle}
+        resultData={error ? error : queryRun.result ? queryRun.result : queryRun.queryError}
       />
     </section>
   );

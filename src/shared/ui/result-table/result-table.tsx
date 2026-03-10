@@ -2,12 +2,8 @@ import { Table } from "@/shared/ui/table/table";
 import { Text } from "@/shared/ui/text/text";
 import { ResultQueryDataType } from "@/shared/types/task-type";
 
-type ErrorRunngingQuery = {
-  detail: string,
-};
-
 const isExtractedTableData = (
-  data: ResultQueryDataType | ErrorRunngingQuery
+  data: ResultQueryDataType | string,
 ): data is ResultQueryDataType => {
   return (
     typeof data === "object" &&
@@ -22,7 +18,7 @@ const isExtractedTableData = (
 export const ResultTable = ({
   data,
 }: {
-  data: ResultQueryDataType | ErrorRunngingQuery,
+  data: ResultQueryDataType | string,
 }) => {
   if (isExtractedTableData(data)) {
     const resultData = { columns: data.columns, data: data.data };
@@ -36,6 +32,6 @@ export const ResultTable = ({
   }
 
   return (
-    <Text>{data.detail}</Text>
+    <Text>{data}</Text>
   );
 };

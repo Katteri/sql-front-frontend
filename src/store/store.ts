@@ -11,12 +11,12 @@ const rootReducer = combineReducers({
   missions: missionsSlice,
   achievements: achievementsSlice,
   profile: profileSlice,
-  tasks: tasksSlice,
+  task: tasksSlice,
   quest: questSlice,
 });
 
 export const store = configureStore({
-    reducer: rootReducer,
+  reducer: rootReducer,
 });
 
 export type StateType = ReturnType<typeof rootReducer>;

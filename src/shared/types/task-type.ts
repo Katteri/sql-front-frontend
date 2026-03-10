@@ -4,10 +4,20 @@ export type ResultQueryDataType = {
   row_count: number,
 };
 
-export type TaskDataPayloadType = {
-  taskId: number,
-  missionId: number,
+export type ErrorRunngingQuery = {
+  detail: string,
 };
+
+export type TaskDataPayloadType = {
+  taskId: string,
+  missionId: string,
+};
+
+export type QueryRunType = {
+  payload: { sql_query: string };
+};
+
+export type QueryRunResponseType = TaskDataPayloadType & QueryRunType & { response: ResultQueryDataType };
 
 export type TaskDataDtoType = {
   task_id: number,
