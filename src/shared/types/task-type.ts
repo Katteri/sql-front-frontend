@@ -1,3 +1,5 @@
+import { AchievementTypeDto } from "./achievements-types";
+
 export type ResultQueryDataType = {
   columns: string[],
   data: (number | string)[][],
@@ -55,4 +57,14 @@ export type TaskClueData = {
   isUserHasClue: boolean;
   isUserHasExpectedResult: boolean;
   getExpectedResult: () => void;
+};
+
+export type SubmissionResultType = {
+  is_correct: boolean;
+  message: string;
+  was_solved_before: boolean;
+  points_earned: number;
+  points_penalty: number;
+  current_points: number;
+  awarded_achievements: Omit<AchievementTypeDto, "historical_info" | "is_earned">;
 };

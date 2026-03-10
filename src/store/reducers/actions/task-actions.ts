@@ -45,6 +45,27 @@ export const runTaskQuery = createAsyncThunk(
   }
 );
 
+export const submitTaskSolution = createAsyncThunk(
+  "task/submit",
+  async (payload: TaskDataPayloadType & QueryRunType, { rejectWithValue }) => {
+    try {
+      const response = await api.post<ResultQueryDataType>(strings.api.submitTaskSolution(payload), payload.payload);
+
+      return {
+        ...payload,
+        submissions: response.data,
+      };
+
+    } catch (err) {
+      if (isAxiosError(err)) {
+        return rejectWithValue(err.response?.data);
+      }
+
+      return rejectWithValue(strings.unexpectedError);
+    }
+  }
+);
+
 export const getTaskClueData = createAsyncThunk(
   "task/clue",
   async (payload: TaskDataPayloadType, { rejectWithValue }) => {

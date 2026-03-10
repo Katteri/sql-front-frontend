@@ -22,6 +22,7 @@ type DefaultTaskBlock = {
   onChange: (val: string) => void;
   value: string;
   queryRunHandle: () => void;
+  submitSolution: () => void;
   resultData: string | ResultQueryDataType | null;
   getClue: () => void;
 };
@@ -46,6 +47,7 @@ export const TaskBlock = ({
   onChange,
   value,
   queryRunHandle,
+  submitSolution,
   resultData,
   getClue,
 }: TaskBlockType) => {
@@ -145,9 +147,12 @@ export const TaskBlock = ({
             результат
           </Title>
           <Button
+            type="submit"
             color={isSolved ? "black" : "red"}
             width="10vw"
             padding=".5vw 2vw"
+            onClick={submitSolution}
+            disabled={!value}
           >
             отправить
           </Button>

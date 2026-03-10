@@ -7,12 +7,40 @@ import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
 import { Title } from "@/shared/ui/title/title";
 import { Text } from "@/shared/ui/text/text";
 import { TaskBlock } from "@/shared/ui/task-block/task-block";
-import { getTaskClueData, getTaskExpectedResultData, runTaskQuery } from "@/store/reducers/actions/task-actions";
+import { getTaskClueData, getTaskExpectedResultData, runTaskQuery, submitTaskSolution } from "@/store/reducers/actions/task-actions";
 
 import { useTaskData } from "./use-task-data";
 import styles from "./task.module.scss";
 import { databaseEdges, databaseNodes } from "./const";
 import strings from "@/shared/consts/strings";
+import { SubmissionResultType } from "@/shared/types/task-type";
+
+const SubmitionToastText = (submission: SubmissionResultType | null, isSolved: boolean) => {
+  //TODO: add awarded_achievements handle!
+  if (!submission) {
+    return "";
+  }
+
+  if (isSolved) {
+    return (
+      <Text>{submission.message}</Text>
+    );
+  }
+
+  if (submission.is_correct) {
+    return (
+      <Text>
+        {strings.correctTaskQuery} +{submission.points_earned}
+      </Text>
+    );
+  } else {
+    return (
+      <Text>
+        {strings.incorrectTaskQuery} -{submission.points_penalty}
+      </Text>
+    );
+  }
+};
 
 export const Task = () => {
   const dispatch = useAppDispatch();
@@ -43,10 +71,21 @@ export const Task = () => {
       taskId: data.taskId,
       missionId: data.missionId,
       payload: { sql_query: clearValue },
-    }))
-      .unwrap()
-      .catch((error) => toast(<Text>{error.detail ? error.detail : error.message}</Text>));
+    }));
   }, [dispatch, data.missionId, data.taskId, value]);
+
+  const submitSolution = useCallback(() => {
+    dispatch(submitTaskSolution({
+      taskId: data.taskId,
+      missionId: data.missionId,
+      payload: { sql_query: value },
+    }));
+    if (data.submission?.is_correct) {
+      toast.success(SubmitionToastText(data.submission, data.isSolved));
+    } else {
+      toast.error(SubmitionToastText(data.submission, data.isSolved));
+    }
+  }, [dispatch, data.taskId, data.missionId, value, data.submission, data.isSolved]);
 
   const getClue = useCallback(() => {
     dispatch(getTaskClueData({
@@ -103,6 +142,7 @@ export const Task = () => {
         onChange={onChange}
         value={value}
         queryRunHandle={queryRunHandle}
+        submitSolution={submitSolution}
         resultData={error ? error : queryRun.result ? queryRun.result : queryRun.queryError}
         getClue={getClue}
       />

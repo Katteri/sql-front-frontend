@@ -5,6 +5,8 @@ import { AchievementsType } from "@/shared/types/achievements-types";
 import { ProfileInfoDtoType, ProfileTaskProgressDtoType, ProfileTaskTotalDtoType, TaskDataType } from "@/shared/types/profile-types";
 
 import { getProfileAchievements, getProfileInfo, getProfileTaskProgress } from "./actions/profile-action";
+import { submitTaskSolution } from "./actions/task-actions";
+import { SubmissionResultType, TaskDataPayloadType } from "@/shared/types/task-type";
 
 type UserDataType = {
   login: string;
@@ -87,6 +89,15 @@ export const profileSlice = createSlice({
       .addCase(getProfileAchievements.rejected.type, (state, action: PayloadAction<string>) => {
         state.achievements.isLoading = false;
         state.achievements.error = action.payload;
+      })
+
+      //submitTaskSolution
+      .addCase(submitTaskSolution.fulfilled.type, (state, action: PayloadAction<TaskDataPayloadType & { submission: SubmissionResultType }>) => {
+        if (!state.user.data) {
+          return;
+        };
+
+        state.user.data.totalScore = action.payload.submission.current_points;
       });
   }
 });

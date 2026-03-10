@@ -1,26 +1,15 @@
 import { EntityState, PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-import { ClueDtoType, ErrorRunngingQuery, ExpectedResultType, QueryRunResponseType, ResultQueryDataType, TaskDataDtoType, TaskDataPayloadType } from "@/shared/types/task-type";
-import { AchievementType } from "@/shared/types/achievements-types";
+import { ClueDtoType, ErrorRunngingQuery, ExpectedResultType, QueryRunResponseType, ResultQueryDataType, SubmissionResultType, TaskDataDtoType, TaskDataPayloadType } from "@/shared/types/task-type";
 import { DefaultStateType } from "@/shared/types/state-manager-types";
 
 import { StateType } from "../store";
-import { getTaskClueData, getTaskData, getTaskExpectedResultData, runTaskQuery } from "./actions/task-actions";
+import { getTaskClueData, getTaskData, getTaskExpectedResultData, runTaskQuery, submitTaskSolution } from "./actions/task-actions";
 
 type TaskQueryRunType = DefaultStateType & {
   query: string | null;
   result: ResultQueryDataType | null;
   queryError: string | null;
-};
-
-type SubmissionResultType = {
-  isCorrect: boolean;
-  message: string;
-  wasSolvedBefore: boolean;
-  pointsEarned: number;
-  pointsPenalty: number;
-  currentPoints: number;
-  awardedAchievements: Omit<AchievementType, "isAchieved">;
 };
 
 type TaskType = {
@@ -179,6 +168,34 @@ export const tasksSlice = createSlice({
         };
       })
       .addCase(runTaskQuery.rejected.type, (state, action: PayloadAction<string | ErrorRunngingQuery>) => {
+        state.queryRun.isLoading = false;
+        state.queryRun.result = null;
+
+        const response = action.payload;
+        if (typeof response !== "string" && "detail" in response) {
+          state.queryRun.queryError = JSON.stringify(response.detail);
+          state.queryRun.error = null;
+        } else {
+          state.error = typeof action.payload === "string" ? action.payload : "Unknown error";
+        }
+      })
+
+      //submitTaskSolution
+      .addCase(submitTaskSolution.pending.type, (state) => {
+        state.queryRun.isLoading = true;
+      })
+      .addCase(submitTaskSolution.fulfilled.type, (state, action: PayloadAction<TaskDataPayloadType & { submission: SubmissionResultType }>) => {
+        state.queryRun.isLoading = false;
+        state.queryRun.error = null;
+
+        tasksAdapter.updateOne(state, {
+          id: `${action.payload.missionId}.${action.payload.taskId}`,
+          changes: {
+            submission: action.payload.submission,
+          }
+        });
+      })
+      .addCase(submitTaskSolution.rejected.type, (state, action: PayloadAction<string | ErrorRunngingQuery>) => {
         state.queryRun.isLoading = false;
         state.queryRun.result = null;
 

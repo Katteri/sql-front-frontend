@@ -22,6 +22,12 @@
     border-color: var(--hover-color);
   }
 
+  &:disabled {
+    cursor: default;
+    color: $gray-light-color;
+    border-color: $gray-light-color;
+  }
+
   cursor: pointer;
   transition: all 0.3s ease;
 }
