@@ -23,7 +23,11 @@ export const Achievement = ({
         </div>
       </div>
       
-      {isAchieved && <Text size="2vw">✓</Text>}
+      {isAchieved && 
+        <div className={styles.isAchievedContainer}>
+          <Text size="2vw">✓</Text>
+        </div>
+      }
     </div>
   );
 };
