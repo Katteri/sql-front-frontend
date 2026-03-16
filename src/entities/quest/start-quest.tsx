@@ -46,7 +46,7 @@ export const StartQuest = () => {
         size="6.7vw"
         position="absolute"
         top="24.2vw"
-        left="39vw"
+        left="41vw"
       >
         начать
       </Link>

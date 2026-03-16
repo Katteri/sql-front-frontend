@@ -113,7 +113,7 @@ export const Missions = () => {
       <div className={styles.selectBlock}>
         {selectConfig.map(({ title, name, options}, index) => (
           <div key={`${name}-${index}`}>
-            <Text>{title}</Text>
+            <Text alignSelf="center">{title}</Text>
             <Select
               name={name}
               options={options}
