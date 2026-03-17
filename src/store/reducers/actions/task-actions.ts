@@ -2,7 +2,7 @@ import { isAxiosError } from "axios";
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { ClueDtoType, QueryRunType, ResultQueryDataType, TaskDataDtoType, TaskDataPayloadType } from "@/shared/types/task-type";
+import { ClueDtoType, ExpectedResultType, QueryRunType, ResultQueryDataType, SubmissionResultType, TaskDataDtoType, TaskDataPayloadType } from "@/shared/types/task-type";
 import api from "@/shared/config/axios";
 import strings from "@/shared/consts/strings";
 
@@ -49,11 +49,11 @@ export const submitTaskSolution = createAsyncThunk(
   "task/submit",
   async (payload: TaskDataPayloadType & QueryRunType, { rejectWithValue }) => {
     try {
-      const response = await api.post<ResultQueryDataType>(strings.api.submitTaskSolution(payload), payload.payload);
+      const response = await api.post<SubmissionResultType>(strings.api.submitTaskSolution(payload), payload.payload);
 
       return {
         ...payload,
-        submissions: response.data,
+        submission: response.data,
       };
 
     } catch (err) {
@@ -88,7 +88,7 @@ export const getTaskExpectedResultData = createAsyncThunk(
   "task/expectedResult",
   async (payload: TaskDataPayloadType, { rejectWithValue }) => {
     try {
-      const response = await api.post(strings.api.expectedResult(payload));
+      const response = await api.post<ExpectedResultType>(strings.api.expectedResult(payload));
 
       return { expectedResult: response.data, ...payload};
       

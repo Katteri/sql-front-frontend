@@ -109,6 +109,7 @@ export const tasksSlice = createSlice({
           id: `${action.payload.missionId}.${action.payload.taskId}`,
           changes: {
             clue: action.payload.clue,
+            isUserHasClue: true,
           }
         });
       })
@@ -136,6 +137,7 @@ export const tasksSlice = createSlice({
           id: `${action.payload.missionId}.${action.payload.taskId}`,
           changes: {
             expectedResult: action.payload.expectedResult,
+            isUserHasExpectedResult: true,
           }
         });
       })

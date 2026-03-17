@@ -93,7 +93,7 @@ export const profileSlice = createSlice({
 
       //submitTaskSolution
       .addCase(submitTaskSolution.fulfilled.type, (state, action: PayloadAction<TaskDataPayloadType & { submission: SubmissionResultType }>) => {
-        if (!state.user.data) {
+        if (!state.user.data || !action.payload.submission.current_points) {
           return;
         };
 

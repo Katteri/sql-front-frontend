@@ -1,13 +1,11 @@
-import { useCallback, useState } from "react";
-
 import { Button } from "@/shared/ui/button/button";
 import { Drawer, DrawerProps } from "@/shared/ui/drawer/drawer";
 import { Table } from "@/shared/ui/table/table";
 import { Text } from "@/shared/ui/text/text";
 import { Title } from "@/shared/ui/title/title";
+import { ResultQueryDataType } from "@/shared/types/task-type";
 
 import styles from "./task-clues-drawer.module.scss";
-import { ResultQueryDataType } from "@/shared/types/task-type";
 
 type TaskCluesDrawerProps = DrawerProps & {
   type: "quest" | "task";
@@ -30,26 +28,6 @@ export const TaskCluesDrawer = ({
   clue,
   expectedResult,
 }: TaskCluesDrawerProps) => {
-  const [showClue, setShowClue] = useState<boolean>(isUserHasClue);
-  const [showExpectedResult, setShowExpectedResult] = useState<boolean>(isUserHasExpectedResult ? isUserHasExpectedResult : false);
-
-  const clueButtonHandler = useCallback(async() => {
-    getClue();
-    if (clue) {
-      setShowClue(true);
-    }
-  }, [getClue, clue]);
-
-  const expectedResultButtonHandler = useCallback(() => {
-    if (!getExpectedResult) {
-      return;
-    }
-    getExpectedResult();
-    if (expectedResult) {
-      setShowExpectedResult(true);
-    }
-  }, [getExpectedResult, expectedResult]);
-
   return (
     <Drawer
       isOpen={isOpen}
@@ -65,13 +43,13 @@ export const TaskCluesDrawer = ({
         подсказка
       </Title>
       <div className={styles.block}>
-        {showClue 
+        {isUserHasClue 
           ? <Text>{clue}</Text>
           : <Button
               color="black"
               width="8vw"
               padding="0.5vw"
-              onClick={clueButtonHandler}
+              onClick={getClue}
             >
               показать
             </Button>
@@ -88,7 +66,7 @@ export const TaskCluesDrawer = ({
               ожидаемый результат
             </Title>
             <div className={styles.block}>
-              {showExpectedResult && expectedResult
+              {isUserHasExpectedResult && expectedResult
                 ? <>
                     <Table data={expectedResult} height="15vw"/>
                     <Text margin="0.5vw 0 0">Всего строк: {expectedResult.row_count}</Text>
@@ -97,7 +75,7 @@ export const TaskCluesDrawer = ({
                     color="black"
                     width="8vw"
                     padding="0.5vw"
-                    onClick={expectedResultButtonHandler}
+                    onClick={getExpectedResult}
                   >
                     показать
                   </Button>

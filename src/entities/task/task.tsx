@@ -97,7 +97,11 @@ export const Task = () => {
       missionId: data.missionId, 
     }))
       .unwrap()
-      .then((response) => toast(<Text>- {response.clue.points_spent}</Text>, { icon: "⚠️" }))
+      .then((response) => {
+        if (response.clue.points_spent > 0) {
+          toast(<Text>- {response.clue.points_spent}</Text>, { icon: "⚠️" });
+        }
+      })
       .catch((error) => toast(<Text>{error.detail ? error.detail : error.message}</Text>));
   }, [dispatch, data.taskId, data.missionId]);
 
@@ -107,7 +111,11 @@ export const Task = () => {
       missionId: data.missionId, 
     }))
       .unwrap()
-      .then((response) => toast(<Text>- {response.expectedResult.points_spent}</Text>, { icon: "⚠️" }))
+      .then((response) => {
+        if (response.expectedResult.points_spent > 0) {
+          toast(<Text>- {response.expectedResult.points_spent}</Text>, { icon: "⚠️" });
+        }
+      })
       .catch((error) => toast(<Text>{error.detail ? error.detail : error.message}</Text>));
   }, [dispatch, data.taskId, data.missionId]);
 
