@@ -14,10 +14,10 @@ import styles from "./task.module.scss";
 import { databaseEdges, databaseNodes } from "./const";
 import strings from "@/shared/consts/strings";
 import { SubmissionResultType } from "@/shared/types/task-type";
+import { AchievementToast } from "@/shared/ui/achievement-toast/achievement-toast";
 
 const SubmitionToastText = (submission: SubmissionResultType | null, isSolved: boolean) => {
-  //TODO: add awarded_achievements handle!
-  if (!submission) {
+  if (submission === null) {
     return "";
   }
 
@@ -74,18 +74,22 @@ export const Task = () => {
     }));
   }, [dispatch, data.missionId, data.taskId, value]);
 
-  const submitSolution = useCallback(() => {
-    dispatch(submitTaskSolution({
+  const submitSolution = useCallback(async () => {
+    const result = await dispatch(submitTaskSolution({
       taskId: data.taskId,
       missionId: data.missionId,
       payload: { sql_query: value },
-    }));
-    if (data.submission?.is_correct) {
-      toast.success(SubmitionToastText(data.submission, data.isSolved));
+    })).unwrap();
+    
+    if (result.submission?.is_correct) {
+      toast.success(SubmitionToastText(result.submission, data.task.isSolved));
+      result.submission.awarded_achievements.forEach((achievement) => {
+        toast.custom(<AchievementToast achievement={achievement} />, { duration: 5000, });
+      });
     } else {
-      toast.error(SubmitionToastText(data.submission, data.isSolved));
+      toast.error(SubmitionToastText(result.submission, data.task.isSolved));
     }
-  }, [dispatch, data.taskId, data.missionId, value, data.submission, data.isSolved]);
+  }, [dispatch, data.taskId, data.missionId, value, data.task?.isSolved]);
 
   const getClue = useCallback(() => {
     dispatch(getTaskClueData({
@@ -93,6 +97,7 @@ export const Task = () => {
       missionId: data.missionId, 
     }))
       .unwrap()
+      .then((response) => toast(<Text>- {response.clue.points_spent}</Text>, { icon: "⚠️" }))
       .catch((error) => toast(<Text>{error.detail ? error.detail : error.message}</Text>));
   }, [dispatch, data.taskId, data.missionId]);
 
@@ -102,6 +107,7 @@ export const Task = () => {
       missionId: data.missionId, 
     }))
       .unwrap()
+      .then((response) => toast(<Text>- {response.expectedResult.points_spent}</Text>, { icon: "⚠️" }))
       .catch((error) => toast(<Text>{error.detail ? error.detail : error.message}</Text>));
   }, [dispatch, data.taskId, data.missionId]);
 
@@ -124,17 +130,17 @@ export const Task = () => {
         size="7vw"
         margin="6vw 0"
       >
-        {data.title}
+        {data.task?.title}
       </Title>
       <TaskBlock
         type="task"
-        isSolved={data.isSolved}
-        task={data.description}
+        isSolved={data.task?.isSolved}
+        task={data.task?.description}
         clueData={{
-          clue: data.clue?.clue,
-          expectedResult: data.expectedResult?.expected_result,
-          isUserHasClue: data.isUserHasClue,
-          isUserHasExpectedResult: data.isUserHasExpectedResult,
+          clue: data.task?.clue?.clue,
+          expectedResult: data.task?.expectedResult?.expected_result,
+          isUserHasClue: data.task?.isUserHasClue,
+          isUserHasExpectedResult: data.task?.isUserHasExpectedResult,
           getExpectedResult: getExpectedResult,
         }}
         databaseNodes={databaseNodes}

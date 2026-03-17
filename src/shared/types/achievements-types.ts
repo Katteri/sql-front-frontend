@@ -23,3 +23,5 @@ export type AchievementType = {
   description: string;
   isAchieved: boolean;
 };
+
+export type AchievementSubmitType = Omit<AchievementTypeDto, "historical_info" | "is_earned">;

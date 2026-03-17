@@ -27,7 +27,7 @@ export const useTaskData = () => {
   }, [dispatch, missionId, taskId]);
 
   return {
-    ...task,
+    task,
     totalScore: user.data?.totalScore, 
     missionId: String(missionId),
     taskId: String(taskId),

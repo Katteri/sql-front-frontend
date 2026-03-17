@@ -19,7 +19,7 @@ import { DatabaseInfoDrawer } from "../database-info-drawer/database-info-drawer
 type DefaultTaskBlock = {
   isSolved?: boolean,
   task: string;
-  onChange: (val: string) => void;
+  onChange: (_: string) => void;
   value: string;
   queryRunHandle: () => void;
   submitSolution: () => void;

@@ -1,4 +1,4 @@
-import { AchievementTypeDto } from "./achievements-types";
+import { AchievementSubmitType } from "./achievements-types";
 
 export type ResultQueryDataType = {
   columns: string[],
@@ -66,5 +66,5 @@ export type SubmissionResultType = {
   points_earned: number;
   points_penalty: number;
   current_points: number;
-  awarded_achievements: Omit<AchievementTypeDto, "historical_info" | "is_earned">;
+  awarded_achievements: AchievementSubmitType[];
 };
