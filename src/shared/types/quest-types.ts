@@ -1,3 +1,4 @@
+import { AchievementSubmitType } from "./achievements-types";
 import { ResultQueryDataType } from "./task-type";
 
 export type QuestIdType = "hope";
@@ -28,3 +29,15 @@ export type RunQuestQueryType = {
 };
 
 export type RunQuestQueryResponseType = { response: ResultQueryDataType } & { sql_query: string };
+
+export type SubmitQueryResultType = {
+  is_correct: boolean;
+  points: {
+    earned: number;
+    penalty: number;
+  };
+  is_quest_completed: boolean;
+  awarded_achievements: AchievementSubmitType[];
+};
+
+export type SubmitQueryResultResponseType = { response: SubmitQueryResultType } & { sql_query: string };

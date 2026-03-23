@@ -1,8 +1,8 @@
 import { EntityState, PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-import { QuestIdType, QuestProgressType, RunQuestQueryResponseType, SceneProgressType } from "@/shared/types/quest-types";
+import { QuestIdType, QuestProgressType, RunQuestQueryResponseType, SceneProgressType, SubmitQueryResultResponseType, SubmitQueryResultType } from "@/shared/types/quest-types";
 
-import { getQuestProgress, runQuestQuery } from "./actions/quest-action";
+import { getQuestProgress, runQuestQuery, submitQuestQuery } from "./actions/quest-action";
 import { StateType } from "../store";
 import { DefaultStateType } from "@/shared/types/state-manager-types";
 import { ErrorRunngingQuery, TaskQueryRunType } from "@/shared/types/task-type";
@@ -20,7 +20,8 @@ type QuestStateType = {
 
 type QuestsStateType = DefaultStateType &
   EntityState<QuestStateType, QuestIdType> &
-  { queryRun: DefaultStateType & TaskQueryRunType };
+  { queryRun: DefaultStateType & TaskQueryRunType } &
+  { submission: DefaultStateType & SubmitQueryResultType };
 
 const questsAdapter = createEntityAdapter<QuestStateType, QuestIdType>({
   selectId: (quest) => quest.questId,
@@ -31,6 +32,17 @@ const initialState: QuestsStateType = questsAdapter.getInitialState({
     query: null,
     result: null,
     queryError: null,
+    isLoading: false,
+    error: null,
+  },
+  submission: {
+    is_correct: false,
+    points: {
+        earned: 0,
+        penalty: 0,
+    },
+    is_quest_completed: false,
+    awarded_achievements: [],
     isLoading: false,
     error: null,
   },
@@ -94,6 +106,33 @@ export const questSlice = createSlice({
         };
       })
       .addCase(runQuestQuery.rejected.type, (state, action: PayloadAction<string | ErrorRunngingQuery>) => {
+        state.queryRun.isLoading = false;
+        state.queryRun.result = null;
+
+        const response = action.payload;
+        if (typeof response !== "string" && "detail" in response) {
+          state.queryRun.queryError = JSON.stringify(response.detail);
+          state.queryRun.error = null;
+        } else {
+          state.error = typeof action.payload === "string" ? action.payload : "Unknown error";
+        }
+      })
+
+      //submitQuestQuery
+      .addCase(submitQuestQuery.pending.type, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(submitQuestQuery.fulfilled.type, (state, action: PayloadAction<SubmitQueryResultResponseType>) => {
+        state.isLoading = false;
+        state.error = null;
+
+        state.submission = {
+          isLoading: false,
+          error: null,
+          ...action.payload.response,
+        };
+      })
+      .addCase(submitQuestQuery.rejected.type, (state, action: PayloadAction<string | ErrorRunngingQuery>) => {
         state.queryRun.isLoading = false;
         state.queryRun.result = null;
 

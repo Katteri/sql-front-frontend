@@ -21,6 +21,7 @@ const strings = {
     expectedResult: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/expected_result`,
     questProgress: ({ questId }: { questId: QuestIdType }) => `/quests/${questId}/progress`,
     runQuestQuery: ({ questId }: { questId: QuestIdType }) => `/quests/${questId}/run`,
+    submitQuestQuery: ({ questId }: { questId: QuestIdType }) => `/quests/${questId}/submit`,
   },
   unexpectedError: "Неизвестная ошибка",
   incorrectQuery: "Введите корректный SQL запрос",
