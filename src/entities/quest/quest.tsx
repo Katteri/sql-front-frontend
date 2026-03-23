@@ -1,46 +1,26 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { questSlice } from "@/store/reducers/quest-slice";
-import { useAppDispatch } from "@/shared/hooks/redux";
+import { isQuestId } from "@/shared/utils/is-quest-id";
 
 import { Scene } from "../quest-scene/scene";
-import { quests } from "../quest-scene/quest-data";
-
-const normalizeQuestIdType = (questId?: string | string[]) => {
-  if (!questId) {
-    return null;
-  }
-  if (Array.isArray(questId)) {
-    return null;
-  }
-  return questId;
-};
 
 export const Quest = () => {
   const router = useRouter();
-  const { questId: questIdFromUrl } = router.query;
-  const dispatch = useAppDispatch();
-  const { startQuest } = questSlice.actions;
+  const { questId } = router.query;
 
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
 
-    const questId = normalizeQuestIdType(questIdFromUrl);
-    if (!questId) {
-      return;
-    }
-
-    const quest = quests.find((quest) => quest.id === questId);
-    if (!quest) {
+    if (!isQuestId(questId)) {
       router.replace("/quest");
       return;
     }
 
-    dispatch(startQuest());
-  }, [questIdFromUrl, startQuest, router, dispatch]);
+    //TODO: add recieving all quests ids and show quest menu to user
+  }, [questId, router]);
 
   return (
     <Scene />

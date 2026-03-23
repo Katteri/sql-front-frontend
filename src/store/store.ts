@@ -4,7 +4,7 @@ import missionsSlice from "./reducers/missions-slice";
 import achievementsSlice from "./reducers/achievements-slice";
 import profileSlice from "./reducers/profile-slice";
 import tasksSlice from "./reducers/tasks-slice";
-import questSlice from "./reducers/quest-slice";
+import questSlice from "./reducers/quests-slice";
 import ratingSlice from "./reducers/rating-slice";
 
 const rootReducer = combineReducers({

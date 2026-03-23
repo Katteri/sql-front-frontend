@@ -53,10 +53,6 @@ const initialState: TasksStateType = tasksAdapter.getInitialState({
   error: null,
 });
 
-export const tasksSelectors = tasksAdapter.getSelectors<StateType>(
-  (state) => state.task,
-);
-
 export const tasksSlice = createSlice({
   name: "tasks",
   initialState,
@@ -211,5 +207,9 @@ export const tasksSlice = createSlice({
       });
   },
 });
+
+export const tasksSelectors = tasksAdapter.getSelectors<StateType>(
+  (state) => state.task,
+);
 
 export default tasksSlice.reducer;

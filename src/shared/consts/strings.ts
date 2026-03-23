@@ -1,4 +1,5 @@
 import { TaskDataPayloadType } from "@/shared/types/task-type";
+import { QuestIdType } from "@/shared/types/quest-types";
 
 const strings = {
   api: {
@@ -18,6 +19,7 @@ const strings = {
     submitTaskSolution: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/submit`,
     clue: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/clue`,
     expectedResult: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/expected_result`,
+    questProgress: ({ questId }: { questId: QuestIdType }) => `/quests/${questId}/progress`,
   },
   unexpectedError: "Неизвестная ошибка",
   incorrectQuery: "Введите корректный SQL запрос",
