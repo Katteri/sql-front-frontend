@@ -20,6 +20,7 @@ const strings = {
     clue: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/clue`,
     expectedResult: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/expected_result`,
     questProgress: ({ questId }: { questId: QuestIdType }) => `/quests/${questId}/progress`,
+    runQuestQuery: ({ questId }: { questId: QuestIdType }) => `/quests/${questId}/run`,
   },
   unexpectedError: "Неизвестная ошибка",
   incorrectQuery: "Введите корректный SQL запрос",

@@ -1,9 +1,11 @@
-import { PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { EntityState, PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-import { QuestIdType, QuestProgressType, SceneProgressType } from "@/shared/types/quest-types";
+import { QuestIdType, QuestProgressType, RunQuestQueryResponseType, SceneProgressType } from "@/shared/types/quest-types";
 
-import { getQuestProgress } from "./actions/quest-action";
+import { getQuestProgress, runQuestQuery } from "./actions/quest-action";
 import { StateType } from "../store";
+import { DefaultStateType } from "@/shared/types/state-manager-types";
+import { ErrorRunngingQuery, TaskQueryRunType } from "@/shared/types/task-type";
 
 type QuestStateType = {
   questId: QuestIdType;
@@ -16,11 +18,22 @@ type QuestStateType = {
   // clue?: ClueDtoType; //TODO: have we this?
 };
 
+type QuestsStateType = DefaultStateType &
+  EntityState<QuestStateType, QuestIdType> &
+  { queryRun: DefaultStateType & TaskQueryRunType };
+
 const questsAdapter = createEntityAdapter<QuestStateType, QuestIdType>({
   selectId: (quest) => quest.questId,
 });
 
-const initialState = questsAdapter.getInitialState({
+const initialState: QuestsStateType = questsAdapter.getInitialState({
+  queryRun: {
+    query: null,
+    result: null,
+    queryError: null,
+    isLoading: false,
+    error: null,
+  },
   isLoading: false,
   error: null,
 });
@@ -40,8 +53,14 @@ export const questSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // getQuestProgress
+      //getQuestProgress
+      .addCase(getQuestProgress.pending.type, (state) => {
+        state.isLoading = true;
+      })
       .addCase(getQuestProgress.fulfilled.type, (state, action: PayloadAction<QuestProgressType & { questId: QuestIdType }>) => {
+        state.isLoading = false;
+        state.error = null;
+
         const quest: QuestStateType = {
           questId: action.payload.questId,
           sceneId: action.payload.scene_id,
@@ -52,6 +71,39 @@ export const questSlice = createSlice({
         };
 
         questsAdapter.upsertOne(state, quest);
+      })
+      .addCase(getQuestProgress.rejected.type, (state, action: PayloadAction<string>) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      //runQuestQuery
+      .addCase(runQuestQuery.pending.type, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(runQuestQuery.fulfilled.type, (state, action: PayloadAction<RunQuestQueryResponseType>) => {
+        state.isLoading = false;
+        state.error = null;
+
+        state.queryRun = {
+          isLoading: false,
+          error: null,
+          query: action.payload.sql_query,
+          result: action.payload.response,
+          queryError: null,
+        };
+      })
+      .addCase(runQuestQuery.rejected.type, (state, action: PayloadAction<string | ErrorRunngingQuery>) => {
+        state.queryRun.isLoading = false;
+        state.queryRun.result = null;
+
+        const response = action.payload;
+        if (typeof response !== "string" && "detail" in response) {
+          state.queryRun.queryError = JSON.stringify(response.detail);
+          state.queryRun.error = null;
+        } else {
+          state.error = typeof action.payload === "string" ? action.payload : "Unknown error";
+        }
       });
     }
 });

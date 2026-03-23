@@ -1,11 +1,13 @@
 import { useCallback, useState } from "react";
 
-import { useAppDispatch } from "@/shared/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/redux";
 import { questSlice } from "@/store/reducers/quests-slice";
 import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { TaskBlock } from "@/shared/ui/task-block/task-block";
 import { isQuestId } from "@/shared/utils/is-quest-id";
+import { runQuestQuery } from "@/store/reducers/actions/quest-action";
+import strings from "@/shared/consts/strings";
 
 import { useSceneData } from "./use-scene-data";
 import { LegendBlock } from "./legend-block";
@@ -14,8 +16,10 @@ import styles from "./scene.module.scss";
 
 export const Scene = () => {
   const [value, setValue] = useState("");
+  const [error, setError] = useState("");
   const data = useSceneData();
   const dispatch = useAppDispatch();
+  const { queryRun } = useAppSelector((state) => state.quest);
   const { goToTask } = questSlice.actions;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
@@ -34,6 +38,36 @@ export const Scene = () => {
   const onChange = useCallback((val: string) => {
     setValue(val);
   }, [setValue]);
+
+  const handleRunQuery = useCallback(() => {
+    if (!data) {
+      return;
+    }
+
+    if (!data.questId && !isQuestId(data.questId)) {
+      return;
+    }
+
+    if (!data.sceneId) {
+      return;
+    }
+
+    setError("");
+    const clearValue = value.replace(/--.*$/gmi, "").replace(/\n/gmi, " ");
+
+    if (!clearValue.toLocaleLowerCase().includes("select")) { //TODO: add node-sql-parser to check is 
+      setError(strings.incorrectQuery);
+      return;
+    }
+
+    dispatch(runQuestQuery({
+      questId: data.questId,
+      payload: {
+        scene_id: data?.sceneId,
+        sql_query: value,
+      },
+    }));
+  }, [dispatch, data, value]);
 
   if (!data) {
     return null;
@@ -62,10 +96,9 @@ export const Scene = () => {
                   onChange={onChange}
                   value={value}
 
-
-                  queryRunHandle={() => { return; }}
+                  queryRunHandle={handleRunQuery}
                   submitSolution={() => { return; }}
-                  resultData={null}
+                  resultData={error ? error : queryRun.result ? queryRun.result : queryRun.queryError}
                   getClue={() => { return; }}
                 />
       }

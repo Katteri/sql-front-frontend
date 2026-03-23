@@ -1,3 +1,5 @@
+import { ResultQueryDataType } from "./task-type";
+
 export type QuestIdType = "hope";
 
 export const QuestIds = {
@@ -19,3 +21,10 @@ export type QuestProgressType = {
   task: string;
   has_clue: boolean;
 };
+
+export type RunQuestQueryType = {
+  scene_id: string;
+  sql_query: string;
+};
+
+export type RunQuestQueryResponseType = { response: ResultQueryDataType } & { sql_query: string };

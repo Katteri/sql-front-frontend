@@ -1,16 +1,10 @@
 import { EntityState, PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-import { ClueDtoType, ErrorRunngingQuery, ExpectedResultType, QueryRunResponseType, ResultQueryDataType, SubmissionResultType, TaskDataDtoType, TaskDataPayloadType } from "@/shared/types/task-type";
+import { ClueDtoType, ErrorRunngingQuery, ExpectedResultType, QueryRunResponseType, SubmissionResultType, TaskDataDtoType, TaskDataPayloadType, TaskQueryRunType } from "@/shared/types/task-type";
 import { DefaultStateType } from "@/shared/types/state-manager-types";
 
 import { StateType } from "../store";
 import { getTaskClueData, getTaskData, getTaskExpectedResultData, runTaskQuery, submitTaskSolution } from "./actions/task-actions";
-
-type TaskQueryRunType = DefaultStateType & {
-  query: string | null;
-  result: ResultQueryDataType | null;
-  queryError: string | null;
-};
 
 type TaskType = {
   taskId: number;
@@ -35,7 +29,7 @@ type TaskType = {
 
 type TasksStateType = DefaultStateType &
   EntityState<TaskType, string> &
-  { queryRun: TaskQueryRunType };
+  { queryRun: DefaultStateType & TaskQueryRunType };
 
 const tasksAdapter = createEntityAdapter<TaskType, string>({
   selectId: (task) => `${task.missionId}.${task.taskId}`,

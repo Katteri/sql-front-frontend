@@ -6,6 +6,12 @@ export type ResultQueryDataType = {
   row_count: number,
 };
 
+export type TaskQueryRunType = {
+  query: string | null;
+  result: ResultQueryDataType | null;
+  queryError: string | null;
+};
+
 export type ErrorRunngingQuery = {
   detail: string,
 };
