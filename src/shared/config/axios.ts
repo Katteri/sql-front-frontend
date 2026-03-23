@@ -1,10 +1,8 @@
 import axios from "axios";
 
-import { authSlice } from "@/store/reducers/auth-slice";
-
 import { store } from "@/store/store";
+import { logoutUser } from "@/store/reducers/actions/auth-action";
 
-import { tokenService } from "./token-service";
 import config from "./config";
 
 const api = axios.create({
@@ -30,11 +28,11 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (config) => config,
   (error) => {
-    const { logout } = authSlice.actions;
-
     if (error.response.status === 401) {
-      store.dispatch(logout());
-      tokenService.clear();
+      const state = store.getState();
+      if (state.auth.token) {
+        store.dispatch(logoutUser());
+      }
     }
 
     return Promise.reject(error);

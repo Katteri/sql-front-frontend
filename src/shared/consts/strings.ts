@@ -6,6 +6,7 @@ const strings = {
     ratingPersonal: "/rating/personal",
     register: "/auth/register",
     login: "/auth/login",
+    logout: "/auth/logout",
     missions: "/missions",
     achievements: "/achievements",
     profile: "/profile/me",

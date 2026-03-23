@@ -1,6 +1,8 @@
+import { useAppDispatch } from "@/shared/hooks/redux";
+import { logoutUser } from "@/store/reducers/actions/auth-action";
+
 import { Link } from "../../shared/ui/link/link";
 import { Drawer, type DrawerProps } from "../../shared/ui/drawer/drawer";
-
 import styles from "./menu-drawer.module.scss";
 
 type MenuDrawerProps = DrawerProps & {
@@ -30,7 +32,7 @@ const menuCoonfig = {
     {
       page: "quest",
       text: "Квест",
-      href: "/quest", //TODO: if quest has already started lead to current pause 
+      href: "/quest",
     },
     {
       page: "missions",
@@ -56,6 +58,8 @@ export const MenuDrawer = ({
   currentPage,
   onClose,
 }: MenuDrawerProps) => {
+  const dispatch = useAppDispatch();
+  
   const config = menuCoonfig[isAuth? "authorized" : "unauthorized"];
 
   return (
@@ -81,7 +85,12 @@ export const MenuDrawer = ({
             key={link.page}
             href={link.href}
             size="1vw"
-            onClick={onClose}
+            onClick={() => {
+              if (link.page === "logout") {
+                dispatch(logoutUser());
+              }
+              onClose();
+            }}
             underline={currentPage === link.page}
           >
             {link.text}

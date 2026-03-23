@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 import { AuthType } from "@/shared/types/auth-data-types";
 import { colors } from "@/shared/ui/colors";
 import { useAppDispatch } from "@/shared/hooks/redux";
-import { registerUser } from "@/store/reducers/actions/register-action";
-import { loginUser } from "@/store/reducers/actions/login-action";
+import { loginUser, registerUser } from "@/store/reducers/actions/auth-action";
 
 import { formFieldsLogin } from "./form-fields-login";
 import { formFieldsRegister } from "./form-fields-register";
