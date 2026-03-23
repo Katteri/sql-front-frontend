@@ -2,6 +2,8 @@ import { TaskDataPayloadType } from "@/shared/types/task-type";
 
 const strings = {
   api: {
+    rating: "/rating",
+    ratingPersonal: "/rating/personal",
     register: "/auth/register",
     login: "/auth/login",
     missions: "/missions",

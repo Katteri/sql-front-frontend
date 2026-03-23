@@ -5,9 +5,11 @@ import achievementsSlice from "./reducers/achievements-slice";
 import profileSlice from "./reducers/profile-slice";
 import tasksSlice from "./reducers/tasks-slice";
 import questSlice from "./reducers/quest-slice";
+import ratingSlice from "./reducers/rating-slice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  rating: ratingSlice,
   missions: missionsSlice,
   achievements: achievementsSlice,
   profile: profileSlice,
