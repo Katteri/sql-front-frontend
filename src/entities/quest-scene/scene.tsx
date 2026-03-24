@@ -7,7 +7,7 @@ import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { TaskBlock } from "@/shared/ui/task-block/task-block";
 import { isQuestId } from "@/shared/utils/is-quest-id";
-import { runQuestQuery, submitQuestQuery } from "@/store/reducers/actions/quest-action";
+import { getQuestProgress, runQuestQuery, submitQuestQuery } from "@/store/reducers/actions/quest-action";
 import { Text } from "@/shared/ui/text/text";
 import strings from "@/shared/consts/strings";
 
@@ -44,7 +44,7 @@ export const Scene = () => {
   const data = useSceneData();
   const dispatch = useAppDispatch();
   const { queryRun } = useAppSelector((state) => state.quest);
-  const { goToTask } = questSlice.actions;
+  const { goToTask, resetSceneData } = questSlice.actions;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const toggleMenu = useCallback(() => {
@@ -79,7 +79,10 @@ export const Scene = () => {
     setError("");
     const clearValue = value.replace(/--.*$/gmi, "").replace(/\n/gmi, " ");
 
-    if (!clearValue.toLocaleLowerCase().includes("select")) { //TODO: add node-sql-parser to check is 
+    if (
+      !clearValue.toLocaleLowerCase().includes("select") &&
+      !clearValue.toLocaleLowerCase().includes("update")
+    ) { //TODO: add node-sql-parser to check is 
       setError(strings.incorrectQuery);
       return;
     }
@@ -88,7 +91,7 @@ export const Scene = () => {
       questId: data.questId,
       payload: {
         scene_id: data?.sceneId,
-        sql_query: value,
+        sql_query: clearValue,
       },
     }));
   }, [dispatch, data, value]);
@@ -120,11 +123,13 @@ export const Scene = () => {
         toast.custom(<AchievementToast achievement={achievement} />, { duration: 5000, });
       });
 
-      //TODO: go to the next scene!!
+      setValue("");
+      dispatch(resetSceneData());
+      dispatch(getQuestProgress(data.questId));
     } else {
       toast.error(SubmitionToastText(result.response));
     }
-  }, [dispatch, data, value]);
+  }, [dispatch, resetSceneData, data, value]);
 
   if (!data) {
     return null;
