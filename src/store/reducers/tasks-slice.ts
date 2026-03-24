@@ -190,6 +190,7 @@ export const tasksSlice = createSlice({
           id: `${action.payload.missionId}.${action.payload.taskId}`,
           changes: {
             submission: action.payload.submission,
+            isSolved: action.payload.submission.is_correct,
           }
         });
       })

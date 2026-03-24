@@ -10,10 +10,11 @@ import { ERDiagramType } from "@/shared/types/er-diagram-types";
 import { ResultQueryDataType, TaskClueData } from "@/shared/types/task-type";
 import { QuestClueData } from "@/shared/types/quest-types";
 import { lightCodeMirrorTheme } from "@/shared/ui/code-mirror/code-mirror-theme-light";
+import { Title } from "@/shared/ui/title/title";
+import { Link } from "@/shared/ui/link/link";
 
 import styles from "./task-block.module.scss";
 import { ResultTable } from "../result-table/result-table";
-import { Title } from "@/shared/ui/title/title";
 import { DatabaseInfoDrawer } from "../database-info-drawer/database-info-drawer";
 
 type DefaultTaskBlock = {
@@ -160,6 +161,16 @@ export const TaskBlock = ({
         {resultData ?
           <ResultTable data={resultData}/>
           : null
+        }
+        {type === "task" && isSolved && 
+          <div className={styles.toMissionsButtonContainer}>
+            <Link
+              href="/missions"
+              variant="button"
+            >
+              ко всем заданиям
+            </Link>
+          </div>
         }
       </div>
     </>

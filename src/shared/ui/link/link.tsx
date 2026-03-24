@@ -1,4 +1,5 @@
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
+import cn from "classnames";
 
 import { colors } from "../colors";
 
@@ -8,6 +9,7 @@ type LinkProps = NextLinkProps & {
   size?: string,
   underline?: boolean,
   isVisited?: boolean,
+  variant?: "link" | "button",
   fontVariant?: "text" | "capital",
   position?: React.CSSProperties["position"],
   left?: string,
@@ -18,6 +20,7 @@ type LinkProps = NextLinkProps & {
 
 export const Link = ({
   size="1vw",
+  variant="link",
   fontVariant="text",
   underline=false,
   isVisited=false,
@@ -41,7 +44,9 @@ export const Link = ({
   }
 
   return (
-    <NextLink {...nextLinkProps} className={styles.link}
+    <NextLink {...nextLinkProps} className={cn(styles.link, {
+      [styles.buttonVariant]: variant === "button",
+    })}
       style={{
         ...style,
         "--fontVariant": fontVariant === "capital" ? "Buran USSR" : "Moscow Sans",

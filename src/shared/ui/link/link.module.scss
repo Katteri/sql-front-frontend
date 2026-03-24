@@ -12,3 +12,17 @@
 
   transition: color 0.3s ease;
 }
+
+.buttonVariant {
+  background-color: transparent;
+  border: solid $black-color 0.1vw;
+  border-radius: 5vw;
+  
+  padding: 0.5vw 1.8vw 0.6vw;
+
+  &:hover {
+    color: $red-color;
+    border-color: $red-color;
+    text-decoration: none;
+  }
+}
