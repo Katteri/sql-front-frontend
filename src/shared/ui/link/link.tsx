@@ -15,6 +15,7 @@ type LinkProps = NextLinkProps & {
   left?: string,
   top?: string,
   color?: "red" | "black",
+  margin?: string;
   children: React.ReactNode,
 }
 
@@ -29,6 +30,7 @@ export const Link = ({
   left="auto",
   top="auto",
   color="black",
+  margin="0",
   ...nextLinkProps
 }: LinkProps) => {
   const style: React.CSSProperties = {
@@ -55,6 +57,7 @@ export const Link = ({
         position,
         left,
         top,
+        margin,
       } as React.CSSProperties}
     >
       {children}

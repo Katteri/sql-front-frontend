@@ -41,7 +41,7 @@ export const StartQuest = () => {
         квест
       </Title>
       <Link
-        href="/quest/hope"
+        href="/quest/hope" //TODO: calculate dynamic 
         fontVariant="capital"
         size="6.7vw"
         position="absolute"

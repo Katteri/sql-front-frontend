@@ -1,0 +1,32 @@
+.image {
+  --imageHref: "";
+
+  position: relative;
+
+  height: 25vw;
+  width: 35vw;
+
+  border-radius: 5vw;
+  overflow: hidden;
+
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image: var(--imageHref);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    filter: saturate(0) brightness(1.2) contrast(1.2);
+    transition: filter 0.3s ease;
+
+    z-index: 0;
+  }
+
+  &:hover::before {
+    filter: blur(0.2vw);
+  }
+}
