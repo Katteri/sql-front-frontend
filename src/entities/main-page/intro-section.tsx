@@ -3,13 +3,16 @@ import { Title } from "@/shared/ui/title/title";
 
 import styles from "./intro-section.module.scss";
 
-export const IntroSection = () => {
+export const IntroSection = ({ isAuth }: { isAuth: boolean }) => {
   return (
     <section className={styles.introSection}>
-      <div className={styles.menuBlock}>
-        <Link href="/auth?type=login" size="1vw">войти</Link>
-        <Link href="/auth?type=register" size="1vw">зарегистрироваться</Link>
-      </div>
+      {!isAuth &&
+        <div className={styles.menuBlock}>
+          <Link href="/auth?type=login" size="1vw">войти</Link>
+          <Link href="/auth?type=register" size="1vw">зарегистрироваться</Link>
+        </div>
+      }
+      
       <Title
         size="15.8vw"
       >

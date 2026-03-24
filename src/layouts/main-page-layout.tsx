@@ -54,7 +54,7 @@ export const MainPageLayout = () => {
         color={activeSection ? colorBySection[activeSection] : "white"}
         onClick={toggleMenu}
       />
-      <IntroSection />
+      <IntroSection isAuth={isAuth} />
       <DescriptionSection id={sectionIds.description} />
       <StartGuideSection id={sectionIds.startGuide} />
       <RatingSection id={sectionIds.rating} />
