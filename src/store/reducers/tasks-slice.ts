@@ -35,14 +35,16 @@ const tasksAdapter = createEntityAdapter<TaskType, string>({
   selectId: (task) => `${task.missionId}.${task.taskId}`,
 });
 
+const initialQueryRun = {
+  query: null,
+  result: null,
+  queryError: null,
+  isLoading: false,
+  error: null,
+};
+
 const initialState: TasksStateType = tasksAdapter.getInitialState({
-  queryRun: {
-    query: null,
-    result: null,
-    queryError: null,
-    isLoading: false,
-    error: null,
-  },
+  queryRun: initialQueryRun,
   isLoading: false,
   error: null,
 });
@@ -50,7 +52,11 @@ const initialState: TasksStateType = tasksAdapter.getInitialState({
 export const tasksSlice = createSlice({
   name: "tasks",
   initialState,
-  reducers: {},
+  reducers: {
+    resetQueryRun: (state) => {
+      state.queryRun = initialQueryRun;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // getTaskData

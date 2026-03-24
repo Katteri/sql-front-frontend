@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/redux";
@@ -15,6 +15,7 @@ import { databaseEdges, databaseNodes } from "./const";
 import strings from "@/shared/consts/strings";
 import { SubmissionResultType } from "@/shared/types/task-type";
 import { AchievementToast } from "@/shared/ui/achievement-toast/achievement-toast";
+import { tasksSlice } from "@/store/reducers/tasks-slice";
 
 const SubmitionToastText = (submission: SubmissionResultType | null, isSolved: boolean) => {
   if (submission === null) {
@@ -45,10 +46,15 @@ const SubmitionToastText = (submission: SubmissionResultType | null, isSolved: b
 export const Task = () => {
   const dispatch = useAppDispatch();
   const { queryRun } = useAppSelector((state) => state.task);
+  const { resetQueryRun } = tasksSlice.actions;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const data = useTaskData();
+
+  useEffect(() => {
+    dispatch(resetQueryRun());
+  }, [dispatch, resetQueryRun, data.missionId, data.taskId]);
   
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
@@ -80,7 +86,7 @@ export const Task = () => {
       missionId: data.missionId,
       payload: { sql_query: value },
     })).unwrap();
-    
+
     if (result.submission?.is_correct) {
       toast.success(SubmitionToastText(result.submission, data.task.isSolved));
       result.submission.awarded_achievements.forEach((achievement) => {

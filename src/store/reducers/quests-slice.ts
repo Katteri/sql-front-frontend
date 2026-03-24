@@ -27,25 +27,29 @@ const questsAdapter = createEntityAdapter<QuestStateType, QuestIdType>({
   selectId: (quest) => quest.questId,
 });
 
+const initialQueryRun = {
+  query: null,
+  result: null,
+  queryError: null,
+  isLoading: false,
+  error: null,
+};
+
+const initialSubmission = {
+  is_correct: false,
+  points: {
+    earned: 0,
+    penalty: 0,
+  },
+  is_quest_completed: false,
+  awarded_achievements: [],
+  isLoading: false,
+  error: null,
+};
+
 const initialState: QuestsStateType = questsAdapter.getInitialState({
-  queryRun: {
-    query: null,
-    result: null,
-    queryError: null,
-    isLoading: false,
-    error: null,
-  },
-  submission: {
-    is_correct: false,
-    points: {
-        earned: 0,
-        penalty: 0,
-    },
-    is_quest_completed: false,
-    awarded_achievements: [],
-    isLoading: false,
-    error: null,
-  },
+  queryRun: initialQueryRun,
+  submission: initialSubmission,
   isLoading: false,
   error: null,
 });
@@ -61,6 +65,10 @@ export const questSlice = createSlice({
           sceneProgress: "task",
         },
       });
+    },
+    resetSceneData: (state) => {
+      state.queryRun = initialQueryRun;
+      state.submission = initialSubmission;
     },
   },
   extraReducers: (builder) => {

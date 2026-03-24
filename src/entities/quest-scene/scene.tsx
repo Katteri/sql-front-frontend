@@ -141,7 +141,8 @@ export const Scene = () => {
         data.sceneProgress === "legend" && data.legend
           ? <LegendBlock text={data.legend} onEnds={onLegendEnds} />
           : data.task
-            &&  <TaskBlock
+            && <div style={{width: "80vw"}}>
+                <TaskBlock
                   type="quest"
                   task={data.task}
                   clueData={{
@@ -158,6 +159,7 @@ export const Scene = () => {
                   resultData={error ? error : queryRun.result ? queryRun.result : queryRun.queryError}
                   getClue={() => { return; }} // TODO: add clue handle
                 />
+              </div>
       }
     </section>
   );
