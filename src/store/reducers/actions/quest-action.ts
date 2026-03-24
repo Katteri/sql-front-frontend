@@ -4,12 +4,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import api from "@/shared/config/axios";
 import strings from "@/shared/consts/strings";
-import { QuestIdType, QuestProgressType, RunQuestQueryType, SubmitQueryResultType } from "@/shared/types/quest-types";
+import { QuestProgressType, RunQuestQueryType, SubmitQueryResultType } from "@/shared/types/quest-types";
+import { QuestIds } from "@/shared/consts/quest-id";
 import { ResultQueryDataType } from "@/shared/types/task-type";
 
 export const getQuestProgress = createAsyncThunk(
   "quests/get--info",
-  async (questId: QuestIdType, { rejectWithValue }) => {
+  async (questId: QuestIds, { rejectWithValue }) => {
     try {
       const response = await api.get<QuestProgressType>(strings.api.questProgress({ questId }));
 
@@ -30,7 +31,7 @@ export const getQuestProgress = createAsyncThunk(
 
 export const runQuestQuery = createAsyncThunk(
   "quests/run--query",
-  async (payload: { questId: QuestIdType } & { payload: RunQuestQueryType }, { rejectWithValue }) => {
+  async (payload: { questId: QuestIds } & { payload: RunQuestQueryType }, { rejectWithValue }) => {
     try {
       const response = await api.post<ResultQueryDataType>(strings.api.runQuestQuery({ questId: payload.questId }), payload.payload);
 
@@ -51,7 +52,7 @@ export const runQuestQuery = createAsyncThunk(
 
 export const submitQuestQuery = createAsyncThunk(
   "quests/submit",
-  async (payload: { questId: QuestIdType } & { payload: RunQuestQueryType }, { rejectWithValue }) => {
+  async (payload: { questId: QuestIds } & { payload: RunQuestQueryType }, { rejectWithValue }) => {
     try {
       const response = await api.post<SubmitQueryResultType>(strings.api.submitQuestQuery({ questId: payload.questId }), payload.payload);
 

@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/router";
 
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/redux";
 import { questSlice } from "@/store/reducers/quests-slice";
@@ -39,6 +40,7 @@ const SubmitionToastText = (submission: SubmitQueryResultType | null) => {
 };
 
 export const Scene = () => {
+  const router = useRouter();
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const data = useSceneData();
@@ -125,11 +127,18 @@ export const Scene = () => {
 
       setValue("");
       dispatch(resetSceneData());
+
+      if (result.response.is_quest_completed) {
+        toast.success(<Text>{strings.questEnd({ questId: data.questId })}</Text>);
+        router.replace("/quest");
+        return;
+      }
+
       dispatch(getQuestProgress(data.questId));
     } else {
       toast.error(SubmitionToastText(result.response));
     }
-  }, [dispatch, resetSceneData, data, value]);
+  }, [dispatch, resetSceneData, data, value, router]);
 
   if (!data) {
     return null;

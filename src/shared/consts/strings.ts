@@ -1,5 +1,5 @@
 import { TaskDataPayloadType } from "@/shared/types/task-type";
-import { QuestIdType } from "@/shared/types/quest-types";
+import { QuestIds } from "@/shared/consts/quest-id";
 
 const strings = {
   api: {
@@ -19,14 +19,15 @@ const strings = {
     submitTaskSolution: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/submit`,
     clue: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/clue`,
     expectedResult: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/expected_result`,
-    questProgress: ({ questId }: { questId: QuestIdType }) => `/quests/${questId}/progress`,
-    runQuestQuery: ({ questId }: { questId: QuestIdType }) => `/quests/${questId}/run`,
-    submitQuestQuery: ({ questId }: { questId: QuestIdType }) => `/quests/${questId}/submit`,
+    questProgress: ({ questId }: { questId: QuestIds }) => `/quests/${questId}/progress`,
+    runQuestQuery: ({ questId }: { questId: QuestIds }) => `/quests/${questId}/run`,
+    submitQuestQuery: ({ questId }: { questId: QuestIds }) => `/quests/${questId}/submit`,
   },
   unexpectedError: "Неизвестная ошибка",
   incorrectQuery: "Введите корректный SQL запрос",
   correctTaskQuery: "Задача решена",
   incorrectTaskQuery: "Задача не решена",
+  questEnd: ({ questId }: { questId: QuestIds }) => `Квест ${QuestIds[questId]} успешно пройден!`,
 } as const;
 
 export default strings;
