@@ -4,9 +4,27 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import api from "@/shared/config/axios";
 import strings from "@/shared/consts/strings";
-import { QuestProgressType, RunQuestQueryType, SubmitQueryResultType } from "@/shared/types/quest-types";
+import { QuestListDataType, QuestProgressType, RunQuestQueryType, SubmitQueryResultType } from "@/shared/types/quest-types";
 import { QuestIds } from "@/shared/consts/quest-id";
 import { ResultQueryDataType } from "@/shared/types/task-type";
+
+export const getQuestList = createAsyncThunk(
+  "quests/get--list",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get<{ quests: QuestListDataType }>(strings.api.questList);
+
+      return response.data.quests;
+      
+    } catch (err) {
+      if (isAxiosError(err)) {
+        return rejectWithValue(err.response?.data);
+      }
+      
+      return rejectWithValue(strings.unexpectedError);
+    }
+  }
+);
 
 export const getQuestProgress = createAsyncThunk(
   "quests/get--info",

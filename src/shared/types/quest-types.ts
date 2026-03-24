@@ -1,3 +1,4 @@
+import { QuestIds } from "../consts/quest-id";
 import { AchievementSubmitType } from "./achievements-types";
 import { ResultQueryDataType } from "./task-type";
 
@@ -34,3 +35,8 @@ export type SubmitQueryResultType = {
 };
 
 export type SubmitQueryResultResponseType = { response: SubmitQueryResultType } & { sql_query: string };
+
+export type QuestListDataType = {
+  id: QuestIds;
+  description: string;
+}[];

@@ -7,7 +7,7 @@ import { useQuestsListData } from "./use-quests-list-data";
 import styles from "./quests-list-section.module.scss";
 
 export const QuestsListSection = () => {
-  const data = useQuestsListData();
+  const { data } = useQuestsListData();
 
   return (
     <section className={styles.questsListSection} id="list">

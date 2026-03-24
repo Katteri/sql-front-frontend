@@ -1,9 +1,9 @@
 import { EntityState, PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-import { QuestProgressType, RunQuestQueryResponseType, SceneProgressType, SubmitQueryResultResponseType, SubmitQueryResultType } from "@/shared/types/quest-types";
+import { QuestListDataType, QuestProgressType, RunQuestQueryResponseType, SceneProgressType, SubmitQueryResultResponseType, SubmitQueryResultType } from "@/shared/types/quest-types";
 import { QuestIds } from "@/shared/consts/quest-id";
 
-import { getQuestProgress, runQuestQuery, submitQuestQuery } from "./actions/quest-action";
+import { getQuestList, getQuestProgress, runQuestQuery, submitQuestQuery } from "./actions/quest-action";
 import { StateType } from "../store";
 import { DefaultStateType } from "@/shared/types/state-manager-types";
 import { ErrorRunngingQuery, TaskQueryRunType } from "@/shared/types/task-type";
@@ -22,7 +22,8 @@ type QuestStateType = {
 type QuestsStateType = DefaultStateType &
   EntityState<QuestStateType, QuestIds> &
   { queryRun: DefaultStateType & TaskQueryRunType } &
-  { submission: DefaultStateType & SubmitQueryResultType };
+  { submission: DefaultStateType & SubmitQueryResultType } &
+  { questList: DefaultStateType & { data: QuestListDataType } };
 
 const questsAdapter = createEntityAdapter<QuestStateType, QuestIds>({
   selectId: (quest) => quest.questId,
@@ -51,6 +52,11 @@ const initialSubmission = {
 const initialState: QuestsStateType = questsAdapter.getInitialState({
   queryRun: initialQueryRun,
   submission: initialSubmission,
+  questList: {
+    data: [],
+    isLoading: false,
+    error: null,
+  },
   isLoading: false,
   error: null,
 });
@@ -74,6 +80,20 @@ export const questSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      //getQuestList
+      .addCase(getQuestList.pending.type, (state) => {
+        state.questList.isLoading = true;
+      })
+      .addCase(getQuestList.fulfilled.type, (state, action: PayloadAction<QuestListDataType>) => {
+        state.questList.isLoading = false;
+        state.questList.error = null;
+        state.questList.data = action.payload;
+      })
+      .addCase(getQuestList.rejected.type, (state, action: PayloadAction<string>) => {
+        state.questList.isLoading = false;
+        state.questList.error = action.payload;
+      })
+
       //getQuestProgress
       .addCase(getQuestProgress.pending.type, (state) => {
         state.isLoading = true;

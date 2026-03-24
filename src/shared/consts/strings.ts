@@ -19,6 +19,7 @@ const strings = {
     submitTaskSolution: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/submit`,
     clue: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/clue`,
     expectedResult: ({ missionId, taskId }: TaskDataPayloadType) => `/missions/${missionId}/tasks/${taskId}/expected_result`,
+    questList: "/quests",
     questProgress: ({ questId }: { questId: QuestIds }) => `/quests/${questId}/progress`,
     runQuestQuery: ({ questId }: { questId: QuestIds }) => `/quests/${questId}/run`,
     submitQuestQuery: ({ questId }: { questId: QuestIds }) => `/quests/${questId}/submit`,
