@@ -4,6 +4,7 @@ import { RatingType } from "@/shared/types/rating-type";
 import { DefaultStateType } from "@/shared/types/state-manager-types";
 
 import { getRating } from "./actions/rating-action";
+import { logoutUser } from "./actions/auth-action";
 
 type RatingState = DefaultStateType & RatingType;
 
@@ -34,6 +35,18 @@ export const ratingSlice = createSlice({
       .addCase(getRating.rejected.type, (state, action: PayloadAction<string>) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+
+      // logoutUser
+      .addCase(logoutUser.fulfilled.type, (state) => {
+        state.isLoading = false;
+        state.error = null;
+        state.currentUser = null;
+      })
+      .addCase(logoutUser.rejected.type, (state) => {
+        state.isLoading = false;
+        state.error = null;
+        state.currentUser = null;
       });
   }
 });
