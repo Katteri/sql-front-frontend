@@ -53,14 +53,6 @@ export const Scene = () => {
     setIsMenuOpen((prev) => !prev);
   }, [setIsMenuOpen]);
 
-  const onLegendEnds = useCallback(() => {
-    if (!data?.questId && !isQuestId(data?.questId)) {
-      return;
-    }
-
-    dispatch(goToTask(data.questId));
-  }, [dispatch, goToTask, data?.questId]);
-
   const onChange = useCallback((val: string) => {
     setValue(val);
   }, [setValue]);
@@ -140,6 +132,40 @@ export const Scene = () => {
     }
   }, [dispatch, resetSceneData, data, value, router]);
 
+  const onLegendEnds = useCallback(() => {
+    if (!data?.questId && !isQuestId(data?.questId)) {
+      return;
+    }
+
+    if (!data.sceneId) {
+      return;
+    }
+
+    const isQuestHasTask = !!(data.task);
+
+    if (isQuestHasTask) {
+      dispatch(goToTask(data.questId));
+      return;
+    }
+
+    if (!isQuestId(data.questId)) {
+      return;
+    }
+    
+    if (!isQuestHasTask) {
+      handleSubmitSolution();
+    }
+
+    dispatch(getQuestProgress(data.questId));
+  }, [
+    dispatch,
+    handleSubmitSolution,
+    goToTask,
+    data?.questId,
+    data?.task,
+    data?.sceneId
+  ]);
+
   if (!data) {
     return null;
   }
@@ -153,7 +179,11 @@ export const Scene = () => {
       {/*//TODO: add screen when sceneData is undefined */}
       {
         data.sceneProgress === "legend" && data.legend
-          ? <LegendBlock text={data.legend} onEnds={onLegendEnds} />
+          ? <LegendBlock
+              key={data.sceneId}
+              text={data.legend}
+              onEnds={onLegendEnds}
+            />
           : data.task
             && <div style={{width: "80vw"}}>
                 <TaskBlock
