@@ -189,6 +189,7 @@ export const Scene = () => {
                 <TaskBlock
                   type="quest"
                   task={data.task}
+                  sceneId={data.sceneId}
                   clueData={{
                     isUserHasClue: false, //TODO: are we need this?
                     isQuestHasClue: data.isQuestHasClue, //TODO: are we need this?

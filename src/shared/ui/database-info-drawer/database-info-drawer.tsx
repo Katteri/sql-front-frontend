@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import { Drawer, DrawerProps } from "@/shared/ui/drawer/drawer";
 import { Title } from "@/shared/ui/title/title";
 import { ERDiagramType } from "@/shared/types/er-diagram-types";
@@ -9,7 +11,18 @@ export const DatabaseInfoDrawer = ({
   onClose,
   databaseEdges,
   databaseNodes,
-}:  DrawerProps & ERDiagramType) => {
+  sceneId,
+}:  DrawerProps & ERDiagramType & { sceneId?: string }) => {
+  const shownDatabaseNodes = useMemo(() => {
+    if (!databaseNodes) {
+      return;
+    }
+
+    return sceneId
+      ? databaseNodes.filter(({ data }) => Array.isArray(data.sceneId) && data.sceneId?.includes(sceneId))
+      : databaseNodes;
+  }, [sceneId, databaseNodes]);
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -26,7 +39,7 @@ export const DatabaseInfoDrawer = ({
         схема базы данных
       </Title>
       <ERDiagram
-        databaseNodes={databaseNodes}
+        databaseNodes={shownDatabaseNodes}
         databaseEdges={databaseEdges}
       />
     </Drawer>

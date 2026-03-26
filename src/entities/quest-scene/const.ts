@@ -8,6 +8,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "decision",
       description: "сюжетная развилка 1 Глава 4",
+      sceneId: ["chapter_4"],
       columns: [
         { title: "result", type: "bigint" },
       ],
@@ -19,6 +20,7 @@ export const databaseNodes: Node[] = [
     type: "databaseSchema",
     data: {
       label: "decision_factory",
+      sceneId: ["chapter_5_1"],
       description: "сюжетная развилка 2 глава 5.1 ",
       columns: [
         { title: "result", type: "bigint" },
@@ -32,6 +34,7 @@ export const databaseNodes: Node[] = [
     type: "databaseSchema",
     data: {
       label: "map",
+      sceneId: ["chapter_1", "chapter_2"],
       description: "объекты города",
       columns: [
         { title: "id", type: "bigint" },
@@ -49,6 +52,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "is_sensitive",
       description: "важность объекта",
+      sceneId: ["chapter_2"],
       columns: [
         { title: "id", type: "bigint" },
         { title: "importance", type: "integer" },
@@ -62,6 +66,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "critical_objects",
       description: "важность объекта",
+      sceneId: ["chapter_1", "chapter_2", "chapter_3"],
       columns: [
         { title: "id", type: "bigint" },
         { title: "description", type: "varchar" },
@@ -77,6 +82,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "guards",
       description: "охранники",
+      sceneId: ["chapter_5_1_10_1"],
       columns: [
         { title: "guard_id", type: "bigint" },
         { title: "name", type: "varchar" },
@@ -92,6 +98,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "shifts",
       description: "смены",
+      sceneId: ["chapter_5_1_10_1"],
       columns: [
         { title: "shift_id", type: "bigint" },
         { title: "start_time", type: "date" },
@@ -109,6 +116,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "explosives",
       description: "взрывчатка",
+      sceneId: ["chapter_5_1_10_2"],
       columns: [
         { title: "item_id", type: "bigint" },
         { title: "name", type: "varchar" },
@@ -126,6 +134,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "storages",
       description: "взрывчатка",
+      sceneId: ["chapter_5_1_10_2"],
       columns: [
         { title: "storage_id", type: "bigint" },
         { title: "name", type: "varchar" },
@@ -142,6 +151,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "routes",
       description: "маршруты",
+      sceneId: ["chapter_5_1_10_3"],
       columns: [
         { title: "route_id", type: "bigint" },
         { title: "start_sector", type: "char" },
@@ -158,6 +168,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "checkpoints",
       description: "блок-посты",
+      sceneId: ["chapter_5_1_10_3"],
       columns: [
         { title: "checkpoint_id", type: "bigint" },
         { title: "sector", type: "char" },
@@ -174,6 +185,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "disguise_templates",
       description: "шаблоны униформы",
+      sceneId: ["chapter_5_1_10_5"],
       columns: [
         { title: "template_id", type: "bigint" },
         { title: "name", type: "varchar" },
@@ -189,6 +201,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "disguises",
       description: "униформа",
+      sceneId: ["chapter_5_1_10_5"],
       columns: [
         { title: "disguise_id", type: "bigint" },
         { title: "template_id", type: "bigint" },
@@ -205,6 +218,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "items",
       description: "предметы в карманах",
+      sceneId: ["chapter_5_1_20_1"],
       columns: [
         { title: "item_id", type: "bigint" },
         { title: "name", type: "varchar" },
@@ -222,6 +236,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "train_schedule",
       description: "расписание поездов",
+      sceneId: ["chapter_5_2_1"],
       columns: [
         { title: "train_id", type: "bigint" },
         { title: "arrival_time", type: "date" },
@@ -238,6 +253,7 @@ export const databaseNodes: Node[] = [
     data: {
       label: "track_segments",
       description: "сегменты пути",
+      sceneId: ["chapter_5_2_2"],
       columns: [
         { title: "segment_id", type: "bigint" },
         { title: "bridge", type: "varchar" },

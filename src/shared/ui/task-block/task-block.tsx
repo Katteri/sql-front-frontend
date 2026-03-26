@@ -26,15 +26,16 @@ type DefaultTaskBlock = {
   submitSolution: () => void;
   resultData: string | ResultQueryDataType | null;
   getClue: () => void;
+  sceneId?: string | null;
 };
 
 type TaskBlockType =
   (DefaultTaskBlock & ERDiagramType & {
-    type: "task",
+    type: "task";
     clueData: TaskClueData;
   }) |
   (DefaultTaskBlock & ERDiagramType & {
-    type: "quest",
+    type: "quest";
     clueData: QuestClueData;
   });
 
@@ -42,6 +43,7 @@ export const TaskBlock = ({
   type,
   isSolved,
   task,
+  sceneId,
   clueData,
   databaseNodes,
   databaseEdges,
@@ -72,6 +74,7 @@ export const TaskBlock = ({
         onClose={toggleDatabaseInfo}
         databaseNodes={databaseNodes}
         databaseEdges={databaseEdges}
+        sceneId={type === "quest" && sceneId ? sceneId: undefined}
       />
       {isClueExist
         ? <TaskCluesDrawer
