@@ -23,24 +23,35 @@
 
 .disabled {
   pointer-events: none;
-  opacity: 0.6;
   cursor: default;
+  filter: saturate(0) brightness(2) contrast(0.7);
   box-shadow: none;
   transform: none;
 
   overflow: hidden;
 
-  &::before { //TODO: change to more prettier view
-    content: "пройдено";
+  &::before {
+    content: "";
+    
+    z-index: 1;
+  }
+
+  &::after {
+    content: "ПРОЙДЕНО";
     color: white;
+    background-color: $red-color;
 
     position: absolute;
-    top: 30%;
+    top: 69%;
+    left: 39%;
 
-    transform: rotate(-35deg);
+    transform: rotate(-38deg);
+    font-size: 4vw;
+    font-family: "Buran USSR";
+    letter-spacing: -1px;
 
-    font-size: 7vw;
-    font-family: 'Moscow Sans';
-    letter-spacing: 0.2vw;
+    filter: none;
+    width: 29vw;
+    text-align: center;
   }
 }
