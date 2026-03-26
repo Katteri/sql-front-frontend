@@ -20,3 +20,27 @@
     box-shadow: 0 0 1vw #6b6b6b;
   }
 }
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: default;
+  box-shadow: none;
+  transform: none;
+
+  overflow: hidden;
+
+  &::before { //TODO: change to more prettier view
+    content: "пройдено";
+    color: white;
+
+    position: absolute;
+    top: 30%;
+
+    transform: rotate(-35deg);
+
+    font-size: 7vw;
+    font-family: 'Moscow Sans';
+    letter-spacing: 0.2vw;
+  }
+}
