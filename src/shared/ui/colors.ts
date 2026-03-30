@@ -4,6 +4,7 @@ export const WHITE_COLOR = "#FFFFFF";
 export const GRAY_MORE_LIGHT = "#E8E8E8";
 export const GRAY_MID = "#C0C0C0";
 export const GRAY_LIGHT = "#6B6B6B";
+export const GRAY_EXTRA_LIGHT = "#E3E3E3";
 export const GRAY_DARK = "#2A2A2A";
 export const RED_LIGHT = "#C94A4A";
 export const RED_DARK = "#8B2828";

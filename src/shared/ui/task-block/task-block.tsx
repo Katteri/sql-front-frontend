@@ -10,8 +10,10 @@ import { ERDiagramType } from "@/shared/types/er-diagram-types";
 import { ResultQueryDataType, TaskClueData } from "@/shared/types/task-type";
 import { QuestClueData } from "@/shared/types/quest-types";
 import { lightCodeMirrorTheme } from "@/shared/ui/code-mirror/code-mirror-theme-light";
+import { darkCodeMirrorTheme } from "../code-mirror/code-mirror-theme-dark";
 import { Title } from "@/shared/ui/title/title";
 import { Link } from "@/shared/ui/link/link";
+import { colorConfigByType } from "@/shared/consts/color-config-by-type";
 
 import styles from "./task-block.module.scss";
 import { ResultTable } from "../result-table/result-table";
@@ -91,13 +93,13 @@ export const TaskBlock = ({
         : null
       }
       <div className={styles.taskBlockContainer}>
-        <Text>
+        <Text color={colorConfigByType[type]}>
           {task}
         </Text>
         <CodeMirror
           className={styles.codeWindow}
           height="10vw"
-          theme={lightCodeMirrorTheme}
+          theme={type === "quest" ? darkCodeMirrorTheme: lightCodeMirrorTheme}
           value={value}
           onChange={onChange}
           extensions={[sql()]}
@@ -114,7 +116,7 @@ export const TaskBlock = ({
         <div className={styles.spaceBetween}>
           <div className={`${styles.spaceBetween} ${styles.buttonsLeftWidth}`}>
             <Button
-              color="black"
+              color={colorConfigByType[type]}
               width="10vw"
               padding=".5vw 2vw"
               onClick={queryRunHandle}
@@ -122,7 +124,7 @@ export const TaskBlock = ({
               выполнить
             </Button>
             <Button
-              color="black"
+              color={colorConfigByType[type]}
               width="2.5vw"
               padding="0.5vw"
               onClick={toggleDatabaseInfo}
@@ -132,7 +134,7 @@ export const TaskBlock = ({
           </div>
           {isClueExist
             ? <Button
-                color="black"
+                color={colorConfigByType[type]}
                 width="10vw"
                 padding=".5vw 2vw"
                 onClick={toggleTaskClues} 
@@ -162,7 +164,10 @@ export const TaskBlock = ({
           </Button>
         </div>
         {resultData ?
-          <ResultTable data={resultData}/>
+          <ResultTable
+            type={type}
+            data={resultData}
+          />
           : null
         }
         {type === "task" && isSolved && 

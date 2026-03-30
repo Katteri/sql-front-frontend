@@ -24,8 +24,9 @@
 
   &:disabled {
     cursor: default;
-    color: $gray-light-color;
-    border-color: $gray-light-color;
+    color: var(--hover-color);
+    border-color: var(--hover-color);
+    opacity: 0.5;
   }
 
   cursor: pointer;

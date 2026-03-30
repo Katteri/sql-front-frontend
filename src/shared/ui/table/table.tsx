@@ -1,6 +1,9 @@
+import cn from "classnames";
+
 import styles from "./table.module.scss";
 
 type TableProps = {
+  variant?: "dark" | "light",
   data: {
     columns: string[],
     data: (number | string)[][],
@@ -8,7 +11,7 @@ type TableProps = {
   height?: string,
 };
 
-export const Table = ({ data: { columns, data }, height }: TableProps) => {
+export const Table = ({ data: { columns, data }, height, variant="light" }: TableProps) => {
   return (
     <div
       className={styles.tableWrapper}
@@ -16,7 +19,10 @@ export const Table = ({ data: { columns, data }, height }: TableProps) => {
         "--height": height,
       } as React.CSSProperties}
     >
-      <table className={styles.table}>
+      <table className={cn(styles.table, {
+        [styles.dark]: variant === "dark",
+        [styles.light]: variant === "light",
+      })}>
         <thead className={styles.header}>
           <tr>
             {columns.map((columnName, index) => (

@@ -84,7 +84,9 @@ export const LegendBlock = ({
       className={styles.legendContainer}
       onClick={handleClick}
     >
-      <Text>
+      <Text
+        color="grayMid"
+      >
         {shownText}
         <LastSymbol
           isAnimating={isAnimating}

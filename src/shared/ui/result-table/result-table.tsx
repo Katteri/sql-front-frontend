@@ -1,6 +1,7 @@
 import { Table } from "@/shared/ui/table/table";
 import { Text } from "@/shared/ui/text/text";
 import { ResultQueryDataType } from "@/shared/types/task-type";
+import { colorConfigByType } from "@/shared/consts/color-config-by-type";
 
 const isExtractedTableData = (
   data: ResultQueryDataType | string,
@@ -16,8 +17,10 @@ const isExtractedTableData = (
 };
 
 export const ResultTable = ({
+  type,
   data,
 }: {
+  type: "task" | "quest",
   data: ResultQueryDataType | string,
 }) => {
   if (isExtractedTableData(data)) {
@@ -25,13 +28,22 @@ export const ResultTable = ({
 
     return (
       <>
-        <Table data={resultData} height="23vw"/>
-        <Text margin="0.5vw 0 0">Всего строк: {data.row_count}</Text>
+        <Table
+          variant={type === "quest" ? "dark" : "light"}
+          data={resultData}
+          height="23vw"
+        />
+        <Text
+          margin="0.5vw 0 0"
+          color={colorConfigByType[type]}
+        >
+          Всего строк: {data.row_count}
+        </Text>
       </>
     );
   }
 
   return (
-    <Text>{data}</Text>
+    <Text color={colorConfigByType[type]}>{data}</Text>
   );
 };

@@ -3,7 +3,7 @@ import { Extension } from "@codemirror/state";
 import { HighlightStyle, syntaxHighlighting } from "@codemirror/language";
 import { tags as t } from "@lezer/highlight";
 
-import { BLACK_COLOR, GRAY_DARK, GRAY_LIGHT, RED_COLOR, RED_DARK, RED_LIGHT, WHITE_COLOR, WHITE_DIM } from "../colors";
+import { BLACK_COLOR, GRAY_DARK, GRAY_EXTRA_LIGHT, GRAY_LIGHT,  RED_COLOR, RED_DARK, RED_LIGHT, WHITE_COLOR, WHITE_DIM } from "../colors";
 
 const customDarkTheme = EditorView.theme({
   "&": {
@@ -33,12 +33,12 @@ const customDarkTheme = EditorView.theme({
   },
   ".cm-gutters": {
     backgroundColor: GRAY_DARK,
-    color: GRAY_LIGHT,
+    color: GRAY_EXTRA_LIGHT,
     border: "none",
   },
   ".cm-activeLineGutter": {
     backgroundColor: GRAY_DARK,
-    color: WHITE_COLOR,
+    color: GRAY_EXTRA_LIGHT,
   },
   ".cm-foldPlaceholder": {
     backgroundColor: RED_DARK,
@@ -48,7 +48,7 @@ const customDarkTheme = EditorView.theme({
   ".cm-tooltip": {
     border: `1px solid ${RED_COLOR}`,
     backgroundColor: BLACK_COLOR,
-    color: WHITE_COLOR,
+    color: GRAY_EXTRA_LIGHT,
   },
   ".cm-tooltip .cm-tooltip-arrow:before": {
     borderTopColor: RED_COLOR,
@@ -68,13 +68,13 @@ const customDarkTheme = EditorView.theme({
 const customDarkHighlightStyle = HighlightStyle.define([
   { tag: t.keyword, color: RED_COLOR, fontWeight: "bold" },
   { tag: [t.name, t.deleted, t.character, t.propertyName, t.macroName],
-    color: WHITE_COLOR },
+    color: GRAY_EXTRA_LIGHT },
   { tag: [t.function(t.variableName), t.labelName],
     color: WHITE_DIM },
   { tag: [t.color, t.constant(t.name), t.standard(t.name)],
     color: RED_LIGHT },
   { tag: [t.definition(t.name), t.separator],
-    color: WHITE_COLOR },
+    color: GRAY_EXTRA_LIGHT },
   { tag: [t.typeName, t.className, t.number, t.changed, t.annotation,
     t.modifier, t.self, t.namespace],
     color: RED_LIGHT },

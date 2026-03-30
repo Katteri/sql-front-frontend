@@ -18,6 +18,7 @@ import { databaseEdges, databaseNodes } from "./const";
 import styles from "./scene.module.scss";
 import { SubmitQueryResultType } from "@/shared/types/quest-types";
 import { AchievementToast } from "@/shared/ui/achievement-toast/achievement-toast";
+import { ImageSceneBackground } from "@/shared/ui/image--scene-background/image--scene-background";
 
 const SubmitionToastText = (submission: SubmitQueryResultType | null) => {
   if (submission === null) {
@@ -166,7 +167,7 @@ export const Scene = () => {
     data?.sceneId
   ]);
 
-  if (!data) {
+  if (!data || !data.sceneId) {
     return null;
   }
 
@@ -175,7 +176,11 @@ export const Scene = () => {
       <MenuIcon color="red" onClick={toggleMenu}/>
       <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="quest" />
       
-      {/* TODO: put background image here */}
+      <ImageSceneBackground
+        questId={data.questId}
+        sceneId={data.sceneId}
+        isTask={data.sceneProgress === "task"}
+      />
       {/*//TODO: add screen when sceneData is undefined */}
       {
         data.sceneProgress === "legend" && data.legend
@@ -185,7 +190,7 @@ export const Scene = () => {
               onEnds={onLegendEnds}
             />
           : data.task
-            && <div style={{width: "80vw"}}>
+            && <div style={{width: "80vw", zIndex: "1" }}>
                 <TaskBlock
                   type="quest"
                   task={data.task}

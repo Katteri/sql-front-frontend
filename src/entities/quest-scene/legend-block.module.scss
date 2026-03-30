@@ -5,7 +5,13 @@
   width: 80%;
   min-height: 5%;
 
-  border: $black-color solid 0.1vw;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    transparent 100%
+  );
+  padding: 5vw 0;
   cursor: pointer;
 }
 
