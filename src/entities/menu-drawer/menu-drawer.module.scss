@@ -9,3 +9,13 @@
     width: fit-content;
   }
 }
+
+.childBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+
+  a {
+    width: fit-content;
+  }
+}

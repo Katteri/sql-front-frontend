@@ -1,8 +1,10 @@
 import { useAppDispatch } from "@/shared/hooks/redux";
 import { logoutUser } from "@/store/reducers/actions/auth-action";
+import { Link } from "@/shared/ui/link/link";
+import { Drawer, type DrawerProps } from "@/shared/ui/drawer/drawer";
+import { MenuItemType, menuCoonfig } from "@/shared/consts/menu-config";
+import { QuestIds } from "@/shared/consts/quest-id";
 
-import { Link } from "../../shared/ui/link/link";
-import { Drawer, type DrawerProps } from "../../shared/ui/drawer/drawer";
 import styles from "./menu-drawer.module.scss";
 
 type MenuDrawerProps = DrawerProps & {
@@ -10,47 +12,12 @@ type MenuDrawerProps = DrawerProps & {
   isAuth?: boolean;
 };
 
-const menuCoonfig = {
-  unauthorized: [
-    {
-      page: "login",
-      text: "Войти",
-      href: "auth?type=login",
-    },
-    {
-      page: "register",
-      text: "Зарегистрироваться",
-      href: "auth?type=register",
-    },
-  ],
-  authorized: [
-    {
-      page: "profile",
-      text: "Мой профиль",
-      href: "/profile",
-    },
-    {
-      page: "quest",
-      text: "Квест",
-      href: "/quest",
-    },
-    {
-      page: "missions",
-      text: "Задачи",
-      href: "/missions",
-    },
-    {
-      page: "achievements",
-      text: "Достижения",
-      href: "/achievements",
-    },
-    {
-      page: "logout",
-      text: "Выйти",
-      href: "",
-    },
-  ],
-} as const;
+const resolveHref = (
+  href: MenuItemType["href"],
+  questId?: QuestIds,
+): string => {
+  return typeof href === "string" ? href : href({ questId });
+};
 
 export const MenuDrawer = ({
   isAuth = true,
@@ -61,6 +28,17 @@ export const MenuDrawer = ({
   const dispatch = useAppDispatch();
   
   const config = menuCoonfig[isAuth? "authorized" : "unauthorized"];
+
+  const preparedMenu = config.map((item) => {
+    if (item.page === "quest" && currentPage === "quest") {
+      return item;
+    }
+
+    return {
+      ...item,
+      children: undefined
+    };
+  });
 
   return (
     <Drawer
@@ -77,24 +55,37 @@ export const MenuDrawer = ({
       >
         SQL фронт
       </Link>
-      <div
-        className={styles.linksBlock}
-      >
-        {config.map((link) => (
-          <Link
-            key={link.page}
-            href={link.href}
-            size="1vw"
-            onClick={() => {
-              if (link.page === "logout") {
-                dispatch(logoutUser());
-              }
-              onClose();
-            }}
-            underline={currentPage === link.page}
-          >
-            {link.text}
-          </Link>
+      <div className={styles.linksBlock}>
+        {preparedMenu.map((link) => (
+          <>
+            <Link
+              key={link.page}
+              href={resolveHref(link.href)}
+              size="1vw"
+              onClick={() => {
+                if (link.page === "logout") {
+                  dispatch(logoutUser());
+                }
+                onClose();
+              }}
+              underline={currentPage === link.page}
+            >
+              {link.text}
+            </Link>
+
+            {link.children &&
+              <div className={styles.childBlock} style={{ marginLeft: "1.5vw" }}>
+                {link.children.map((child) => 
+                  <Link
+                    key={child.page}
+                    href={resolveHref(child.href)}
+                  >
+                    {child.text}
+                  </Link>
+                )}
+              </div>
+            }
+          </>
         ))}
       </div>
     </Drawer>
