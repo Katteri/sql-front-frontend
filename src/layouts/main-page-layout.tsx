@@ -6,7 +6,7 @@ import { RatingSection } from "@/entities/main-page/rating-section/rating-sectio
 import { StartGuideSection } from "@/entities/main-page/start-guide-section";
 import { Layout } from "@/shared/ui/layout/layout";
 import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
-import { useActiveSection } from "./use-active-section";
+import { useActiveSection } from "@/shared/hooks/use-active-section";
 import { colors } from "@/shared/ui/colors";
 import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
 import { useAppSelector } from "@/shared/hooks/redux";
