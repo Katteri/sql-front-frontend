@@ -35,3 +35,8 @@
 ```
 NEXT_PUBLIC_BACKEND_URL = "put your backend url here"
 ```
+
+## Authors
+
+* [Ekaterina Domashova](https://github.com/katteri) - frontend
+* [Valeria Taranova](https://github.com/tarvarrs/sql-front-backend) - backend
