@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import styles from "./drawer.module.scss";
+import { createPortal } from "react-dom";
+
 import { Overlay } from "./overlay/overlay";
+import styles from "./drawer.module.scss";
 
 export type DrawerProps = {
   isOpen: boolean,
@@ -29,7 +31,7 @@ export const Drawer = ({
     };
   }, [isOpen]);
 
-  return (
+  return createPortal(
     <>
       {isOpen && <Overlay onClick={onClose}/>}
       <div
@@ -48,6 +50,7 @@ export const Drawer = ({
         </button>
         {children}
       </div>
-    </>
+    </>,
+    document.body
   );
 };
