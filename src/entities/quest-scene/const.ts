@@ -111,7 +111,7 @@ export const databaseNodes: Node[] = [
 
   {
     id: "explosives",
-    position: { x: 0, y: 600 },
+    position: { x: 600, y: 300 },
     type: "databaseSchema",
     data: {
       label: "explosives",
@@ -129,7 +129,7 @@ export const databaseNodes: Node[] = [
   },
   {
     id: "storages",
-    position: { x: 300, y: 600 },
+    position: { x: 900, y: 300 },
     type: "databaseSchema",
     data: {
       label: "storages",
@@ -146,7 +146,7 @@ export const databaseNodes: Node[] = [
 
   {
     id: "routes",
-    position: { x: 0, y: 900 },
+    position: { x: 900, y: 0 },
     type: "databaseSchema",
     data: {
       label: "routes",
@@ -163,7 +163,7 @@ export const databaseNodes: Node[] = [
   },
   {
     id: "checkpoints",
-    position: { x: 300, y: 900 },
+    position: { x: 1200, y: 0 },
     type: "databaseSchema",
     data: {
       label: "checkpoints",
@@ -180,7 +180,7 @@ export const databaseNodes: Node[] = [
 
   {
     id: "disguise_templates",
-    position: { x: 0, y: 1200 },
+    position: { x: 0, y: 600 },
     type: "databaseSchema",
     data: {
       label: "disguise_templates",
@@ -196,7 +196,7 @@ export const databaseNodes: Node[] = [
   },
   {
     id: "disguises",
-    position: { x: 300, y: 1200 },
+    position: { x: 300, y: 600 },
     type: "databaseSchema",
     data: {
       label: "disguises",
@@ -213,7 +213,7 @@ export const databaseNodes: Node[] = [
 
   {
     id: "items",
-    position: { x: 600, y: 1200 },
+    position: { x: 600, y: 600 },
     type: "databaseSchema",
     data: {
       label: "items",
@@ -231,7 +231,7 @@ export const databaseNodes: Node[] = [
 
   {
     id: "train_schedule",
-    position: { x: 900, y: 1200 },
+    position: { x: 900, y: 600 },
     type: "databaseSchema",
     data: {
       label: "train_schedule",
@@ -248,7 +248,7 @@ export const databaseNodes: Node[] = [
 
   {
     id: "track_segments",
-    position: { x: 1200, y: 1200 },
+    position: { x: 1200, y: 600 },
     type: "databaseSchema",
     data: {
       label: "track_segments",
