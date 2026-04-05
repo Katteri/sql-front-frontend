@@ -3,12 +3,11 @@ import cn from "classnames";
 import { colors } from "../colors";
 
 import styles from "./text.module.scss";
-import { Property } from "csstype";
 
 type TextProps = {
   size?: string,
   variant?: "default" | "column",
-  align?: Property.TextAlign;
+  align?: "left" | "center" | "right" | "justify" | "start" | "end";
   color?: keyof typeof colors,
   lineHeight?: string,
   textIndent?: string,
