@@ -1,5 +1,5 @@
 import cn from "classnames";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Text } from "@/shared/ui/text/text";
 
@@ -62,7 +62,7 @@ export const LegendBlock = ({
     return () => clearTimeout(timeout);
   }, [sentences, sentenceIndex, isAnimating, charIndex]);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     if (isAnimating) {
       setCharIndex(sentences[sentenceIndex].length);
       setIsAnimating(false);
@@ -77,7 +77,24 @@ export const LegendBlock = ({
     setSentenceIndex((prev) => prev + 1);
     setCharIndex(0);
     setIsAnimating(true);
-  };
+  }, [isAnimating, sentenceIndex, sentences, onEnds]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code === "Enter" || event.code === "Space") {
+        event.preventDefault();
+        handleClick();
+      }
+    };
+
+    window.addEventListener("click", handleClick);
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("click", handleClick);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleClick]);
 
   return (
     <div
