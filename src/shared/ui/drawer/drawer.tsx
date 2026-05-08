@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Overlay } from "./overlay/overlay";
@@ -19,7 +19,17 @@ export const Drawer = ({
   padding="2.3vw 1.5vw",
   children,
 }: DrawerProps) => {
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
+
   useEffect(() => {
+    setPortalTarget(document.body);
+  }, []);
+
+  useEffect(() => {
+    if (!portalTarget) {
+      return;
+    }
+
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -29,7 +39,11 @@ export const Drawer = ({
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isOpen]);
+  }, [isOpen, portalTarget]);
+
+  if (!portalTarget) {
+    return null;
+  }
 
   return createPortal(
     <>
@@ -51,6 +65,6 @@ export const Drawer = ({
         {children}
       </div>
     </>,
-    document.body
+    portalTarget
   );
 };
