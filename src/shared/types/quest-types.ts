@@ -39,4 +39,5 @@ export type SubmitQueryResultResponseType = { response: SubmitQueryResultType } 
 export type QuestListDataType = {
   id: QuestIds;
   description: string;
+  is_completed: boolean;
 }[];

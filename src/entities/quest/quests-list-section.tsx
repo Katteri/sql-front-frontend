@@ -15,18 +15,10 @@ export const QuestsListSection = () => {
       {
         data.map(({ id, description, is_completed }) =>
           <div key={id} className={styles.liContainer}>
-            <ImageQuestsList questId={id} isDisabled={!is_completed}/>
+            <ImageQuestsList questId={id} isDisabled={is_completed}/>
             <div className={styles.textBlock}>
               {is_completed
-                ? <Link
-                  href={`/quest/${id}`}
-                  fontVariant="capital"
-                  size="7vw"
-                  margin="0 0.1vw 0"
-                >
-                  {QuestIds[id]}
-                </Link>
-                : <Title
+                ? <Title
                   as="h2"
                   size="7vw"
                   margin="0 0.1vw 0"
@@ -34,6 +26,14 @@ export const QuestsListSection = () => {
                 >
                   {QuestIds[id]}
                 </Title>
+                : <Link
+                  href={`/quest/${id}`}
+                  fontVariant="capital"
+                  size="7vw"
+                  margin="0 0.1vw 0"
+                >
+                  {QuestIds[id]}
+                </Link>
               }
               
               <Text
