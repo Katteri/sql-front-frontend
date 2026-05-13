@@ -39,7 +39,7 @@ export const menuCoonfig: { unauthorized: MenuItemType[], authorized: MenuItemTy
         {
           page: "quest-all",
           text: "Все",
-          href: "/quest",
+          href: "/quest#list",
         },
       ],
     },
