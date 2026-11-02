@@ -26,7 +26,9 @@ export const IntroSection = ({ isAuth }: { isAuth: boolean }) => {
         letterSpacing="0.1vw"
         margin="-1.5vw 0 0 11.5vw"
       >
-        Освойте SQL,<br></br> отдавая дань памяти подвигам Победы
+        <span className={styles.introDescription}>
+          Освойте SQL,<br></br> отдавая дань памяти подвигам Победы
+        </span>
       </Title>
     </section>
   );
