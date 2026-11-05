@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/redux";
@@ -58,21 +58,41 @@ export const Task = () => {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const data = useTaskData();
+  const initializedTaskRef = useRef<string | null>(null);
 
   useEffect(() => {
     dispatch(resetQueryRun());
   }, [dispatch, resetQueryRun, data.missionId, data.taskId]);
 
   useEffect(() => {
-    if (data.missionId !== undefined && data.taskId !== undefined) {
-      const saved = localStorage.getItem(`sql_draft_mission_${data.missionId}_task_${data.taskId}`);
-      if (saved) {
-        setValue(saved);
+    if (!data.missionId || !data.taskId || data.missionId === "undefined" || data.taskId === "undefined") {
+      return;
+    }
+
+    const taskKey = `${data.missionId}.${data.taskId}`;
+    const storageKey = `sql_draft_mission_${data.missionId}_task_${data.taskId}`;
+    const savedDraft = localStorage.getItem(storageKey);
+
+    // If task hasn't been initialized yet or user switched tasks:
+    if (initializedTaskRef.current !== taskKey) {
+      if (savedDraft !== null && savedDraft !== "") {
+        setValue(savedDraft);
+      } else if (data.userSolution) {
+        setValue(data.userSolution);
+        localStorage.setItem(storageKey, data.userSolution);
       } else {
         setValue("");
       }
+      initializedTaskRef.current = taskKey;
+      return;
     }
-  }, [data.missionId, data.taskId]);
+
+    // If already initialized for this task, but userSolution arrived from API later and no local draft existed:
+    if (!savedDraft && data.userSolution && value === "") {
+      setValue(data.userSolution);
+      localStorage.setItem(storageKey, data.userSolution);
+    }
+  }, [data.missionId, data.taskId, data.userSolution, value]);
   
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
@@ -142,12 +162,15 @@ export const Task = () => {
 
   const onChange = useCallback((val: string) => {
     setValue(val);
-    if (data.missionId !== undefined && data.taskId !== undefined) {
+    if (data.missionId && data.taskId && data.missionId !== "undefined" && data.taskId !== "undefined") {
       localStorage.setItem(`sql_draft_mission_${data.missionId}_task_${data.taskId}`, val);
     }
   }, [setValue, data.missionId, data.taskId]);
 
   const queryRunHandle = useCallback(() => {
+    if (!data.missionId || !data.taskId) {
+      return;
+    }
     setError("");
     const trimmed = value.trim();
 
@@ -164,6 +187,9 @@ export const Task = () => {
   }, [dispatch, data.missionId, data.taskId, value]);
 
   const submitSolution = useCallback(async () => {
+    if (!data.missionId || !data.taskId) {
+      return;
+    }
     try {
       const result = await dispatch(submitTaskSolution({
         taskId: data.taskId,
@@ -191,6 +217,9 @@ export const Task = () => {
   }, [dispatch, data.taskId, data.missionId, value, data.task?.isSolved]);
 
   const getClue = useCallback(() => {
+    if (!data.missionId || !data.taskId) {
+      return;
+    }
     dispatch(getTaskClueData({
       taskId: data.taskId,
       missionId: data.missionId, 
@@ -205,6 +234,9 @@ export const Task = () => {
   }, [dispatch, data.taskId, data.missionId]);
 
   const getExpectedResult = useCallback(() => {
+    if (!data.missionId || !data.taskId) {
+      return;
+    }
     dispatch(getTaskExpectedResultData({
       taskId: data.taskId,
       missionId: data.missionId, 
