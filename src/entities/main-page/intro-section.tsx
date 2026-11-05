@@ -6,12 +6,17 @@ import styles from "./intro-section.module.scss";
 export const IntroSection = ({ isAuth }: { isAuth: boolean }) => {
   return (
     <section className={styles.introSection}>
-      {!isAuth &&
-        <div className={styles.menuBlock}>
-          <Link href="/auth?type=login" size="1vw">Войти</Link>
-          <Link href="/auth?type=register" size="1vw">Зарегистрироваться</Link>
-        </div>
-      }
+      <div className={styles.menuBlock}>
+        <Link href="/patchnotes" size="1vw">Обновления v1.3</Link>
+        {!isAuth ? (
+          <>
+            <Link href="/auth?type=login" size="1vw">Войти</Link>
+            <Link href="/auth?type=register" size="1vw">Зарегистрироваться</Link>
+          </>
+        ) : (
+          <Link href="/missions" size="1vw">К задачам</Link>
+        )}
+      </div>
       
       <Title
         size="15.8vw"

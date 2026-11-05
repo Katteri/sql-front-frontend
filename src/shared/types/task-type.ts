@@ -44,6 +44,7 @@ export type TaskDataDtoType = {
     task_id: number | null,
   },
   difficulty?: string,
+  user_solution?: string,
 };
 
 export type ClueDtoType = {

@@ -26,6 +26,7 @@ type TaskType = {
   expectedResult?: ExpectedResultType,
   submission: SubmissionResultType | null;
   difficulty?: string;
+  userSolution?: string;
 };
 
 type TasksStateType = DefaultStateType &
@@ -86,6 +87,7 @@ export const tasksSlice = createSlice({
           },
           submission: null,
           difficulty: action.payload.difficulty,
+          userSolution: action.payload.user_solution,
         };
 
         tasksAdapter.upsertOne(state, task);
