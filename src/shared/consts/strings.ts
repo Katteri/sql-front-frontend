@@ -10,6 +10,7 @@ const strings = {
     logout: "/auth/logout",
     resetPassword: "/auth/reset-password",
     missions: "/missions",
+    databaseSchema: "/missions/schema",
     achievements: "/achievements",
     profile: "/profile/me",
     profileTaskTotal: "/missions/get_info",

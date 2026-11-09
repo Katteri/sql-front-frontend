@@ -1,3 +1,4 @@
+import type { Edge, Node } from "@xyflow/react";
 import { AchievementSubmitType } from "./achievements-types";
 
 export type ResultQueryDataType = {
@@ -78,4 +79,9 @@ export type SubmissionResultType = {
   columns?: string[];
   data?: (number | string)[][];
   hint?: string;
+};
+
+export type DatabaseSchemaResponseType = {
+  nodes: Node[];
+  edges: Edge[];
 };

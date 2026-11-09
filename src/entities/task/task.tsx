@@ -7,7 +7,7 @@ import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
 import { Title } from "@/shared/ui/title/title";
 import { Text } from "@/shared/ui/text/text";
 import { TaskBlock } from "@/shared/ui/task-block/task-block";
-import { getTaskClueData, getTaskExpectedResultData, runTaskQuery, submitTaskSolution } from "@/store/reducers/actions/task-actions";
+import { getDatabaseSchema, getTaskClueData, getTaskExpectedResultData, runTaskQuery, submitTaskSolution } from "@/store/reducers/actions/task-actions";
 
 import { useTaskData } from "./use-task-data";
 import styles from "./task.module.scss";
@@ -52,7 +52,7 @@ const SubmitionToastText = (submission: SubmissionResultType | null, isSolved: b
 
 export const Task = () => {
   const dispatch = useAppDispatch();
-  const { queryRun } = useAppSelector((state) => state.task);
+  const { queryRun, schema } = useAppSelector((state) => state.task);
   const { resetQueryRun } = tasksSlice.actions;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [value, setValue] = useState("");
@@ -63,6 +63,12 @@ export const Task = () => {
   useEffect(() => {
     dispatch(resetQueryRun());
   }, [dispatch, resetQueryRun, data.missionId, data.taskId]);
+
+  useEffect(() => {
+    if (!schema.nodes) {
+      dispatch(getDatabaseSchema());
+    }
+  }, [dispatch, schema.nodes]);
 
   useEffect(() => {
     if (!data.missionId || !data.taskId || data.missionId === "undefined" || data.taskId === "undefined") {
@@ -295,8 +301,8 @@ export const Task = () => {
           isUserHasExpectedResult: data.task?.isUserHasExpectedResult,
           getExpectedResult: getExpectedResult,
         }}
-        databaseNodes={databaseNodes}
-        databaseEdges={databaseEdges}
+        databaseNodes={schema.nodes || databaseNodes}
+        databaseEdges={schema.edges || databaseEdges}
         onChange={onChange}
         value={value}
         queryRunHandle={queryRunHandle}

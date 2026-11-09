@@ -1,10 +1,11 @@
 import { EntityState, PayloadAction, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-import { ClueDtoType, ErrorRunngingQuery, ExpectedResultType, QueryRunResponseType, SubmissionResultType, TaskDataDtoType, TaskDataPayloadType, TaskQueryRunType } from "@/shared/types/task-type";
+import { ClueDtoType, DatabaseSchemaResponseType, ErrorRunngingQuery, ExpectedResultType, QueryRunResponseType, SubmissionResultType, TaskDataDtoType, TaskDataPayloadType, TaskQueryRunType } from "@/shared/types/task-type";
+import type { Edge, Node } from "@xyflow/react";
 import { DefaultStateType } from "@/shared/types/state-manager-types";
 
 import { StateType } from "../store";
-import { getTaskClueData, getTaskData, getTaskExpectedResultData, runTaskQuery, submitTaskSolution } from "./actions/task-actions";
+import { getDatabaseSchema, getTaskClueData, getTaskData, getTaskExpectedResultData, runTaskQuery, submitTaskSolution } from "./actions/task-actions";
 
 type TaskType = {
   taskId: number;
@@ -31,7 +32,8 @@ type TaskType = {
 
 type TasksStateType = DefaultStateType &
   EntityState<TaskType, string> &
-  { queryRun: DefaultStateType & TaskQueryRunType };
+  { queryRun: DefaultStateType & TaskQueryRunType } &
+  { schema: { nodes: Node[] | null; edges: Edge[] | null; isLoading: boolean; error: string | null } };
 
 const tasksAdapter = createEntityAdapter<TaskType, string>({
   selectId: (task) => `${task.missionId}.${task.taskId}`,
@@ -49,6 +51,12 @@ const initialState: TasksStateType = tasksAdapter.getInitialState({
   queryRun: initialQueryRun,
   isLoading: false,
   error: null,
+  schema: {
+    nodes: null,
+    edges: null,
+    isLoading: false,
+    error: null,
+  },
 });
 
 export const tasksSlice = createSlice({
@@ -230,6 +238,20 @@ export const tasksSlice = createSlice({
           state.queryRun.queryError = typeof action.payload === "string" ? action.payload : "Ошибка выполнения запроса";
           state.error = state.queryRun.queryError;
         }
+      })
+      .addCase(getDatabaseSchema.pending.type, (state) => {
+        state.schema.isLoading = true;
+        state.schema.error = null;
+      })
+      .addCase(getDatabaseSchema.fulfilled.type, (state, action: PayloadAction<DatabaseSchemaResponseType>) => {
+        state.schema.isLoading = false;
+        state.schema.nodes = action.payload.nodes;
+        state.schema.edges = action.payload.edges;
+        state.schema.error = null;
+      })
+      .addCase(getDatabaseSchema.rejected.type, (state, action: PayloadAction<string>) => {
+        state.schema.isLoading = false;
+        state.schema.error = typeof action.payload === "string" ? action.payload : "Не удалось загрузить схему БД";
       });
   },
 });
