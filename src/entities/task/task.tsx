@@ -17,6 +17,9 @@ import { SubmissionResultType } from "@/shared/types/task-type";
 import { AchievementToast } from "@/shared/ui/achievement-toast/achievement-toast";
 import { tasksSlice } from "@/store/reducers/tasks-slice";
 import api from "@/shared/config/axios";
+import { getTheoryHint } from "@/shared/consts/theory-hints-config";
+import { getHistoryNote } from "@/shared/consts/history-notes";
+import { taskDifficultyOptions } from "@/entities/missions/const";
 
 const SubmitionToastText = (submission: SubmissionResultType | null, isSolved: boolean) => {
   if (submission === null) {
@@ -58,6 +61,9 @@ export const Task = () => {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const data = useTaskData();
+  const missionName = taskDifficultyOptions
+    .find(({ value }) => value === Number(data.missionId))
+    ?.label.replace(/^\S+\s+/, "");
   const initializedTaskRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -264,6 +270,7 @@ export const Task = () => {
       <div className={styles.spaceBetween}>
         <Text>
           Миссия {data.missionId}.{data.taskId}
+          {missionName && ` ${missionName}`}
         </Text>
         <Text>
           Мои баллы: {data.totalScore}
@@ -276,19 +283,6 @@ export const Task = () => {
         margin="6vw 0"
       >
         {data.task?.title}
-        <br />
-        <span style={{ fontSize: "1.8vw", verticalAlign: "middle", opacity: 0.6, whiteSpace: "nowrap", display: "inline-block", marginTop: "0.5vw" }}>
-          {
-            ({
-              0: "Новобранец",
-              1: "Специалист",
-              2: "Мастер",
-              3: "Специалист",
-              4: "Мастер",
-              5: "Эксперт",
-            } as Record<number, string>)[Number(data.missionId)] || ""
-          }
-        </span>
       </Title>
       <TaskBlock
         type="task"
@@ -309,6 +303,8 @@ export const Task = () => {
         submitSolution={submitSolution}
         resultData={error ? error : queryRun.result ? queryRun.result : queryRun.queryError}
         getClue={getClue}
+        theoryHint={getTheoryHint(data.missionId, data.taskId)}
+        historyNote={getHistoryNote(data.missionId, data.taskId)}
         nextTask={data.task?.next}
       />
     </section>
