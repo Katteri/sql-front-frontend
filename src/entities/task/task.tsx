@@ -269,11 +269,12 @@ export const Task = () => {
       <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="missions"/>
       
       <div className={styles.spaceBetween}>
-        <Link href="/missions">
+        <Link href="/missions" color="black"  size = "1.4vw">
+          <span aria-hidden="true">← </span>
           Миссия {data.missionId}.{data.taskId}
           {missionName && ` ${missionName}`}
         </Link>
-        <Text>
+        <Text size = "1.4vw">
           Мои баллы: {data.totalScore}
         </Text>
       </div>
