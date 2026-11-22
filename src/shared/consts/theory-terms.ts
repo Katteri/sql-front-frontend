@@ -381,7 +381,7 @@ export const theoryTerms = {
   },
   create_table: {
     title: "CREATE TABLE",
-    text: "Создаёт таблицу: в скобках перечисляют столбцы и их типы. integer — целое число, varchar(n) — строка до n символов, char(n) — ровно n символов. PRIMARY KEY — уникальное обязательное значение, по которому отличают строки; NOT NULL — значение обязательно, без него столбец можно не заполнять.",
+    text: "Создаёт таблицу. В скобках перечисляют столбцы и их типы. integer — целое число, varchar(n) — строка длиной до n символов, char(n) — строка фиксированной длины: короткие значения дополняются пробелами. PRIMARY KEY однозначно определяет строку. NOT NULL запрещает хранить NULL в столбце.",
     syntax: [
       "CREATE TABLE схема.таблица (",
       "  код char(2) PRIMARY KEY,",
@@ -393,7 +393,7 @@ export const theoryTerms = {
   },
   check: {
     title: "CHECK",
-    text: "Ограничение CHECK не даёт сохранить строку, если условие не выполняется. К готовой таблице его добавляют через ALTER TABLE … ADD CONSTRAINT имя.",
+    text: "CHECK отклоняет строку, если условие даёт FALSE. Если результат условия неизвестен из-за NULL, строка проходит проверку. Чтобы запретить NULL, добавьте NOT NULL. К существующей таблице проверку добавляют через ALTER TABLE … ADD CONSTRAINT.",
     syntax: [
       "ALTER TABLE схема.таблица",
       "  ADD CONSTRAINT имя_ограничения CHECK (число BETWEEN 1 AND 10);",
@@ -493,7 +493,7 @@ export const theoryTerms = {
   privileges: {
     title: "Виды прав на таблицу",
     text: "SELECT — читать строки, INSERT — добавлять, UPDATE — изменять, DELETE — удалять. В одном GRANT права можно перечислить через запятую.",
-    syntax: "GRANT SELECT, UPDATE ON схема.таблица TO роль;",
+    syntax: "GRANT SELECT, INSERT ON схема.таблица TO роль;",
     docsUrl: `${DOCS}/ddl-priv`,
   },
   revoke_columns: {

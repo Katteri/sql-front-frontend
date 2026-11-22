@@ -6,6 +6,7 @@ import { MenuIcon } from "@/shared/ui/menu-icon/menu-icon";
 import { MenuDrawer } from "@/entities/menu-drawer/menu-drawer";
 import { Title } from "@/shared/ui/title/title";
 import { Text } from "@/shared/ui/text/text";
+import { Link } from "@/shared/ui/link/link";
 import { TaskBlock } from "@/shared/ui/task-block/task-block";
 import { getDatabaseSchema, getTaskClueData, getTaskExpectedResultData, runTaskQuery, submitTaskSolution } from "@/store/reducers/actions/task-actions";
 
@@ -268,10 +269,10 @@ export const Task = () => {
       <MenuDrawer isOpen={isMenuOpen} onClose={toggleMenu} currentPage="missions"/>
       
       <div className={styles.spaceBetween}>
-        <Text>
+        <Link href="/missions">
           Миссия {data.missionId}.{data.taskId}
           {missionName && ` ${missionName}`}
-        </Text>
+        </Link>
         <Text>
           Мои баллы: {data.totalScore}
         </Text>
